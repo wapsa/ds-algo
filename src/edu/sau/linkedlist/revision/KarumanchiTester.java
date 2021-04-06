@@ -1,6 +1,6 @@
-package com.saurabh.linkedlist.revision;
+package edu.sau.linkedlist.revision;
 
-import com.saurabh.utils.Utils;
+import edu.sau.utils.Utils;
 
 public class KarumanchiTester {
 
@@ -14,11 +14,11 @@ public class KarumanchiTester {
 
 		// doesListHaveLoopUsingFloydsTechnique();
 
-		//findLengthOfTheLoop();
+		// findLengthOfTheLoop();
 
-		 //insertNodeInSortedLinkedList();
+		// insertNodeInSortedLinkedList();
 
-		//reverseListUsingLoop();
+		// reverseListUsingLoop();
 
 		// reverseListUsingRecursion();
 
@@ -38,7 +38,7 @@ public class KarumanchiTester {
 
 		// mergeTwoSortedListIntoThirdListUsingRecursion();
 
-		//reverseListInPairsUsingRecursion();
+		// reverseListInPairsUsingRecursion();
 
 		reverseListInPairsUsingIterativeApproach();
 
@@ -64,13 +64,13 @@ public class KarumanchiTester {
 
 		// findCeiledSqrtNode();
 
-		//addTwoLists();
-		
-		//listReorder();
-		
-		//printCommonElements();
+		// addTwoLists();
+
+		// listReorder();
+
+		// printCommonElements();
 	}
-	
+
 	private static void printCommonElements() {
 
 		LinkedList<Integer> linkedList1 = new LinkedList<>();
@@ -98,7 +98,7 @@ public class KarumanchiTester {
 
 		System.out.println();
 	}
-	
+
 	private static void listReorder() {
 
 		LinkedList<Integer> linkedList = new LinkedList<>();

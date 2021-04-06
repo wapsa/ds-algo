@@ -1,4 +1,4 @@
-package com.saurabh.linkedlist;
+package edu.sau.linkedlist;
 
 public interface KarumanchiQuestions<T extends Comparable<T>> {
 

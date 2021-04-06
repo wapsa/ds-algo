@@ -1,8 +1,6 @@
-package com.saurabh.stack;
+package edu.sau.stack;
 
 import java.util.EmptyStackException;
-
-import com.saurabh.linkedlist.Node;
 
 public class LinkedListStack<T extends Comparable<T>> implements Stack<T> {
 

@@ -1,4 +1,4 @@
-package com.saurabh.utils;
+package edu.sau.utils;
 
 public class Utils {
 

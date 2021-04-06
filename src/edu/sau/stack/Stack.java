@@ -1,4 +1,4 @@
-package com.saurabh.stack;
+package edu.sau.stack;
 
 public interface Stack<T extends Comparable<T>> {
 

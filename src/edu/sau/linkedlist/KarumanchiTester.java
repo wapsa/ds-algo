@@ -1,6 +1,6 @@
-package com.saurabh.linkedlist;
+package edu.sau.linkedlist;
 
-import com.saurabh.utils.Utils;
+import edu.sau.utils.Utils;
 
 public class KarumanchiTester {
 
@@ -21,7 +21,7 @@ public class KarumanchiTester {
 		// reverseListUsingLoop();
 
 		// reverseListUsingRecursion();
-		
+
 		// recursiveReverseAlternate();
 
 		// findIntersectingNodeOfTwoListsUsingBruteForce();
@@ -712,7 +712,7 @@ public class KarumanchiTester {
 		System.out.println("Intersecting node found at: " + intersectingNode);
 		System.out.println();
 	}
-	
+
 	private static void recursiveReverseAlternate() {
 
 		LinkedList<Integer> linkedList = new LinkedList<>();
@@ -748,7 +748,7 @@ public class KarumanchiTester {
 		linkedList.traverseList();
 		System.out.println();
 	}
-	
+
 	private static void reverseListUsingLoop() {
 
 		LinkedList<Integer> linkedList = new LinkedList<>();

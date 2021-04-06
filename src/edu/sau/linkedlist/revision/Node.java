@@ -1,4 +1,4 @@
-package com.saurabh.linkedlist.revision;
+package edu.sau.linkedlist.revision;
 
 public class Node<T extends Comparable<T>> {
 

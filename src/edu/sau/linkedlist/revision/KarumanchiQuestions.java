@@ -1,4 +1,4 @@
-package com.saurabh.linkedlist.revision;
+package edu.sau.linkedlist.revision;
 
 public interface KarumanchiQuestions<T extends Comparable<T>> {
 
@@ -278,8 +278,8 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	public List<Integer> addTwoLists(List<Integer> list1, List<Integer> list2);
 
 	/**
-	 * Q55 - Given a list, List1 = {A1, A2, . . . An–1; An) with data, reorder it to
-	 * {A1, An,A2,An–1} without using any extra space.
+	 * Q55 - Given a list, List1 = {A1, A2, . . . An–1; An) with data, reorder it
+	 * to {A1, An,A2,An–1} without using any extra space.
 	 * 
 	 * Solution: Find the middle of the linked list. We can do it by slow and fast
 	 * pointer approach. After finding the middle node, we reverse the right halfl

@@ -1,4 +1,4 @@
-package com.saurabh.linkedlist;
+package edu.sau.linkedlist;
 
 import java.util.Deque;
 import java.util.HashMap;
@@ -396,23 +396,23 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 //	6-->5-->4-->3-->2
 //	6-->5-->4-->3-->2-->1
 //
-//	→ → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → 
-//																									↓
-//							Node<T> nextNode = current.getNextNode();								↓
-//							current.setNextNode(null);												↓
-//	 _____		   _____		 _____		    _____		   _____		  _____					↓
-//	|     |		  |     |	    |     |		   |     |		  |     |		 |     |				↓
-//	|  1  | --->  |  2  |  ---> |  3  |	 --->  |  4  |  --->  |  5  |  --->  |  6  |  ---> NULL		↓
-//	|_____|		  |_____|	    |_____|		   |_____|		  |_____|		 |_____|				↓
-//	|			 /|			   /|			  /|		     /|				/|						↓
-//	|           / | 		  /	|			 / |  			/ |			   / |						↓
-//	|		   /  |			 /	|			/  |		   /  |		      /	 |						↓
-//	|         /   |         /   |          /   |          /   |          /   |						↓
-//	cur, next	  cur, next		cur, next	   cur, next	  cur, next	 	cur						↓
-//																									↓
-//							nextNode.setNextNode(current);											↓
-//																									↓
-//	← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← 
+//	â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ â†’ 
+//																									â†“
+//							Node<T> nextNode = current.getNextNode();								â†“
+//							current.setNextNode(null);												â†“
+//	 _____		   _____		 _____		    _____		   _____		  _____					â†“
+//	|     |		  |     |	    |     |		   |     |		  |     |		 |     |				â†“
+//	|  1  | --->  |  2  |  ---> |  3  |	 --->  |  4  |  --->  |  5  |  --->  |  6  |  ---> NULL		â†“
+//	|_____|		  |_____|	    |_____|		   |_____|		  |_____|		 |_____|				â†“
+//	|			 /|			   /|			  /|		     /|				/|						â†“
+//	|           / | 		  /	|			 / |  			/ |			   / |						â†“
+//	|		   /  |			 /	|			/  |		   /  |		      /	 |						â†“
+//	|         /   |         /   |          /   |          /   |          /   |						â†“
+//	cur, next	  cur, next		cur, next	   cur, next	  cur, next	 	cur						â†“
+//																									â†“
+//							nextNode.setNextNode(current);											â†“
+//																									â†“
+//	â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� â†� 
 	// Divide and Conquer way of solving solution.
 	private Node<T> recursiveReverse(Node<T> currentNode) {
 

@@ -1,9 +1,6 @@
-package com.saurabh.linkedlist.revision;
+package edu.sau.linkedlist.revision;
 
-import java.util.Deque;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQuestions<T> {
 
@@ -504,9 +501,8 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 
 	// 1 2 3 4 5 6 7 8 9
 	// 2 1 4 3 6 5 8 7 9
-	
-	
-	// p=null, c=1, n=2 | 1>3, 2>1, 
+
+	// p=null, c=1, n=2 | 1>3, 2>1,
 	// p=1, c=2, n=3 | 2>4, 3>2, 1>3
 	@Override
 	public void reverseListInPairsUsingIterativeApproach1() {

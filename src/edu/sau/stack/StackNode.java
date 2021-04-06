@@ -1,4 +1,4 @@
-package com.saurabh.stack;
+package edu.sau.stack;
 
 public class StackNode<T extends Comparable<T>> {
 

@@ -1,4 +1,4 @@
-package com.saurabh.linkedlist;
+package edu.sau.linkedlist;
 
 public class Node<T extends Comparable<T>> {
 

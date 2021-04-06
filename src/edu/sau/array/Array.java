@@ -1,4 +1,4 @@
-package com.saurabh.array;
+package edu.sau.array;
 
 public class Array {
 
