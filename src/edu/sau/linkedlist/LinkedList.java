@@ -570,6 +570,7 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 		System.out.print(current + " <--- ");
 	}
 
+	// check out find middle element code, same logic is used here.
 	@Override
 	public void checkIfListIsEvenOrOdd() {
 		Node<T> temp = this.getRootNode();

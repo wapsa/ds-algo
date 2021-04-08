@@ -20,7 +20,7 @@ public class KarumanchiTester {
 
 		// reverseListUsingLoop();
 
-		// reverseListUsingRecursion();
+		 reverseListUsingRecursion();
 
 		// recursiveReverseAlternate();
 
@@ -40,7 +40,7 @@ public class KarumanchiTester {
 
 		// mergeTwoSortedListIntoThirdListUsingRecursion();
 
-		reverseListInPairsUsingRecursion();
+		// reverseListInPairsUsingRecursion();
 
 		// reverseListInPairsUsingIterativeApproach();
 
