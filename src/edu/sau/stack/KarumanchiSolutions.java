@@ -1023,4 +1023,220 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 		return solution.toString();
 	}
 
+	/**
+	 * Refer Karumanchi Algo book : Page 507 : 6.53 Maximum size sub-matrix with
+	 * all1's
+	 *
+	 * Let's go through the calculations for row:
+	 *
+	 * If given matrix is 1X1 : total sub-grid=1
+	 *
+	 * If given matrix is 2X1 : total sub-grids= 2*(1X1) + 1(1X2)) = 3
+	 *
+	 * If given matrix is 3X1 : total sub-grids= 3*(1X1) + 2(1X2)) + 1(1X3)= 6
+	 *
+	 * Similarly, for mX1, we have m + (m-1) + (m-2) + ...+2+1 = m(m+1)/2 sub-grids
+	 *
+	 * Let's follow the same calculations for columns: <br>
+	 * If given matrix in 1X1 :total sub-grid=1 <br>
+	 * If given matrix is 1X2 : total sub-grids= 2*(1X1) + 1(2X1)) = 3 <br>
+	 * Similarly, for 1Xn, we have n + (n-1) + (n-2) + ...+2+1 = n(n+1)/2 sub-grids
+	 * <br>
+	 *
+	 * So for mXn matrix we will have total sub-grids = [m(m+1)/2]*[n(n+1)/2] =
+	 * m(m+1)*n(n+1)/4
+	 *
+	 *
+	 * How to proceed with counting: Let's say we have 4X1 matrix(i.e. column
+	 * vector), start at index 0 as first-grid-> A1; 2nd-grid-> A1,B1; 3rd-grid->
+	 * A1,B1,C1; 4th-grid-> A1,B1,C1,D1; 5th-grid-> B1; 6th-gird->B1,C1;
+	 * 7th-grid->B1,C1,D1; 8th-grid->C1; 9th-grid->C1,D1; 10th-grid->D1<br>
+	 * Now let's say two new columns are introduced.: we do the above row-wise
+	 * activity for the two new columns,<br>
+	 * 2nd column first-grid-> A2; 2nd-grid-> A2,B2; 3rd-grid-> A2,B2,C2; 4th-grid->
+	 * A2,B2,C2,D2; 5th-grid-> B2; 6th-gird->B2,C2; 7th-grid->B2,C2,D2;
+	 * 8th-grid->C2; 9th-grid->C2,D2; 10th-grid->D2 <br>
+	 * 3rd column first-grid-> A3; 2nd-grid-> A3,B3; 3rd-grid-> A3,B3,C3; 4th-grid->
+	 * A3,B3,C3,D3; 5th-grid-> B3; 6th-gird->B3,C3; 7th-grid->B3,C3,D3;
+	 * 8th-grid->C3; 9th-grid->C3,D3; 10th-grid->D3<br>
+	 *
+	 * Now Grid formation using columns: 1s-grid ->col1; 2nd-Grid -> col1,col2;
+	 * 3rd-Grid ->col1,col2,col3 ; 4th-Grid-> col2; 5th-Grid->col2,col3;
+	 * 6th-Grid->col3;
+	 *
+	 * Since already we have considered columns as individually, so now we need to
+	 * consider the 2-columns and 3-columns at a time for grid formation:<br>
+	 * e.g. of 2 grids at a time: 2nd-Grid -> col1,col2;<br>
+	 *
+	 * first-grid-> A1A2; 2nd-grid-> A1A2,B1B2; 3rd-grid-> A1A2,B1B2,C1C2;
+	 * 4th-grid-> A1A2,B1B2,C1C2,D1D2; 5th-grid-> B1B2; 6th-gird->B1B2,C1C2;
+	 * 7th-grid->B1B2,C1C2,D1D2; 8th-grid->C1C2; 9th-grid->C1C2,D1D2;
+	 * 10th-grid->D1D2 <br>
+	 *
+	 */
+	@Override
+	public void printAllPossibleSubGridBlocksInMatrix(String[][] matrix) {
+		int m = matrix.length;
+		int n = matrix[0].length;
+
+		System.out.println("No. of sub grid blocks possible are: " + (n * (n + 1) * m * (m + 1)) / 4);
+		System.out.println();
+
+		int counter = 1;
+		for (int mFrom = 0; mFrom < m; mFrom++) {
+			for (int mTo = mFrom; mTo < m; mTo++) {
+
+				for (int nFrom = 0; nFrom < n; nFrom++) {
+					for (int nTo = nFrom; nTo < n; nTo++) {
+						System.out.print("Block " + counter + ": ");
+
+						for (int temp1 = mFrom; temp1 <= mTo; temp1++) {
+							System.out.println();
+							System.out.print("[");
+							for (int temp2 = nFrom; temp2 <= nTo; temp2++) {
+								System.out.print(matrix[temp1][temp2] + ", ");
+							}
+							System.out.print("]");
+						}
+						counter++;
+						System.out.println("\n----------");
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public int findMaxAreaInBinaryMatrixBruteForce(int[][] matrix) {
+		int m = matrix.length;
+		if (m == 0) {
+			return 0;
+		}
+		int n = matrix[0].length;
+		int maxArea = 0;
+
+		for (int mFrom = 0; mFrom < m; mFrom++) {
+			for (int mTo = mFrom; mTo < m; mTo++) {
+
+				for (int nFrom = 0; nFrom < n; nFrom++) {
+					for (int nTo = nFrom; nTo < n; nTo++) {
+
+						if (isValid(matrix, nFrom, nTo, mFrom, mTo)) {
+							int subGridArea = (nTo - nFrom + 1) * (mTo - mFrom + 1);
+							maxArea = Math.max(maxArea, subGridArea);
+						}
+					}
+				}
+			}
+		}
+		return maxArea;
+	}
+
+	private boolean isValid(int[][] matrix, int nFrom, int nTo, int mFrom, int mTo) {
+		for (int i = mFrom; i <= mTo; i++) {
+			for (int j = nFrom; j <= nTo; j++) {
+				if (matrix[i][j] != 1) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * To change back to original matrix two approaches are as follows:
+	 * 
+	 * 1) Wherever in matrix you have number greater than 1, replace it with 1.
+	 * 
+	 * 2) Loop from last row to first row and subtract upper row number from current
+	 * row number.
+	 */
+	@Override
+	public int findMaxAreaInBinaryMatrixUsingMAH(int[][] binaryMatrix) {
+		int m = binaryMatrix.length;
+		int n = binaryMatrix[0].length;
+
+		// First row heights will remain same so initializing maxArea for first row.
+		int maxArea = maxRectangleAreaInHistogramJudgeAlgo1(binaryMatrix[0]);
+
+		for (int i = 1; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (binaryMatrix[i][j] != 0) {
+					binaryMatrix[i][j] = binaryMatrix[i][j] + binaryMatrix[i - 1][j];
+				}
+			}
+			maxArea = Math.max(maxArea, maxRectangleAreaInHistogramJudgeAlgo1(binaryMatrix[i]));
+		}
+		return maxArea;
+	}
+
+	@Override
+	public int findTotalRainWaterTrappableInHistogram(int[] hist) {
+
+		int maxToLeft[] = new int[hist.length];
+		int maxToRight[] = new int[hist.length];
+		for (int i = 0, j = hist.length - 1; i < hist.length; i++, j--) {
+			maxToLeft[i] = i == 0 ? hist[i] : Math.max(hist[i], maxToLeft[i - 1]);
+			maxToRight[j] = j == hist.length - 1 ? hist[j] : Math.max(hist[j], maxToRight[j + 1]);
+		}
+
+		int totalWater = 0;
+		for (int i = 0; i < hist.length; i++) {
+			totalWater = totalWater + Math.min(maxToLeft[i], maxToRight[i]) - hist[i];
+		}
+		return totalWater;
+	}
+
+	/**
+	 * 1. Loop through the indices of bars array.
+	 * 
+	 * 2. For each bar, we can do the following:
+	 * 
+	 * - While the Stack is not empty and current bar has a height greater than the
+	 * top bar of stack,
+	 * 
+	 * - Store the index of top bar in pop_height and pop it from the Stack.
+	 * 
+	 * - Find the distance between left bar(current top) of the popped bar and
+	 * current bar.
+	 * 
+	 * - Find the minimum height between the top bar and current bar.
+	 * 
+	 * - The maximum water that can be trapped is distance * min_height.
+	 * 
+	 * - The water trapped including the popped bar is (distance * min_height) –
+	 * height[pop_height].
+	 * 
+	 * - Add that to the answer.
+	 */
+	@Override
+	public int findTotalRainWaterTrappableInHistogramUsingJudgeAlgo(int[] hist) {
+
+		Stack<Integer> stack = createEmptyStack();
+		int totalWater = 0;
+
+		for (int i = 0; i < hist.length; i++) {
+
+			while (!stack.isEmpty() && hist[stack.peek()] <= hist[i]) {
+
+				int poppedBarHeight = hist[stack.pop()];
+
+				// If the stack does not have any bars or the the popped bar has no left
+				// boundary
+				if (stack.isEmpty())
+					break;
+
+				int width = i - stack.peek() - 1;
+
+				int minHeight = Math.min(hist[i], hist[stack.peek()]) - poppedBarHeight;
+
+				totalWater = totalWater + width * minHeight;
+			}
+
+			stack.push(i);
+		}
+
+		return totalWater;
+	}
+
 }

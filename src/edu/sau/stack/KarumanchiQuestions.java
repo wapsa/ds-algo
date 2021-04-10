@@ -215,8 +215,8 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	 * 
 	 * 2) During the traversal push all the elements (until X) on to the stack.
 	 * 
-	 * 3) For the second half of the string, compare each element’s content with
-	 * top of the stack. If they are the same then pop the stack and go to the next
+	 * 3) For the second half of the string, compare each element’s content with top
+	 * of the stack. If they are the same then pop the stack and go to the next
 	 * element in the input list.
 	 * 
 	 * 4) If they are not the same then the given string is not a palindrome.
@@ -275,8 +275,8 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	 * number of consecutive elements A[j] immediately preceding A[i] and such that
 	 * A[j] < A[i]?
 	 * 
-	 * Other way of asking: Given an array A of integers, find the maximum of j –
-	 * i subjected to the constraint of A[i] < A[j].
+	 * Other way of asking: Given an array A of integers, find the maximum of j – i
+	 * subjected to the constraint of A[i] < A[j].
 	 * 
 	 * This is a very common problem in stock markets to find the peaks. Spans are
 	 * used in financial analysis (E.g., stock at 52-week high). The span of a stock
@@ -361,4 +361,15 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	 * Q26
 	 */
 	String removeAdjacentDuplicatesUsingStack(String input);
+
+	/**
+	 * 
+	 * */
+	void printAllPossibleSubGridBlocksInMatrix(String[][] matrix);
+
+	int findMaxAreaInBinaryMatrixBruteForce(int[][] binaryMatrix);
+
+	int findMaxAreaInBinaryMatrixUsingMAH(int[][] binaryMatrix);
+
+	int findTotalRainWaterTrappableInHistogram(int[] hist);
 }

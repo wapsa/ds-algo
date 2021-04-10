@@ -40,7 +40,7 @@ public class KarumanchiTester {
 
 		// maxRectangleAreaInHistogramUsingBruteForce();
 
-		findImmediateSmallerInLeftAndRightSingleLoop();
+		// findImmediateSmallerInLeftAndRightSingleLoop();
 
 		// maxRectangleAreaInHistogramJudgeAlgo();
 
@@ -48,6 +48,55 @@ public class KarumanchiTester {
 
 		// removeAdjacentDuplicates();
 
+		// findMaxAreaInBinaryMatrixUsingMAH();
+
+		// findMaxAreaInBinaryMatrixBruteForce();
+
+		// printAllPossibleSubGridBlocksInMatrix();
+
+		findTotalRainWaterTrappableInHistogram();
+
+	}
+
+	private static void findTotalRainWaterTrappableInHistogram() {
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		int[] inputArray = new int[] { 2, 1, 4, 2, 4, 4, 3, 2, 4 };
+		// int[] inputArray = new int[] { 3, 0, 2, 0, 4 };
+
+		int water = questions.findTotalRainWaterTrappableInHistogram(inputArray);
+
+		System.out.println(water);
+
+	}
+
+	private static void printAllPossibleSubGridBlocksInMatrix() {
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		String[][] inputArray = new String[][] { { "A1", "A2", "A3" }, { "B1", "B2", "B3" }, { "C1", "C2", "C3" } };
+
+		questions.printAllPossibleSubGridBlocksInMatrix(inputArray);
+
+	}
+
+	private static void findMaxAreaInBinaryMatrixBruteForce() {
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		int[][] inputArray = new int[][] { { 0, 0, 0, 0 }, { 1, 1, 1, 0 }, { 1, 1, 1, 0 }, { 0, 0, 0, 0 } };
+
+		int solution = questions.findMaxAreaInBinaryMatrixBruteForce(inputArray);
+
+		System.out.println(solution);
+	}
+
+	private static void findMaxAreaInBinaryMatrixUsingMAH() {
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		int[][] inputArray = new int[][] { { 0, 0, 0, 0 }, { 1, 1, 0, 0 }, { 1, 1, 0, 0 }, { 0, 0, 0, 0 } };
+
+		int solution = questions.findMaxAreaInBinaryMatrixUsingMAH(inputArray);
+
+		System.out.println(solution);
 	}
 
 	private static void removeAdjacentDuplicates() {

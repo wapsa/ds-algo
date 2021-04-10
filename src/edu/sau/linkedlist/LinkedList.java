@@ -644,8 +644,8 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 
 	private Node<T> mergeListRecursive2(Node<T> node1, Node<T> node2) {
 
-		Node<T> mergedNodes = null;
 		Node<T> temp = null;
+		Node<T> mergedNodes = null;
 
 		if (node1 == null) {
 			return node2;
@@ -655,15 +655,15 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 		}
 
 		if (node1.getData().compareTo(node2.getData()) <= 0) {
-			mergedNodes = new Node<>(node1.getData());
-			temp = mergeListRecursive3(node1.getNextNode(), node2);
+			temp = new Node<>(node1.getData());
+			mergedNodes = mergeListRecursive3(node1.getNextNode(), node2);
 		} else {
-			mergedNodes = new Node<>(node2.getData());
-			temp = mergeListRecursive3(node1, node2.getNextNode());
+			temp = new Node<>(node2.getData());
+			mergedNodes = mergeListRecursive3(node1, node2.getNextNode());
 		}
 
-		mergedNodes.setNextNode(temp);
-		return mergedNodes;
+		temp.setNextNode(mergedNodes);
+		return temp;
 
 	}
 
@@ -704,20 +704,6 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 		currentNode.setNextNode(reverseListInPairs(nextToNextNode));
 
 		return nextNode;
-	}
-
-	private Node<T> reverseListInPairs2(Node<T> currentNode) {
-		if (currentNode == null || currentNode.getNextNode() == null) {
-			return currentNode;
-		}
-
-		Node<T> nextNode = currentNode.getNextNode();
-		currentNode.setNextNode(nextNode.getNextNode());
-		nextNode.setNextNode(currentNode);
-		currentNode = nextNode;
-
-		currentNode.getNextNode().setNextNode(reverseListInPairs2(currentNode.getNextNode().getNextNode()));
-		return currentNode;
 	}
 
 	@Override
@@ -824,7 +810,7 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 		Node<T> firstPart = this.getRootNode();
 
 		boolean isPalindrome = false;
-		while (reverseOfSecondPartOfList.getNextNode() != null) {
+		while (reverseOfSecondPartOfList != null) {
 			if (reverseOfSecondPartOfList.getData().compareTo(firstPart.getData()) != 0) {
 				isPalindrome = false;
 				break;
@@ -847,9 +833,9 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 
 		while (current != null) {
 			Node<T> start = current;
-			Node<T> last = current;
 
 			int i = 1;
+			Node<T> last = current;
 			forLoop: for (; i < k; i++) {
 				last = last.getNextNode();
 				if (last == null) {

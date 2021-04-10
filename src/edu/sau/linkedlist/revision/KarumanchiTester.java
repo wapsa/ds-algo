@@ -28,7 +28,7 @@ public class KarumanchiTester {
 
 		// findIntersectingNodeOfTwoListsUsingDistance();
 
-		// findMiddleNodeOfLinkedList();
+		findMiddleNodeOfLinkedList();
 
 		// displayLinkedListFromEnd();
 
@@ -40,7 +40,7 @@ public class KarumanchiTester {
 
 		// reverseListInPairsUsingRecursion();
 
-		reverseListInPairsUsingIterativeApproach();
+		// reverseListInPairsUsingIterativeApproach();
 
 		// splitCircularListToTwoCircularLinkedList();
 
@@ -604,6 +604,7 @@ public class KarumanchiTester {
 		linkedList.insertAtEnd(5);
 		linkedList.insertAtEnd(6);
 		linkedList.insertAtEnd(7);
+		linkedList.insertAtEnd(8);
 
 		linkedList.traverseList();
 

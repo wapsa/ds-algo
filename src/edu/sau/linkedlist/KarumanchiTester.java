@@ -20,7 +20,7 @@ public class KarumanchiTester {
 
 		// reverseListUsingLoop();
 
-		 reverseListUsingRecursion();
+		// reverseListUsingRecursion();
 
 		// recursiveReverseAlternate();
 
@@ -46,7 +46,7 @@ public class KarumanchiTester {
 
 		// splitCircularListToTwoCircularLinkedList();
 
-		// checkIfListIsPalindrome();
+		checkIfListIsPalindrome();
 
 		// reverseBlocksOfKNodes();
 
@@ -444,10 +444,10 @@ public class KarumanchiTester {
 		linkedList.insertAtEnd(7);
 
 		linkedList.insertAtEnd(node8);
-		// node8.setNextNode(node1);
+		node8.setNextNode(node1);
 
-		linkedList.insertAtEnd(node9);
-		node9.setNextNode(node1);
+		// linkedList.insertAtEnd(node9);
+		// node9.setNextNode(node1);
 
 		linkedList.traverseForLoopingList();
 
