@@ -1211,14 +1211,12 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 	 */
 	@Override
 	public int findTotalRainWaterTrappableInHistogramUsingJudgeAlgo(int[] hist) {
-
 		Stack<Integer> stack = createEmptyStack();
 		int totalWater = 0;
-
-		for (int i = 0; i < hist.length; i++) {
+		int i = 0;
+		for (; i < hist.length; i++) {
 
 			while (!stack.isEmpty() && hist[stack.peek()] <= hist[i]) {
-
 				int poppedBarHeight = hist[stack.pop()];
 
 				// If the stack does not have any bars or the the popped bar has no left
@@ -1227,16 +1225,99 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 					break;
 
 				int width = i - stack.peek() - 1;
-
 				int minHeight = Math.min(hist[i], hist[stack.peek()]) - poppedBarHeight;
-
 				totalWater = totalWater + width * minHeight;
 			}
-
 			stack.push(i);
+		}
+		return totalWater;
+	}
+
+	@Override
+	public int findTotalRainWaterTrappableInHistogramUsingNGRAndNGL(int[] hist) {
+		int totalWater = 0;
+
+		int[] nearestGreaterToLeft = findImmediateGreaterIndexInLeftUsingStack(hist);
+		int[] nearestGreaterToRight = findImmediateGreaterIndexInRightUsingStack(hist);
+
+		for (int i = 0; i < hist.length; i++) {
+			int ngrHeight = nearestGreaterToRight[i] == hist.length ? hist[i] : hist[nearestGreaterToRight[i]];
+			int nglHeight = nearestGreaterToLeft[i] == -1 ? hist[i] : hist[nearestGreaterToLeft[i]];
+
+			int height = Math.min(ngrHeight, nglHeight) - hist[i];
+			int width = nearestGreaterToRight[i] - nearestGreaterToLeft[i] - 1;
+			totalWater = totalWater + (height * width);
 		}
 
 		return totalWater;
+	}
+
+	private int[] findImmediateGreaterIndexInLeftUsingStack(int[] inputArray) {
+		Stack<Integer> stack = createEmptyStack();
+
+		int[] solutionArray = new int[inputArray.length];
+
+		for (int i = 0; i <= inputArray.length - 1; i++) {
+
+			while (!stack.isEmpty() && inputArray[stack.peek().intValue()] <= inputArray[i]) {
+				stack.pop();
+			}
+
+			if (stack.isEmpty()) {
+				solutionArray[i] = -1;
+			} else {
+				solutionArray[i] = stack.peek();
+			}
+			stack.push(i);
+		}
+		return solutionArray;
+	}
+
+	public int[] findImmediateGreaterIndexInRightUsingStack(int[] inputArray) {
+		Stack<Integer> stack = createEmptyStack();
+
+		int[] solutionArray = new int[inputArray.length];
+
+		for (int i = inputArray.length - 1; i >= 0; i--) {
+
+			while (!stack.isEmpty() && inputArray[stack.peek().intValue()] <= inputArray[i]) {
+				stack.pop();
+			}
+
+			if (stack.isEmpty()) {
+				solutionArray[i] = inputArray.length;
+			} else {
+				solutionArray[i] = stack.peek();
+			}
+			stack.push(i);
+		}
+		return solutionArray;
+	}
+
+	@Override
+	public int findTotalRainWaterTrappableInHistogram1(int[] hist) {
+
+		int totalWater = 0;
+
+		int leftMax = hist[0];
+		int rightMax = hist[hist.length - 1];
+
+		int left = 1;
+		int right = hist.length - 2;
+
+		while (left <= right) {
+			if (leftMax <= rightMax) {
+				totalWater = totalWater + Math.max(0, leftMax - hist[left]);
+				leftMax = Math.max(leftMax, hist[left]);
+				left++;
+			} else {
+				totalWater = totalWater + Math.max(0, rightMax - hist[right]);
+				rightMax = Math.max(rightMax, hist[right]);
+				right--;
+			}
+		}
+		return totalWater;
+
 	}
 
 }

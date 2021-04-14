@@ -56,17 +56,52 @@ public class KarumanchiTester {
 
 		findTotalRainWaterTrappableInHistogram();
 
+		// findTotalRainWaterTrappableInHistogramUsingJudgeAlgo();
+
+		// findTotalRainWaterTrappableInHistogramUsingNGRAndNGL();
+
+	}
+
+	private static void findTotalRainWaterTrappableInHistogramUsingNGRAndNGL() {
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		// int[] inputArray = new int[] { 2, 1, 4, 2, 4, 4, 3, 2, 4 };
+		// int[] inputArray = new int[] { 3, 0, 2, 0, 4 };
+		int[] inputArray = new int[] { 7, 4, 2, 9, 5, 4, 3, 2, 2, 1 };
+
+		int water = questions.findTotalRainWaterTrappableInHistogramUsingNGRAndNGL(inputArray);
+
+		System.out.println(water);
+
+	}
+
+	private static void findTotalRainWaterTrappableInHistogramUsingJudgeAlgo() {
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		// int[] inputArray = new int[] { 2, 1, 4, 2, 4, 4, 3, 2, 4 };
+		// int[] inputArray = new int[] { 3, 0, 2, 0, 4 };
+		int[] inputArray = new int[] { 7, 4, 2, 9, 5, 4, 3, 2, 1 };
+
+		int water = questions.findTotalRainWaterTrappableInHistogramUsingJudgeAlgo(inputArray);
+
+		System.out.println(water);
+
 	}
 
 	private static void findTotalRainWaterTrappableInHistogram() {
 		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
 
-		int[] inputArray = new int[] { 2, 1, 4, 2, 4, 4, 3, 2, 4 };
-		// int[] inputArray = new int[] { 3, 0, 2, 0, 4 };
+		// int[] inputArray = new int[] { 2, 1, 4, 2, 4, 4, 3, 2, 4 };
+		// int[] inputArray = new int[] { 4, 0, 2, 0, 6, 3, 2, 7 };
+		int[] inputArray = new int[] { 9, 2, 4, 7, 5, 4, 3 };
 
 		int water = questions.findTotalRainWaterTrappableInHistogram(inputArray);
 
 		System.out.println(water);
+
+		int water1 = questions.findTotalRainWaterTrappableInHistogram1(inputArray);
+
+		System.out.println(water1);
 
 	}
 

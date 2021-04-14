@@ -372,4 +372,11 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	int findMaxAreaInBinaryMatrixUsingMAH(int[][] binaryMatrix);
 
 	int findTotalRainWaterTrappableInHistogram(int[] hist);
+
+	int findTotalRainWaterTrappableInHistogramUsingJudgeAlgo(int[] hist);
+
+	int findTotalRainWaterTrappableInHistogramUsingNGRAndNGL(int[] hist);
+
+	int findTotalRainWaterTrappableInHistogram1(int[] hist);
+
 }
