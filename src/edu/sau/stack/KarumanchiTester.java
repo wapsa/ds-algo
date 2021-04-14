@@ -54,11 +54,63 @@ public class KarumanchiTester {
 
 		// printAllPossibleSubGridBlocksInMatrix();
 
-		findTotalRainWaterTrappableInHistogram();
+		// findTotalRainWaterTrappableInHistogram();
 
 		// findTotalRainWaterTrappableInHistogramUsingJudgeAlgo();
 
 		// findTotalRainWaterTrappableInHistogramUsingNGRAndNGL();
+
+		// findMinElementInStackUsingSupportingStack();
+
+		findMinElementInStackUsingVariableOnly();
+
+	}
+
+	private static void findMinElementInStackUsingVariableOnly() {
+
+		Stack<Long> usingO1Space = new MinElementStackUsingO1Space();
+		usingO1Space.push(9L);
+		usingO1Space.push(5L);
+		usingO1Space.push(3L);
+		usingO1Space.push(3L);
+		usingO1Space.push(2L);
+
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		System.out.println(usingO1Space);
+		while (!usingO1Space.isEmpty()) {
+			System.out.println("PoppedElement: " + usingO1Space.pop() + ", minElement: "
+					+ questions.findMinStackElementUsingO1Space(usingO1Space));
+		}
+
+		System.out.println(usingO1Space);
+		usingO1Space.push(7L);
+		System.out.println(usingO1Space);
+		System.out.println("minElement: " + questions.findMinStackElementUsingO1Space(usingO1Space));
+
+	}
+
+	private static void findMinElementInStackUsingSupportingStack() {
+
+		Stack<Long> usingExtraSpace = new MinElementStackUsingExtraSpace<>();
+		usingExtraSpace.push(9L);
+		usingExtraSpace.push(5L);
+		usingExtraSpace.push(3L);
+		usingExtraSpace.push(3L);
+		usingExtraSpace.push(2L);
+
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		System.out.println(usingExtraSpace);
+		while (usingExtraSpace.size() > 1) {
+			System.out.println("PoppedElement: " + usingExtraSpace.pop() + ", minElement: "
+					+ questions.findMinStackElementUsingO1Space(usingExtraSpace));
+		}
+
+		System.out.println(usingExtraSpace);
+		usingExtraSpace.push(7L);
+		System.out.println(usingExtraSpace);
+		System.out.println("minElement: " + questions.findMinStackElementUsingO1Space(usingExtraSpace));
 
 	}
 

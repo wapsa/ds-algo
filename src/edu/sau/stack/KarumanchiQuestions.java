@@ -4,7 +4,7 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 
 	public final static String USE_STACK = "array";
 
-	default <P extends Comparable<P>> Stack<P> createEmptyStack() {
+	public default <P extends Comparable<P>> Stack<P> createEmptyStack() {
 		if (USE_STACK.equals("array")) {
 			return new ArrayBackedStack<P>();
 		} else {
@@ -378,5 +378,9 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	int findTotalRainWaterTrappableInHistogramUsingNGRAndNGL(int[] hist);
 
 	int findTotalRainWaterTrappableInHistogram1(int[] hist);
+
+	Long findMinStackElementUsingExtraSpace(Stack<Long> stack);
+
+	Long findMinStackElementUsingO1Space(Stack<Long> stack);
 
 }

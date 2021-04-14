@@ -3,25 +3,63 @@ package edu.sau.stack;
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
-public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
+/**
+ * 
+ * 1) 2x - x = x
+ * 
+ * 2) 2y - x <= x
+ * 
+ * Statement 2 is true for all values of y where y <= x
+ * 
+ * Strategy:
+ * 
+ * A) Push: <br>
+ * i) If stack is empty then directly assign minElement = dataToBePushed.
+ * 
+ * ii) If dataToBePushed is less than or equal to current minElement, then
+ * update the minElement. Instead of pushing dataToBePushed to stack we push 2 *
+ * dataToBePushed - previousMinElement.
+ * 
+ * B: Pop: <br>
+ * i) If stack size becomes 1 due to popping, then we set the element in stack
+ * to minElement.
+ * 
+ * ii) If poppedItem is less than or equal to minElement then update minElement
+ * = previousMin = 2 * minElement - itemToPop. Also update the returnable
+ * poppedItem with the minElement.
+ * 
+ * C: Peek:<br>
+ * i) If stack top is less than or equal to minElement, then return minElement
+ * otherwise return stack top.
+ * 
+ */
+public class MinElementStackUsingO1Space implements Stack<Long> {
 
-	private T[] stack;
+	private Long[] stack;
 	private int size;
+	private Long minElement;
 
-	@SuppressWarnings("unchecked")
-	public ArrayBackedStack() {
-		this.stack = (T[]) new Comparable[1];
+	public MinElementStackUsingO1Space() {
+		this.stack = (Long[]) new Long[1];
 	}
 
-	@SuppressWarnings("unchecked")
-	public ArrayBackedStack(int initialCapacity) {
-		this.stack = (T[]) new Comparable[initialCapacity];
+	public MinElementStackUsingO1Space(int initialCapacity) {
+		this.stack = (Long[]) new Long[initialCapacity];
 	}
 
 	// O(1) if no resize otherwise O(n)
 	// amortized time of a push operation is the average time taken by a push over
 	// the series of operations, that is, T(n)/n.
-	public void push(T data) {
+	public void push(Long data) {
+
+		if (minElement == null) {
+			// 2x - x = x
+			minElement = data;
+		} else if (data.compareTo(minElement) <= 0) {
+			Long stackElement = 2 * data - minElement;
+			minElement = data;
+			data = stackElement;
+		}
 
 		if (size == this.stack.length) {
 			resize(2 * this.stack.length);
@@ -46,9 +84,8 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 	// O(n), depends on System.arraycopy
 	// https://stackoverflow.com/questions/2772152/why-is-system-arraycopy-native-in-java
 	// https://docs.oracle.com/javase/6/docs/api/java/lang/System.html#arraycopy(java.lang.Object,%20int,%20java.lang.Object,%20int,%20int)
-	@SuppressWarnings("unchecked")
 	private void resize(int newSize) {
-		T[] stackCopy = (T[]) new Comparable[newSize];
+		Long[] stackCopy = (Long[]) new Long[newSize];
 
 		System.arraycopy(stack, 0, stackCopy, 0, size);
 
@@ -56,12 +93,12 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 	}
 
 	// O(1) if no resize otherwise O(n)
-	public T pop() {
+	public Long pop() {
 		if (isEmpty()) {
 			throw new EmptyStackException();
 		}
 
-		T itemToPop = this.stack[--size];
+		Long itemToPop = this.stack[--size];
 
 		// will send the referenced object to garbage collection.
 		stack[size] = null;
@@ -72,6 +109,12 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 			resize(this.stack.length / 2);
 		}
 
+		if (itemToPop.compareTo(minElement) <= 0) {
+			Long previousMin = 2 * minElement - itemToPop;
+			itemToPop = minElement;
+			minElement = size != 0 ? previousMin : null;
+		}
+
 		// if stack[size] = null; is commented, it is not removed from the stack array,
 		// but we are managing the array using size which is getting decremented.
 		// Eventually when resize is called popped items will get removed.
@@ -79,11 +122,17 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 	}
 
 	@Override
-	public T peek() {
+	public Long peek() {
 		if (isEmpty()) {
 			throw new EmptyStackException();
 		}
-		return stack[size - 1];
+		Long top = stack[size - 1];
+
+		if (top.compareTo(minElement) <= 0) {
+			return minElement;
+		} else {
+			return top;
+		}
 	}
 
 	public int size() {
@@ -104,8 +153,8 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 	}
 
 	@Override
-	public T getMinElement() {
-		throw new UnsupportedOperationException();
+	public Long getMinElement() {
+		return minElement;
 	}
 
 }

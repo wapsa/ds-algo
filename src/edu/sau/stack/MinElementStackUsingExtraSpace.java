@@ -3,18 +3,19 @@ package edu.sau.stack;
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
-public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
+public class MinElementStackUsingExtraSpace<T extends Comparable<T>> implements Stack<T> {
 
 	private T[] stack;
 	private int size;
+	private final Stack<T> minOperationSupportingStack = new ArrayBackedStack<>();
 
 	@SuppressWarnings("unchecked")
-	public ArrayBackedStack() {
+	public MinElementStackUsingExtraSpace() {
 		this.stack = (T[]) new Comparable[1];
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayBackedStack(int initialCapacity) {
+	public MinElementStackUsingExtraSpace(int initialCapacity) {
 		this.stack = (T[]) new Comparable[initialCapacity];
 	}
 
@@ -22,6 +23,10 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 	// amortized time of a push operation is the average time taken by a push over
 	// the series of operations, that is, T(n)/n.
 	public void push(T data) {
+
+		if (minOperationSupportingStack.isEmpty() || minOperationSupportingStack.peek().compareTo(data) >= 0) {
+			minOperationSupportingStack.push(data);
+		}
 
 		if (size == this.stack.length) {
 			resize(2 * this.stack.length);
@@ -72,6 +77,10 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 			resize(this.stack.length / 2);
 		}
 
+		if (itemToPop.compareTo(minOperationSupportingStack.peek()) == 0) {
+			minOperationSupportingStack.pop();
+		}
+
 		// if stack[size] = null; is commented, it is not removed from the stack array,
 		// but we are managing the array using size which is getting decremented.
 		// Eventually when resize is called popped items will get removed.
@@ -105,7 +114,7 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 
 	@Override
 	public T getMinElement() {
-		throw new UnsupportedOperationException();
+		return minOperationSupportingStack.peek();
 	}
 
 }

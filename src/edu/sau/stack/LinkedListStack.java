@@ -75,4 +75,9 @@ public class LinkedListStack<T extends Comparable<T>> implements Stack<T> {
 		return "";
 	}
 
+	@Override
+	public T getMinElement() {
+		throw new UnsupportedOperationException();
+	}
+
 }

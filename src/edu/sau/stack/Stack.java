@@ -11,4 +11,6 @@ public interface Stack<T extends Comparable<T>> {
 	public int size();
 
 	public boolean isEmpty();
+
+	public T getMinElement();
 }

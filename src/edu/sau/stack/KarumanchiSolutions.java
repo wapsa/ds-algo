@@ -1320,4 +1320,14 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 
 	}
 
+	@Override
+	public Long findMinStackElementUsingExtraSpace(Stack<Long> stack) {
+		return stack.getMinElement();
+	}
+
+	@Override
+	public Long findMinStackElementUsingO1Space(Stack<Long> stack) {
+		return stack.getMinElement();
+	}
+
 }
