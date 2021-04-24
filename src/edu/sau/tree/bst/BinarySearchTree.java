@@ -3,7 +3,7 @@ package edu.sau.tree.bst;
 import edu.sau.tree.Tree;
 
 public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
-	
+
 	private Node<T> rootNode;
 
 	@Override
@@ -84,6 +84,12 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			return data.toString();
 		}
 
+	}
+
+	@Override
+	public int treeHeight() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
