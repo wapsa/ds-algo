@@ -1,6 +1,8 @@
 package edu.sau.stack;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -1328,6 +1330,98 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 	@Override
 	public Long findMinStackElementUsingO1Space(Stack<Long> stack) {
 		return stack.getMinElement();
+	}
+
+	/**
+	 * Implementation: one queue will always be empty.
+	 * 
+	 * Push: push the element to non-empty queue.
+	 * 
+	 * Pop: Pop all but one element from the non-empty queue and offer them to other
+	 * empty queue. discard the remaining element from the queue.
+	 * 
+	 * Peek: Pop all but one element from the non-empty queue and offer them to
+	 * other empty queue. Save the remaining element temporarily and add it to the
+	 * other queue.
+	 * 
+	 * size: As one queue will always be empty we can return addition of both queue
+	 * sizes.
+	 * 
+	 * isEmpty: If both the queue are empty then the stack is empty.
+	 */
+	@Override
+	public Stack<T> implementStackUsingTwoQueues() {
+
+		return new Stack<T>() {
+
+			private Deque<T> Q1 = new ArrayDeque<>();
+			private Deque<T> Q2 = new ArrayDeque<>();
+
+			@Override
+			public void push(T data) {
+				if (isEmpty()) {
+					Q1.offer(data);
+					return;
+				}
+				if (!Q1.isEmpty())
+					Q1.offer(data);
+
+				if (!Q2.isEmpty())
+					Q2.offer(data);
+			}
+
+			@Override
+			public T pop() {
+				if (isEmpty()) {
+					throw new RuntimeException("Stack is empty !!");
+				}
+				Deque<T> emptyQueue = Q1.isEmpty() ? Q1 : Q2;
+				Deque<T> nonEmptyQueue = Q1.isEmpty() ? Q2 : Q1;
+
+				final int size = nonEmptyQueue.size();
+				for (int i = 0; i < size - 1; i++) {
+					emptyQueue.offer(nonEmptyQueue.poll());
+				}
+				return nonEmptyQueue.poll();
+			}
+
+			@Override
+			public T peek() {
+				if (isEmpty()) {
+					throw new RuntimeException("Stack is empty !!");
+				}
+				Deque<T> emptyQueue = Q1.isEmpty() ? Q1 : Q2;
+				Deque<T> nonEmptyQueue = Q1.isEmpty() ? Q2 : Q1;
+
+				final int size = nonEmptyQueue.size();
+				for (int i = 0; i < size - 1; i++) {
+					emptyQueue.offer(nonEmptyQueue.poll());
+				}
+				emptyQueue.offer(nonEmptyQueue.peek());
+				return nonEmptyQueue.poll();
+
+			}
+
+			@Override
+			public int size() {
+				return Q1.size() + Q2.size();
+			}
+
+			@Override
+			public boolean isEmpty() {
+				return Q1.isEmpty() && Q2.isEmpty();
+			}
+
+			@Override
+			public T getMinElement() {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public String toString() {
+				return "Q1: " + Q1 + ", Q2: " + Q2;
+			}
+		};
 	}
 
 }

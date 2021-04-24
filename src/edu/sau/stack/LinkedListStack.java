@@ -4,16 +4,16 @@ import java.util.EmptyStackException;
 
 public class LinkedListStack<T extends Comparable<T>> implements Stack<T> {
 
-	private StackNode<T> rootNode;
+	private Node<T> rootNode;
 	private int size;
 
 	// O(1)
 	public void push(T data) {
 		if (isEmpty()) {
-			this.rootNode = new StackNode<>(data);
+			this.rootNode = new Node<>(data);
 		} else {
-			StackNode<T> oldRoot = this.rootNode;
-			this.rootNode = new StackNode<>(data);
+			Node<T> oldRoot = this.rootNode;
+			this.rootNode = new Node<>(data);
 			this.rootNode.setNextNode(oldRoot);
 		}
 		this.size++;
@@ -42,7 +42,7 @@ public class LinkedListStack<T extends Comparable<T>> implements Stack<T> {
 		return this.size;
 	}
 
-	public StackNode<T> getRootNode() {
+	public Node<T> getRootNode() {
 		return this.rootNode;
 	}
 
@@ -56,7 +56,7 @@ public class LinkedListStack<T extends Comparable<T>> implements Stack<T> {
 			return;
 		}
 
-		StackNode<T> actualNode = this.rootNode;
+		Node<T> actualNode = this.rootNode;
 
 		while (actualNode != null) {
 			System.out.print(actualNode + " ---> ");
@@ -78,6 +78,39 @@ public class LinkedListStack<T extends Comparable<T>> implements Stack<T> {
 	@Override
 	public T getMinElement() {
 		throw new UnsupportedOperationException();
+	}
+
+	private static class Node<T extends Comparable<T>> {
+
+		private final T data;
+		private Node<T> nextNode;
+
+		public Node(T data) {
+			super();
+			this.data = data;
+		}
+
+		public T getData() {
+			return data;
+		}
+
+		public Node<T> getNextNode() {
+			return nextNode;
+		}
+
+		public void setNextNode(Node<T> nextNode) {
+			this.nextNode = nextNode;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("Node [data=");
+			builder.append(data);
+			builder.append("]");
+			return builder.toString();
+		}
+
 	}
 
 }

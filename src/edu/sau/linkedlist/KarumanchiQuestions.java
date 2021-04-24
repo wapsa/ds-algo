@@ -92,12 +92,11 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	 * Q16 - Reverse a singly linked list using recursion.
 	 */
 	public void reverseListUsingRecursion();
-	
+
 	/**
 	 * Q16 - Reverse a singly linked list using recursion.
 	 */
 	public void reverseListUsingRecursionAlternate();
-
 
 	/**
 	 * Q17 - Suppose there are two singly linked lists both of which intersect at
@@ -214,6 +213,8 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	 */
 	public void reverseBlocksOfKNodes(int k);
 
+	public void reverseBlocksOfKNodes1(int k);
+
 	/**
 	 * Q40 - Josephus Circle: N people have decided to elect a leader by arranging
 	 * themselves in a circle and eliminating every Mth person around the circle,
@@ -226,6 +227,10 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	 * 1 as data.
 	 */
 	public Node<T> josephusCircleElimination(int m);
+
+	public Node<T> josephusCircleElimination1(int m);
+
+	public Node<T> josephusCircleElimination2(int m);
 
 	/**
 	 * Q41 - Given a linked list consists of data, a next pointer and also a random

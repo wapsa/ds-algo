@@ -234,6 +234,11 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	Stack<T> reverseStackUsingRecursion(Stack<T> stack);
 
 	/**
+	 * Q13 - Implement one stack efficiently using two queues.
+	 */
+	Stack<T> implementStackUsingTwoQueues();
+
+	/**
 	 * Finding Spans Prerequisite
 	 */
 	int[] findImmediateGreaterInRightBruteForce(int[] inputArray);

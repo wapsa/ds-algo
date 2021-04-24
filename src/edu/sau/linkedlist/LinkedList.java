@@ -825,6 +825,50 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 
 	@Override
 	public void reverseBlocksOfKNodes(int k) {
+
+		if (k <= 1 || k > this.size()) {
+			return;
+		}
+		Node<T> head = this.getRootNode();
+		long totalBlocks = this.size() / k;
+		int blockNodeCounter = 1;
+		int blockCounter = 1;
+		Node<T> previousBlockStart = null;
+		Node<T> currentBlockStart = head;
+		Node<T> reversedNode = null;
+
+		while (head != null && blockCounter <= totalBlocks) {
+
+			Node<T> temp = head;
+			head = head.getNextNode();
+
+			temp.setNextNode(reversedNode);
+			reversedNode = temp;
+
+			if (blockNodeCounter == k) {
+				if (previousBlockStart == null) {
+					this.rootNode = reversedNode;
+				} else {
+					previousBlockStart.setNextNode(reversedNode);
+				}
+				previousBlockStart = currentBlockStart;
+				currentBlockStart = head;
+				reversedNode = null;
+				blockNodeCounter = 1;
+				blockCounter++;
+			} else {
+				blockNodeCounter++;
+			}
+		}
+
+		if (this.size() % k != 0) {
+			previousBlockStart.setNextNode(head);
+		}
+
+	}
+
+	@Override
+	public void reverseBlocksOfKNodes1(int k) {
 		if (k <= 1 || k > this.sizeOfList)
 			return;
 		Node<T> current = this.getRootNode();
@@ -867,11 +911,11 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 	// m = 1, is not taken care of.
 	// If after removing node we need not move on next node we can comment line #1
 	@Override
-	public Node<T> josephusCircleElimination(int m) {
+	public Node<T> josephusCircleElimination(int k) {
 		Node<T> current = this.getRootNode();
 
 		while (current.getNextNode() != current) {
-			for (int i = 1; i < m - 1; i++) {
+			for (int i = 1; i < k - 1; i++) {
 				current = current.getNextNode();
 			}
 			System.out.println("Dropping: " + current.getNextNode());
@@ -879,6 +923,37 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 			current = current.getNextNode(); // #1
 		}
 		return current;
+	}
+
+	@Override
+	public Node<T> josephusCircleElimination1(int k) {
+		int position = 1;
+		for (int i = 1; i <= this.size(); ++i)
+			position = (position + k) % i;
+
+		Node<T> josephusNode = this.rootNode;
+		while (position > 0) {
+			josephusNode = josephusNode.getNextNode();
+			position--;
+		}
+		return josephusNode;
+
+	}
+
+	@Override
+	public Node<T> josephusCircleElimination2(int k) {
+		int position = recursiveJosephus((int) this.size(), k);
+
+		Node<T> josephusNode = this.rootNode;
+		while (position > 0) {
+			josephusNode = josephusNode.getNextNode();
+			position--;
+		}
+		return josephusNode;
+	}
+
+	private int recursiveJosephus(int n, int k) {
+		return n > 1 ? (recursiveJosephus(n - 1, k) + k - 1) % n + 1 : 1;
 	}
 
 	@Override

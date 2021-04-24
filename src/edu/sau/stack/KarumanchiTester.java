@@ -62,7 +62,29 @@ public class KarumanchiTester {
 
 		// findMinElementInStackUsingSupportingStack();
 
-		findMinElementInStackUsingVariableOnly();
+		// findMinElementInStackUsingVariableOnly();
+
+		implementStackUsingTwoQueues();
+
+	}
+
+	private static void implementStackUsingTwoQueues() {
+		KarumanchiQuestions<Integer> questions = new KarumanchiSolutions<>();
+
+		Stack<Integer> stack = questions.implementStackUsingTwoQueues();
+		stack.push(10);
+		stack.push(20);
+		System.out.println("Stack: " + stack + ", size: " + stack.size());
+		System.out.println("Peek: " + stack.peek());
+		stack.push(30);
+		System.out.println("Stack: " + stack + ", size: " + stack.size());
+		System.out.println("Peek: " + stack.peek());
+		System.out.println("Popping: " + stack.pop());
+		System.out.println("Stack: " + stack + ", size: " + stack.size());
+		System.out.println("Popping: " + stack.pop());
+		System.out.println("Popping: " + stack.pop());
+		System.out.println("Stack: " + stack + ", size: " + stack.size());
+		System.out.println("isEmpty: " + stack.isEmpty());
 
 	}
 

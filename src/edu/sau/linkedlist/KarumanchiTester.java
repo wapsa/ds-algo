@@ -46,11 +46,11 @@ public class KarumanchiTester {
 
 		// splitCircularListToTwoCircularLinkedList();
 
-		checkIfListIsPalindrome();
+		// checkIfListIsPalindrome();
 
 		// reverseBlocksOfKNodes();
 
-		// josephusCircleElimination();
+		josephusCircleElimination();
 
 		// cloneListWithRandomPointer();
 
@@ -382,9 +382,13 @@ public class KarumanchiTester {
 
 		linkedList.traverseForLoopingList();
 
-		Node<String> chosenOne = linkedList.josephusCircleElimination(5);
+		Node<String> chosenOne = linkedList.josephusCircleElimination(3);
+		Node<String> chosenOne1 = linkedList.josephusCircleElimination1(3);
+		Node<String> chosenOne2 = linkedList.josephusCircleElimination2(3);
 
 		System.out.println("ChosenOne: " + chosenOne);
+		System.out.println("ChosenOne: " + chosenOne1);
+		System.out.println("ChosenOne: " + chosenOne2);
 
 		System.out.println();
 	}
