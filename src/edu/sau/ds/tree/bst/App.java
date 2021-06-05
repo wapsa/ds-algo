@@ -7,7 +7,7 @@ public class App {
 	public static void main(String[] args) {
 		// height();
 
-		 size();
+		size();
 
 		// contains();
 
@@ -184,11 +184,9 @@ public class App {
 		tree.insert(80);
 
 		tree.insert(83);
-		
-		tree.insert(60);
 
 		System.out.println(tree);
-		System.out.println("Size: " + tree.size(110));
+		System.out.println("Size: " + tree.size(75));
 	}
 
 	private static void bfsTraversal() {

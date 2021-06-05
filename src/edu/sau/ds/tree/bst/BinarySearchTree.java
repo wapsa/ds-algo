@@ -6,22 +6,67 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Queue;
 
-import edu.sau.ds.tree.Tree;
+import edu.sau.ds.tree.Node;
 
-public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
+public class BinarySearchTree<T extends Comparable<T>> implements BST<T> {
 
-	private Node<T> root;
+	private BSTNode<T> root;
 	private int size;
 
-	private static final class Node<T extends Comparable<T>> {
+	public static final class BSTNode<T extends Comparable<T>> implements Node<T> {
 
 		private T data;
-		private Node<T> left;
-		private Node<T> right;
+		private BSTNode<T> left;
+		private BSTNode<T> right;
 
-		public Node(T data) {
+		public BSTNode(T data) {
 			super();
 			this.data = data;
+		}
+
+		public boolean isLeafNode() {
+			return this.left == null && this.right == null;
+		}
+
+		public boolean isFullNode() {
+			return this.left != null && this.right != null;
+		}
+
+		/**
+		 * The operators &, ^, and | are bitwise operators when the operands are
+		 * primitive integral types. They are logical operators when the operands are
+		 * boolean, and their behaviour in the latter case is specified. <br/>
+		 * 
+		 * <a href=
+		 * "https://docs.oracle.com/javase/specs/jls/se14/html/jls-15.html#jls-15.22.2">See
+		 * the section 15.22.2 of the Java Language Specification for details.</a>
+		 */
+		public boolean isHalfNode() {
+			return this.left != null ^ this.right != null;
+		}
+
+		public T getData() {
+			return data;
+		}
+
+		public void setData(T data) {
+			this.data = data;
+		}
+
+		public BSTNode<T> getLeft() {
+			return left;
+		}
+
+		public void setLeft(BSTNode<T> left) {
+			this.left = left;
+		}
+
+		public BSTNode<T> getRight() {
+			return right;
+		}
+
+		public void setRight(BSTNode<T> right) {
+			this.right = right;
 		}
 
 		@Override
@@ -32,9 +77,19 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	}
 
 	@Override
+	public BSTNode<T> root() {
+		return root;
+	}
+
+	@Override
+	public void setRoot(BSTNode<T> node) {
+		this.root = node;
+	}
+
+	@Override
 	public void insert(T data) {
 		if (isEmpty()) {
-			root = new Node<>(data);
+			root = new BSTNode<>(data);
 			size++;
 			return;
 		}
@@ -44,7 +99,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		}
 	}
 
-	private boolean insert(T data, Node<T> node) {
+	private boolean insert(T data, BSTNode<T> node) {
 		int cmp = data.compareTo(node.data);
 
 		if (cmp == 0)
@@ -55,7 +110,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			if (node.left != null) {
 				insert(data, node.left);
 			} else {
-				node.left = new Node<>(data);
+				node.left = new BSTNode<>(data);
 			}
 
 		} else {
@@ -63,7 +118,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			if (node.right != null) {
 				insert(data, node.right);
 			} else {
-				node.right = new Node<>(data);
+				node.right = new BSTNode<>(data);
 			}
 
 		}
@@ -81,7 +136,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return sizeAfterDelete == sizeBeforeDelete - 1;
 	}
 
-	private Node<T> delete(T data, Node<T> node) {
+	private BSTNode<T> delete(T data, BSTNode<T> node) {
 		if (node == null)
 			return node;
 
@@ -94,7 +149,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			 * CASE 1: node to be deleted is a leaf node.
 			 */
 
-			if (isLeafNode(node)) {
+			if (node.isLeafNode()) {
 				size--;
 				node = null;
 				return null;
@@ -106,7 +161,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
 			if (node.left == null) {
 				// node to be deleted has right subtree.
-				Node<T> rightSubTree = node.right;
+				BSTNode<T> rightSubTree = node.right;
 				// garbage collect node.
 				node = null;
 				size--;
@@ -114,7 +169,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			}
 			if (node.right == null) {
 				// node to be deleted has left subtree.
-				Node<T> leftSubTree = node.left;
+				BSTNode<T> leftSubTree = node.left;
 				// garbage collect node.
 				node = null;
 				size--;
@@ -136,7 +191,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			// node.left = delete(predecessorNode.data, node.left);
 
 			// Approach # 2 - Using successor
-			Node<T> successorNode = getSuccessor(node);
+			BSTNode<T> successorNode = getSuccessor(node);
 			// discard value to be deleted and replace with successor node data.
 			node.data = successorNode.data;
 			// Find successor data in right subtree and delete the node.
@@ -152,8 +207,8 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return node;
 	}
 
-	private Node<T> iterativeDelete(T data, Node<T> node) {
-		Node<T> parent = null;
+	private BSTNode<T> iterativeDelete(T data, BSTNode<T> node) {
+		BSTNode<T> parent = null;
 
 		boolean isDeleteRootNode = data.compareTo(node.data) == 0;
 
@@ -166,7 +221,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 				/**
 				 * CASE 1: node to be deleted is a leaf node.
 				 */
-				if (isLeafNode(node)) {
+				if (node.isLeafNode()) {
 					size--;
 
 					if (isDeleteRootNode) {
@@ -214,7 +269,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 					 */
 					// Approach # 1 - Using predecessor
 					// Populate predecessor in node.
-					Node<T> predecessorNode = node.left;
+					BSTNode<T> predecessorNode = node.left;
 					parent = node;
 					while (predecessorNode.right != null) {
 						parent = predecessorNode;
@@ -255,7 +310,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	 * Predecessor node cannot have right child as max is found by going all right.
 	 * It may or may not have left child.
 	 */
-	private Node<T> getPredecessor(Node<T> node) {
+	private BSTNode<T> getPredecessor(BSTNode<T> node) {
 		return getMaxElement(node.left);
 	}
 
@@ -265,7 +320,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	 * Successor node cannot have left child as min is found by going all left. It
 	 * may or may not have right child.
 	 */
-	private Node<T> getSuccessor(Node<T> node) {
+	private BSTNode<T> getSuccessor(BSTNode<T> node) {
 		return getMinElement(node.right);
 	}
 
@@ -277,7 +332,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return isEmpty() ? null : getMaxElement(root).data;
 	}
 
-	private Node<T> getMaxElement(Node<T> node) {
+	private BSTNode<T> getMaxElement(BSTNode<T> node) {
 		return node.right == null ? node : getMaxElement(node.right);
 	}
 
@@ -289,7 +344,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return isEmpty() ? null : getMinElement(root).data;
 	}
 
-	private Node<T> getMinElement(Node<T> node) {
+	private BSTNode<T> getMinElement(BSTNode<T> node) {
 		return node.left == null ? node : getMinElement(node.left);
 	}
 
@@ -300,12 +355,22 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
 	@Override
 	public int size(T data) {
-		List<T> accumulator = new ArrayList<>();
-		recursiveInOrder(accumulator, searchNodeRecursive(data, root));
-		return accumulator.size();
+//		List<T> accumulator = new ArrayList<>();
+		// Can use any traversal.
+//		recursiveInOrder(accumulator, searchNodeRecursive(data, root));
+//		return accumulator.size();
+//				OR
+
+		return recursiveSize(searchNodeRecursive(data, root));
 	}
 
-	private Node<T> searchNodeRecursive(T data, Node<T> node) {
+	private int recursiveSize(BSTNode<T> node) {
+		if (node == null)
+			return 0;
+		return 1 + recursiveSize(node.left) + recursiveSize(node.right);
+	}
+
+	private BSTNode<T> searchNodeRecursive(T data, BSTNode<T> node) {
 		if (node == null)
 			return null;
 
@@ -332,14 +397,10 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return isEmpty() ? 0 : height(root);
 	}
 
-	private int height(Node<T> node) {
+	private int height(BSTNode<T> node) {
 		if (node == null)
 			return -1;
 		return 1 + Math.max(height(node.left), height(node.right));
-	}
-
-	private boolean isLeafNode(Node<T> node) {
-		return node.left == null && node.right == null;
 	}
 
 	@Override
@@ -350,7 +411,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return searchIterative(data, root);
 	}
 
-	private boolean searchRecursive(T data, Node<T> node) {
+	private boolean searchRecursive(T data, BSTNode<T> node) {
 		if (node == null)
 			return false;
 
@@ -363,7 +424,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			return searchRecursive(data, node.right);
 	}
 
-	private boolean searchIterative(T data, Node<T> node) {
+	private boolean searchIterative(T data, BSTNode<T> node) {
 		while (node != null) {
 			int cmp = data.compareTo(node.data);
 
@@ -389,11 +450,11 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	 *
 	 * @param root tree root node
 	 */
-	public void print(Node<T> root) {
+	public void print(BSTNode<T> root) {
 		List<List<String>> lines = new ArrayList<List<String>>();
 
-		List<Node<T>> level = new ArrayList<>();
-		List<Node<T>> next = new ArrayList<>();
+		List<BSTNode<T>> level = new ArrayList<>();
+		List<BSTNode<T>> next = new ArrayList<>();
 
 		level.add(root);
 		int nn = 1;
@@ -405,7 +466,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
 			nn = 0;
 
-			for (Node<T> n : level) {
+			for (BSTNode<T> n : level) {
 				if (n == null) {
 					line.add(null);
 					next.add(null);
@@ -431,7 +492,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
 			lines.add(line);
 
-			List<Node<T>> tmp = level;
+			List<BSTNode<T>> tmp = level;
 			level = next;
 			next = tmp;
 			next.clear();
@@ -508,7 +569,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return accumulator;
 	}
 
-	private void recursivePreOrder(List<T> accumulator, Node<T> node) {
+	private void recursivePreOrder(List<T> accumulator, BSTNode<T> node) {
 		if (node == null)
 			return;
 		accumulator.add(node.data);
@@ -519,10 +580,10 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	/**
 	 * Pre order traversal is NLR so stack insertion order is RLN
 	 */
-	private void iterativePreOrder(List<T> accumulator, Node<T> node) {
+	private void iterativePreOrder(List<T> accumulator, BSTNode<T> node) {
 		if (node == null)
 			return;
-		Deque<Node<T>> stack = new ArrayDeque<>();
+		Deque<BSTNode<T>> stack = new ArrayDeque<>();
 		stack.push(node);
 
 		while (!stack.isEmpty()) {
@@ -544,7 +605,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return accumulator;
 	}
 
-	private void recursiveInOrder(List<T> accumulator, Node<T> node) {
+	private void recursiveInOrder(List<T> accumulator, BSTNode<T> node) {
 		if (node == null)
 			return;
 		recursiveInOrder(accumulator, node.left);
@@ -552,10 +613,10 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		recursiveInOrder(accumulator, node.right);
 	}
 
-	private void iterativeInOrderGoAllLeft(List<T> accumulator, Node<T> node) {
+	private void iterativeInOrderGoAllLeft(List<T> accumulator, BSTNode<T> node) {
 		if (node == null)
 			return;
-		Deque<Node<T>> stack = new ArrayDeque<>();
+		Deque<BSTNode<T>> stack = new ArrayDeque<>();
 
 		while (node != null || !stack.isEmpty()) {
 
@@ -584,7 +645,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return accumulator;
 	}
 
-	private void recursivePostOrder(List<T> accumulator, Node<T> node) {
+	private void recursivePostOrder(List<T> accumulator, BSTNode<T> node) {
 		if (node == null)
 			return;
 		recursivePostOrder(accumulator, node.left);
@@ -610,12 +671,12 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	 * parent in next step.
 	 * </pre>
 	 */
-	private void iterativePostOrderAllLeft(List<T> accumulator, Node<T> node) {
+	private void iterativePostOrderAllLeft(List<T> accumulator, BSTNode<T> node) {
 
 		if (node == null)
 			return;
-		Deque<Node<T>> stack = new ArrayDeque<>();
-		Node<T> previous = null;
+		Deque<BSTNode<T>> stack = new ArrayDeque<>();
+		BSTNode<T> previous = null;
 
 		while (node != null || !stack.isEmpty()) {
 
@@ -664,20 +725,22 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	 * 
 	 * 
 	 */
-	private void iterativePostOrderNodeRightLeft(List<T> accumulator, Node<T> node) {
+	private void iterativePostOrderNodeRightLeft(List<T> accumulator, BSTNode<T> node) {
 		if (node == null)
 			return;
 
-		Deque<Node<T>> stack = new ArrayDeque<>();
+		Deque<BSTNode<T>> stack = new ArrayDeque<>();
 		stack.push(node);
 
-		Node<T> previous = null;
+		BSTNode<T> previous = null;
 
 		while (!stack.isEmpty()) {
 
 			node = stack.peek();
 
-			if (isLeafNode(node) || node.left == previous || node.right == previous) {
+			// Checking if node has been visited previously.
+			if (node.isLeafNode()
+					|| (previous != null && (node.getLeft() == previous || node.getRight() == previous))) {
 				accumulator.add(node.data);
 				previous = node;
 				stack.pop();
@@ -691,17 +754,21 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		}
 	}
 
+	/**
+	 * Level order traversal
+	 */
 	@Override
 	public List<T> bfsTraverse() {
 		List<T> traversal = new ArrayList<>();
-		Queue<Node<T>> queue = new ArrayDeque<>();
+		Queue<BSTNode<T>> queue = new ArrayDeque<>();
 
 		if (!isEmpty()) {
 			queue.offer(root);
 		}
 
 		while (!queue.isEmpty()) {
-			Node<T> node = queue.poll();
+			BSTNode<T> node = queue.poll();
+			traversal.add(node.data);
 
 			if (node.left != null)
 				queue.offer(node.left);
@@ -709,7 +776,6 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			if (node.right != null)
 				queue.offer(node.right);
 
-			traversal.add(node.data);
 		}
 		return traversal;
 	}

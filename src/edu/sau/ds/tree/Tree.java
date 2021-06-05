@@ -2,6 +2,8 @@ package edu.sau.ds.tree;
 
 import java.util.List;
 
+import edu.sau.ds.tree.bst.BinarySearchTree.BSTNode;
+
 /**
  * Tree is a variant of graph where there exists only one way from root to any
  * other node.
@@ -29,6 +31,8 @@ import java.util.List;
  * </pre>
  */
 public interface Tree<T extends Comparable<T>> {
+
+	Node<T> root();
 
 	void insert(T data);
 
