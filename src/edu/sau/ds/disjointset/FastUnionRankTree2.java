@@ -53,7 +53,7 @@ public class FastUnionRankTree2 implements DisjointSet<Integer> {
 
 		if (rankOfA == rankOfB) {
 			// when height of both the tree are same, then height of representative node
-			// should be increased by 1.
+			// should be increased by 1. since we store rank in -ve so - will increase by 1.
 			arr[bRep] -= arr[bRep];
 		} else if (rankOfB < rankOfA) {
 			// swap the representative such that smaller tree will be merged to bigger tree.

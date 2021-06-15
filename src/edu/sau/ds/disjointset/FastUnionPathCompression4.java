@@ -11,6 +11,23 @@ package edu.sau.ds.disjointset;
  * 
  * Tree representation with size: {1, 1, 1, 3, 3, 5, 5, 6, 7}
  * 
+ * 
+ * <pre>
+ * 
+ * Fact. Path compression (with naive linking) can require Ω(n) time to perform
+ * a single UNION or FIND operation, where n is the number of elements.
+ *
+ * Proof. The height of the tree is n – 1 after the sequence of union operations:
+ * UNION(1, 2), UNION(2, 3), …, UNION(n – 1, n).
+ *
+ * Theorem. [Tarjan-van Leeuwen 1984] Starting from an empty data
+ * structure, path compression (with naive linking) performs any intermixed
+ * sequence of m ≥ n find and n – 1 union operations in O(m log n) time.
+ * 
+ * Proof: non-trivial but omitted.
+ * 
+ * </pre>
+ * 
  * Time complexity for a sequence of unions and finds is : O(mlogn)
  * 
  */

@@ -30,11 +30,11 @@ public final class BitwiseUtils {
 	}
 
 	public static int multiplyBy2(int num) {
-		return num << 2;
+		return num << 1;
 	}
 
 	public static int divideBy2(int num) {
-		return num >> 2;
+		return num >> 1;
 	}
 
 	public static int powerOf2(int power) {
