@@ -21,9 +21,9 @@ public class JosephusProblem {
 		josephusCircleElimination1(persons, k);
 		josephusCircleElimination2(persons, k);
 		josephusCircleElimination3(persons, k);
-		
+
 		System.out.println(Integer.toBinaryString(-1));
-		
+
 		System.out.println(Integer.numberOfLeadingZeros(Integer.MAX_VALUE));
 	}
 
@@ -40,10 +40,6 @@ public class JosephusProblem {
 		int safePosition = 2 * valueOfL + 1;
 
 		System.out.println("Safe person: " + persons[safePosition] + " is at position: " + safePosition);
-	}
-
-	private static int numberOfLeadingZeros(int n) {
-		return 0;
 	}
 
 	private static void josephusBitwise2(int[] persons) {

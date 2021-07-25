@@ -11,7 +11,7 @@ public class KarumanchiTester {
 	private static final KarumanchiQuestions<Integer> KQ = new KarumanchiSolutions<>();
 
 	public static void main(String[] args) {
-		// bottomUpLevelOrderTraverse();
+		bottomUpLevelOrderTraverse();
 
 		// findHeightOfTreeUsingIteration();
 

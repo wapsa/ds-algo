@@ -60,7 +60,7 @@ public class CelebrityProblem {
 	 * 
 	 * Space Complexity: O(1).
 	 * 
-	 * we show how to do this with at the most 3(􀝊 - 1) checks. This algorithm
+	 * we show how to do this with at the most 3(n - 1) checks. This algorithm
 	 * consists of two phases:
 	 * 
 	 * 1) Elimination
@@ -98,17 +98,21 @@ public class CelebrityProblem {
 	}
 
 	private static int findCelebrityCandidateByElimination(int[][] matrix) {
-		int u = 0;
-		int v = 1;
+		int personA = 0;
+		int personB = 1;
 
 		for (int i = 2; i < matrix.length; i++) {
-			if (matrix[u][v] == 1) {
-				u = i;
+
+			// if a knows b then a cannot be celebrity as celebrity knows no one.
+			if (matrix[personA][personB] == 1) {
+				personA = i;
 			} else {
-				v = i;
+				// Since a does not know b, b cannot be celebrity as a celebrity is known by
+				// everyone.
+				personB = i;
 			}
 		}
-		return u == matrix.length ? v : u;
+		return personA == matrix.length ? personB : personA;
 	}
 
 	public static void main(String[] args) {

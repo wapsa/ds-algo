@@ -115,9 +115,10 @@ public class OptimizedSumSegmentTree implements SegmentTree<Integer> {
 	 * WHEN 'tl' is odd then no need to include the value of tl-node in query-sum, and go to the parent of 'tl' node.
 	 *
 	 * WHEN 'tr' is even:
-	 * Since tr is exclusive in query range, so if tr is even  then we should include the (tr-1)th node value in query-sum and go to the
-	 * parent node of (tr-1).
-	 * WHEN 'tr' is odd : then no need to include the value of (tr-1)th node in query-sum, and go to the parent of 'tr' node.
+	 * Since tr is exclusive in query range, so if tr is even  then we should 
+	 * include the (tr-1)th node value in query-sum and go to the parent node of (tr-1).
+	 * WHEN 'tr' is odd : then no need to include the value of (tr-1)th node in query-sum, 
+	 * and go to the parent of 'tr' node.
 	 *
 	 * </pre>
 	 *
