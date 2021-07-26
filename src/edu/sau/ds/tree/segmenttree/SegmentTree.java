@@ -35,4 +35,10 @@ public interface SegmentTree<T> {
 
 	}
 
+	public interface MergeSortST<T> extends SegmentTree<T> {
+
+		int findFirstSmallestGreaterElementInGivenQueryRange(int data, int ql, int qr);
+
+	}
+
 }
