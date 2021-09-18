@@ -1,4 +1,4 @@
-package edu.sau.sorting;
+package edu.sau.algo.sorting;
 
 import java.util.Arrays;
 

@@ -11,7 +11,7 @@ import edu.sau.other.bitwise.BitwiseUtils;
  * 
  * 2) Node segment(i.e. tl and tr) is used for binary search condition check.
  */
-public class SumSegmentTree implements SumST<Integer> {
+public class SumSegmentTree1 implements SumST<Integer> {
 
 	/**
 	 * BFS indexed segment tree
@@ -21,7 +21,7 @@ public class SumSegmentTree implements SumST<Integer> {
 	private final int root_tr;
 	private final int bfs_index_start = 0;
 
-	public SumSegmentTree(int[] elements, boolean isFull) {
+	public SumSegmentTree1(int[] elements, boolean isFull) {
 		super();
 		int powerOf2InputSize = getInputArraySizeAsPowerOf2(elements.length);
 		this.tree = new int[2 * powerOf2InputSize - 1];

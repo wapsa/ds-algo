@@ -2,7 +2,7 @@ package edu.sau.ds.tree.segmenttree;
 
 import java.util.Arrays;
 
-import edu.sau.ds.tree.segmenttree.MaxSubSegmentSumTree.Data;
+import edu.sau.ds.tree.segmenttree.MaxSubSegmentSumTree4.Data;
 
 /**
  * 1) bfsIndex is used for locating the index of node in tree array while doing
@@ -10,7 +10,7 @@ import edu.sau.ds.tree.segmenttree.MaxSubSegmentSumTree.Data;
  * 
  * 2) Node segment(i.e. tl and tr) is used for binary search condition check.
  */
-public class MaxSubSegmentSumTree implements SegmentTree<Data> {
+public class MaxSubSegmentSumTree4 implements SegmentTree<Data> {
 
 	/**
 	 * BFS indexed segment tree
@@ -22,7 +22,7 @@ public class MaxSubSegmentSumTree implements SegmentTree<Data> {
 
 	private final boolean flatInitialization;
 
-	public MaxSubSegmentSumTree(int[] elements, boolean flatInitialization) {
+	public MaxSubSegmentSumTree4(int[] elements, boolean flatInitialization) {
 		super();
 		this.flatInitialization = flatInitialization;
 		this.tree = new Data[2 * elements.length - 1];

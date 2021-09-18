@@ -12,7 +12,7 @@ import edu.sau.other.bitwise.BitwiseUtils;
  * 
  * 2) Array elements are stored in continuous manner starting with index n.
  */
-public class OptimizedSumSegmentTree implements SegmentTree<Integer> {
+public class OptimizedSumSegmentTree2 implements SegmentTree<Integer> {
 
 	/**
 	 * BFS indexed segment tree
@@ -20,7 +20,7 @@ public class OptimizedSumSegmentTree implements SegmentTree<Integer> {
 	private final int tree[];
 	private final int root_tr;
 
-	public OptimizedSumSegmentTree(int[] elements, boolean isFull) {
+	public OptimizedSumSegmentTree2(int[] elements, boolean isFull) {
 		super();
 		if (isFull) {
 			int powerOf2InputSize = getInputArraySizeAsPowerOf2(elements.length);

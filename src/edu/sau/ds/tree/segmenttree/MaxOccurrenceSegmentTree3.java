@@ -13,7 +13,7 @@ import edu.sau.other.bitwise.BitwiseUtils;
  * 
  * 2) Node segment(i.e. tl and tr) is used for binary search condition check.
  */
-public class MaxOccurrenceSegmentTree implements MaxST<Entry<Integer, Integer>> {
+public class MaxOccurrenceSegmentTree3 implements MaxST<Entry<Integer, Integer>> {
 
 	/**
 	 * BFS indexed segment tree
@@ -24,7 +24,7 @@ public class MaxOccurrenceSegmentTree implements MaxST<Entry<Integer, Integer>> 
 	private final int bfs_index_start = 0;
 
 	@SuppressWarnings("unchecked")
-	public MaxOccurrenceSegmentTree(int[] elements, boolean isFull) {
+	public MaxOccurrenceSegmentTree3(int[] elements, boolean isFull) {
 		super();
 		int powerOf2InputSize = getInputArraySizeAsPowerOf2(elements.length);
 		this.tree = new Map.Entry[2 * powerOf2InputSize - 1];
