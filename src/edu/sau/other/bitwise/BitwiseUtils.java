@@ -2,12 +2,12 @@ package edu.sau.other.bitwise;
 
 public final class BitwiseUtils {
 
-	public static boolean isEvenNumber(int num) {
-		return (num & 1) == 0;
+	public static boolean isEvenNumber(int i) {
+		return (i & 1) == 0;
 	}
 
-	public static boolean isEvenNumber1(int num) {
-		return (num & -num) != 1;
+	public static boolean isEvenNumber1(int i) {
+		return (i & -i) != 1;
 	}
 
 	public static void swap(int p, int q) {
@@ -24,17 +24,17 @@ public final class BitwiseUtils {
 		return 0;
 	}
 
-	public static boolean numsHavingOppositeSign(int p, int q) {
+	public static boolean isHavingOppositeSign(int p, int q) {
 
 		return true;
 	}
 
-	public static int multiplyBy2(int num) {
-		return num << 1;
+	public static int multiplyBy2(int i) {
+		return i << 1;
 	}
 
-	public static int divideBy2(int num) {
-		return num >> 1;
+	public static int divideBy2(int i) {
+		return i >> 1;
 	}
 
 	public static int powerOf2(int power) {
@@ -52,11 +52,11 @@ public final class BitwiseUtils {
 	 * Let's say i is 2^n, then i has only HighestOneBit set. And (i-1) i.e. (2^n
 	 * -1) has all bits set except of highestOneBit position.
 	 */
-	public static boolean is_2_toThePowerOf_N(int num) {
-		if (num <= 0)
+	public static boolean is_2_toThePowerOf_N(int i) {
+		if (i <= 0)
 			return false;
 
-		return (num & (num - 1)) == 0;
+		return (i & (i - 1)) == 0;
 	}
 
 	/**
@@ -68,16 +68,16 @@ public final class BitwiseUtils {
 	 * -1 will have all 1's
 	 *
 	 */
-	public static boolean is_2_tothePowerOf_N_Minus_1(int num) {
-		if (num <= 0)
+	public static boolean is_2_tothePowerOf_N_Minus_1(int i) {
+		if (i <= 0)
 			return false;
 
-		return (num & (num + 1)) == 0;
+		return (i & (i + 1)) == 0;
 	}
 
 	/**
 	 * 
-	 * There is no leading zeros in negative number as it's sign bit is 1.
+	 * There is no leading zeros in negative iber as it's sign bit is 1.
 	 *
 	 * There is full size of leading zeros for x==0.
 	 *
@@ -86,34 +86,34 @@ public final class BitwiseUtils {
 	 * This solution is binarySearch based. O(n) = base 2 log of 32 = 5
 	 *
 	 */
-	public static int numberOfLeadingZeros(int num) {
-		if (num <= 0)
-			return num == 0 ? 0 : 32;
+	public static int numberOfLeadingZeros(int i) {
+		if (i <= 0)
+			return i == 0 ? 0 : 32;
 
 		int noOfLeadingZeroes = 31;
 
-		if (num >= (1 << 16)) {
+		if (i >= (1 << 16)) {
 			noOfLeadingZeroes -= 16;
 			// zero fill right shifting starting 16 bits to the end as we have already
-			// ascertained that the number representation occupies bits 2^0 to 2^15
-			num = num >>> 16;
+			// ascertained that the iber representation occupies bits 2^0 to 2^15
+			i = i >>> 16;
 		}
-		if (num >= (1 << 8)) {
+		if (i >= (1 << 8)) {
 			noOfLeadingZeroes -= 8;
-			num = num >>> 8;
+			i = i >>> 8;
 		}
-		if (num >= (1 << 4)) {
+		if (i >= (1 << 4)) {
 			noOfLeadingZeroes -= 4;
-			num = num >>> 4;
+			i = i >>> 4;
 		}
-		if (num >= (1 << 2)) {
+		if (i >= (1 << 2)) {
 			noOfLeadingZeroes -= 2;
-			num = num >>> 2;
+			i = i >>> 2;
 		}
 
-		// If num has not entered any above ifs, then it can be either 1 or 2. If it has
+		// If i has not entered any above ifs, then it can be either 1 or 2. If it has
 		// entered above ifs, then it can be either 0, 1 or 2
-		return noOfLeadingZeroes - (num >>> 1);
+		return noOfLeadingZeroes - (i >>> 1);
 	}
 
 	/**
@@ -122,10 +122,10 @@ public final class BitwiseUtils {
 	 * 
 	 * e.g. 1010100011000 => 0000000000111
 	 */
-	public static int numberOfTrailingZeros(int num) {
-		final int formula = ~num & (num - 1);
-		// final int formula = (num & -num) - 1;
-		// final int formula = ~(num | -num);
+	public static int numberOfTrailingZeros(int i) {
+		final int formula = ~i & (i - 1);
+		// final int formula = (i & -i) - 1;
+		// final int formula = ~(i | -i);
 
 		/**
 		 * below if is same as these two ifs
@@ -140,40 +140,40 @@ public final class BitwiseUtils {
 		return 32 - numberOfLeadingZeros(formula);
 	}
 
-	public static int numberOfTrailingZerosJava(int num) {
-		num = ~num & (num - 1);
-		if (num <= 0)
-			return num & 32;
+	public static int numberOfTrailingZerosJava(int i) {
+		i = ~i & (i - 1);
+		if (i <= 0)
+			return i & 32;
 
 		int n = 1;
-		if (num > 1 << 16) {
+		if (i > 1 << 16) {
 			n += 16;
-			num >>>= 16;
+			i >>>= 16;
 		}
-		if (num > 1 << 8) {
+		if (i > 1 << 8) {
 			n += 8;
-			num >>>= 8;
+			i >>>= 8;
 		}
-		if (num > 1 << 4) {
+		if (i > 1 << 4) {
 			n += 4;
-			num >>>= 4;
+			i >>>= 4;
 		}
-		if (num > 1 << 2) {
+		if (i > 1 << 2) {
 			n += 2;
-			num >>>= 2;
+			i >>>= 2;
 		}
-		return n + (num >>> 1);
+		return n + (i >>> 1);
 	}
 
 	/**
 	 * 
 	 * */
-	public static int lowestOneBit(int num) {
-		return num & -num;
+	public static int lowestOneBit(int i) {
+		return i & -i;
 	}
 
-	public static int highestOneBit(int num) {
-		return 1 << 31 - numberOfLeadingZeros(num);
+	public static int highestOneBit(int i) {
+		return 1 << 31 - numberOfLeadingZeros(i);
 	}
 
 	/**
@@ -184,28 +184,40 @@ public final class BitwiseUtils {
 	 * Integer.MIN_VALUE = 0111111..30 times + 1 = 1000000..30 times
 	 *
 	 */
-	public static int highestOneBitJava(int num) {
-		return num & (Integer.MIN_VALUE >>> numberOfLeadingZeros(num));
+	public static int highestOneBitJava(int i) {
+		return i & (Integer.MIN_VALUE >>> numberOfLeadingZeros(i));
 	}
 
-	public static boolean isNum_2PowerOfJ_Minus_2PowerOfK(int num) {
+	public static boolean isNum_2PowerOfJ_Minus_2PowerOfK(int i) {
 		return false;
 	}
 
-	public static int bitCount(int num) {
+	/**
+	 * Using Kernighan's Algorithm
+	 */
+	public static int bitCountUsingKernighans(int i) {
+		int count = 0;
+		while (i > 0) {
+			i = i - lowestOneBit(i);
+			count++;
+		}
+		return count;
+	}
+
+	public static int bitCount(int i) {
 		return 0;
 	}
 
-	public static int reverseBits(int num) {
+	public static int reverseBits(int i) {
 		return 0;
 	}
 
-	public static int reverseBytes(int num) {
+	public static int reverseBytes(int i) {
 		return 0;
 	}
 
 	/**
-	 * Returns the signum function of the specified {@code int} value. (The return
+	 * Returns the sigi function of the specified {@code int} value. (The return
 	 * value is -1 if the specified value is negative; 0 if the specified value is
 	 * zero; and 1 if the specified value is positive.)
 	 */

@@ -1,5 +1,6 @@
 package edu.sau.ds.linkedlist;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,6 +82,7 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 			return;
 		if (root.data.compareTo(data) == 0) {
 			root = root.next;
+			size--;
 			return;
 		}
 		boolean isRemoved = remove(root, data);
@@ -195,6 +197,9 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 		Node<T> p2 = root;
 
 		while (n > 0) {
+			if (p1 == null)
+				throw new RuntimeException("nth position is greater than the size of the list.");
+
 			p1 = p1.next;
 			n--;
 		}
@@ -202,7 +207,7 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 			p2 = p2.next;
 			p1 = p1.next;
 		}
-		return p2 != null ? p2.data : null;
+		return p2.data;
 	}
 
 	@Override
@@ -212,7 +217,7 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 		}
 
 		Node<T> p1 = root;
-		for (int i = size - n; i > 0; i--) {
+		for (int i = 0; i < size - n; i++) {
 			p1 = p1.next;
 		}
 		return p1 != null ? p1.data : null;
@@ -289,43 +294,46 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 
 	@Override
 	public void insertNodeInSortedLinkedList(T data) {
-		if (root == null || root.data.compareTo(data) >= 0) {
-			insert(data);
+		Node<T> newNode = new Node<>(data);
+		if (this.root == null) {
+			this.root = newNode;
 			return;
 		}
 
-		Node<T> current = root;
-		Node<T> previousNode = null;
-		while (current != null && current.data.compareTo(data) <= 0) {
-			previousNode = current;
-			current = current.next;
+		if (this.root.data.compareTo(data) >= 0) {
+			newNode.next = this.root;
+			this.root = newNode;
+			return;
 		}
 
-		Node<T> newNode = new Node<>(data);
-		previousNode.next = newNode;
-		newNode.next = current;
+		Node<T> head = this.root;
+		while (head.next != null && head.next.data.compareTo(data) < 0) {
+			head = head.next;
+		}
+		newNode.next = head.next;
+		head.next = newNode;
 	}
 
 	// 1,2,3,4,5
 	// 1>null
-	// 2>1
-	// 3>2
-	// 4>3
-	// 5>4
+	// 2>1>null
+	// 3>2>1>null
+	// 4>3>2>1>null
+	// 5>4>3>2>1>null
 	@Override
 	public void reverseListUsingLoop() {
+		Node<T> reverseListHead = null;
+		Node<T> head = root;
 
-		Node<T> previous = null;
-		Node<T> current = root;
+		while (head != null) {
+			Node<T> nextPartOfList = head.next;
 
-		while (current != null) {
-			Node<T> next = current.next;
-			current.next = previous;
+			head.next = reverseListHead;
+			reverseListHead = head;
 
-			previous = current;
-			current = next;
+			head = nextPartOfList;
 		}
-		root = previous;
+		root = reverseListHead;
 	}
 
 	@Override
@@ -404,15 +412,19 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 		recursiveReverseAlternate(getRootNode());
 	}
 
+	// 1>2>3>4>5
 	private void recursiveReverseAlternate(Node<T> current) {
 		if (current == null || current.next == null) {
+			// root set to 5.
 			root = current;
 			return;
 		}
-
 		recursiveReverseAlternate(current.next);
-
+		// current(4).next(5).next=4>5 | 5>4>5
+		// current(3).next(4).next =3>4 | 5>4>3>4 ...
 		current.next.next = current;
+		// 5>4
+		// 5>4>3 ...
 		current.next = null;
 	}
 
@@ -437,8 +449,8 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 
 	@Override
 	public Node<T> findIntersectingNodeOfTwoListsUsingStack(List<T> inputList) {
-		Deque<Node<T>> stack1 = new java.util.LinkedList<>();
-		Deque<Node<T>> stack2 = new java.util.LinkedList<>();
+		Deque<Node<T>> stack1 = new ArrayDeque<>();
+		Deque<Node<T>> stack2 = new ArrayDeque<>();
 
 		Node<T> startA = getRootNode();
 		while (startA != null) {
@@ -468,17 +480,14 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 
 	@Override
 	public Node<T> findIntersectingNodeOfTwoListsUsingDistance(List<T> inputList) {
-		int L1 = size();
-		int L2 = inputList.size();
-
-		int difference = Math.abs((L1 - L2));
-
 		List<T> longerList = this;
 		List<T> shorterList = inputList;
-		if (L2 > L1) {
+		if (shorterList.size() > longerList.size()) {
 			longerList = inputList;
 			shorterList = this;
 		}
+
+		int difference = longerList.size() - shorterList.size();
 
 		Node<T> shorterListStartNode = shorterList.getRootNode();
 		Node<T> longerListStartNode = longerList.getRootNode();
@@ -502,7 +511,11 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 		Node<T> slowPointer = getRootNode();
 		Node<T> fastPointer = getRootNode();
 
-		while (fastPointer != null && fastPointer.next != null && fastPointer.next.next != null) {
+		// In 1>2>3>4, this will give 2
+		// while (fastPointer.next != null && fastPointer.next.next!=null) {
+
+		// In 1>2>3>4, this will give 3.
+		while (fastPointer != null && fastPointer.next != null) {
 
 			slowPointer = slowPointer.next;
 			fastPointer = fastPointer.next.next;
@@ -530,16 +543,13 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 	@Override
 	public void checkIfListIsEvenOrOdd() {
 		Node<T> temp = getRootNode();
+		while (temp.next != null && (temp = temp.next.next) != null)
+			;
 
-		while (temp != null && temp.next != null) {
-			temp = temp.next.next;
-		}
-
-		if (temp == null) {
+		if (temp == null)
 			System.out.println("EVEN");
-		} else {
+		else
 			System.out.println("ODD");
-		}
 	}
 
 	@Override
@@ -620,7 +630,6 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 
 		temp.next = mergedNodes;
 		return temp;
-
 	}
 
 	private Node<T> mergeListRecursive3(Node<T> nodeA, Node<T> nodeB) {
