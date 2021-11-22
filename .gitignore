@@ -1,7 +1,9 @@
 **/revision/
 .classpath
 .settings
+.gradle
 bin
+.project
 
 # Compiled class file
 *.class

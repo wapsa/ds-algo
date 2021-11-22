@@ -1,4 +1,4 @@
-package edu.sau.algo.sorting;
+package edu.sau.algo.sort;
 
 public class BubbleSort implements Sort {
 

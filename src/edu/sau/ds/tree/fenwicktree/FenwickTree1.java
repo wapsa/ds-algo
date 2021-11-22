@@ -9,12 +9,12 @@ import edu.sau.other.bitwise.BitwiseUtils;
  * 
  * <pre>
  * 
- * index + BitwiseUtils.lowestOneBit(index)  --->> i + (i & -i) - calculates the next upper index which is also responsible 
+ * idash = index + BitwiseUtils.lowestOneBit(index)  --->> i` = i + (i & -i) - calculates the next upper index which is also responsible 
  * to include the current element 'i' in it's sum calculation. Applying this recursively we can keep finding the next upper index which 
  * is also responsible for 'i' which is like climbing the stairs.
  * 
- * index - BitwiseUtils.lowestOneBit(index) --->> i - (i & -1) - calculates the next lower index till which the current 
- * element 'i' is responsible for to hold the sum.
+ * idash = index - BitwiseUtils.lowestOneBit(index) --->> i` = i - (i & -1) - calculates the next lower index till which the current 
+ * element 'i' is responsible for to hold the sum. Lower index 'i`' does not contain upper index i for storing the partial sum.
  * 
  * 
  * Properties of 1-based fenwick tree
@@ -32,6 +32,11 @@ import edu.sau.other.bitwise.BitwiseUtils;
 public class FenwickTree1 implements BinaryIndexedTree<Integer> {
 
 	private int[] bit;
+
+	public FenwickTree1(int length) {
+		super();
+		this.bit = new int[length + 1];
+	}
 
 	public FenwickTree1(int[] input) {
 		super();
@@ -56,7 +61,7 @@ public class FenwickTree1 implements BinaryIndexedTree<Integer> {
 	 */
 	private void buildTreeInNlogN(int[] input) {
 		for (int i = 0; i < input.length; i++) {
-			pointUpdate(i, input[i]);
+			pointAdd(i, input[i]);
 		}
 	}
 
@@ -64,7 +69,7 @@ public class FenwickTree1 implements BinaryIndexedTree<Integer> {
 	 * Time complexity: log(n)
 	 */
 	@Override
-	public void pointUpdate(int zeroBasedIndex, Integer delta) {
+	public void pointAdd(int zeroBasedIndex, Integer delta) {
 
 		// since this implementation we are using one-based index.
 		int i = zeroBasedIndex + 1;
@@ -79,8 +84,8 @@ public class FenwickTree1 implements BinaryIndexedTree<Integer> {
 	}
 
 	@Override
-	public void rangeUpdate(int left, int right, Integer data) {
-
+	public Integer pointQuery(int idx) {
+		return bitSum(idx);
 	}
 
 	@Override
