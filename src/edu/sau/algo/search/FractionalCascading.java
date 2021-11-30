@@ -437,7 +437,7 @@ public class FractionalCascading {
 	 * subset of the list which should be considered
 	 * 
 	 * If targetVal is already present in originalList, the insertion point will be
-	 * before (to the left of) any existing entries. left-most insertion index
+	 * the rightmost element index.
 	 */
 	private static int bisectRight(int[] originalList, int targetVal, int leftIndex, int rightIndex) {
 		while (leftIndex < rightIndex) {
@@ -457,8 +457,8 @@ public class FractionalCascading {
 	 * order. The parameters leftIndex and rightIndex should be used to specify a
 	 * subset of the list which should be considered
 	 * 
-	 * If targetVal is already present in mergedList, the insertion point will be
-	 * before (to the left of) any existing entries. left-most insertion index
+	 * If targetVal is already present in originalList, the insertion point will be
+	 * the rightmost element index.
 	 */
 	private static int bisectRight(Data[] mergedList, int targetVal, int leftIndex, int rightIndex) {
 		while (leftIndex < rightIndex) {
