@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import edu.sau.algo.recursion.RecursionQuestionL1;
+
 /**
  * <pre>
  * https://introcs.cs.princeton.edu/java/23recursion/
@@ -44,7 +46,13 @@ public class PermutationSolution implements PermutationQuestion {
 
 		// INSTANCE.printAllPermutationsInLexicographicOrder1("12345");
 		// INSTANCE.printAllPermutationsInLexicographicOrder2("12345");
-		INSTANCE.printAllPermutationsInLexicographicOrder3("12345");
+		// INSTANCE.printAllPermutationsInLexicographicOrder3("12345");
+
+		// INSTANCE.printStairsPathPermutation(7, new int[] { 1, 2, 3 });
+
+		// INSTANCE.printPermutationOfArrayByFixingInput("abc".toCharArray());
+
+		INSTANCE.printPermutationUsingIncludeExcludeByFixingPos("ab", 3);
 	}
 
 	private void swap(char[] input, int i, int j) {
@@ -64,16 +72,24 @@ public class PermutationSolution implements PermutationQuestion {
 	 * of input-string = O(n*n!)
 	 * 
 	 * Total Space Complexity = O(n*n!)
+	 * 
+	 * <pre>
+	 * Alogorithm approach: Fixing position and taking input as options at each level.
+	 * First level  : At p1 position we are trying all the input options
+	 * Second level : At p2 position we are trying all the remaining input options
+	 * 
+	 * </pre>
 	 */
 	@Override
-	public void printPermutationsOfString(String input, String output) {
+	public void printPermutationsOfStringByFixingPos(String input, String output) {
 
 		if (input.isEmpty()) {
 			System.out.println(output);
 			return;
 		}
 		for (int i = 0; i < input.length(); i++) {
-			printPermutationsOfString(input.substring(0, i) + input.substring(i + 1), output + input.charAt(i));
+			printPermutationsOfStringByFixingPos(input.substring(0, i) + input.substring(i + 1),
+					output + input.charAt(i));
 
 		}
 	}
@@ -85,9 +101,16 @@ public class PermutationSolution implements PermutationQuestion {
 	 * 
 	 * Space Complexity : extra space for output array O(n)
 	 * 
+	 * <pre>
+	 * Alogorithm approach: Fixing position and taking input as options at each level.
+	 * First level  : At p1 position we are trying all the input options
+	 * Second level : At p2 position we are trying all the remaining input options
+	 * 
+	 * </pre>
+	 * 
 	 */
 	@Override
-	public void printPermutationsOfArray1(char[] input, char[] output, int outPos) {
+	public void printPermutationsOfArrayByFixingPos1(char[] input, char[] output, int outPos) {
 
 		if (outPos == output.length) {
 			System.out.println(String.valueOf(output));
@@ -103,7 +126,7 @@ public class PermutationSolution implements PermutationQuestion {
 			output[outPos] = ch;
 			input[i] = Character.MIN_VALUE;
 
-			printPermutationsOfArray1(input, output, outPos + 1);
+			printPermutationsOfArrayByFixingPos1(input, output, outPos + 1);
 
 			input[i] = ch;
 		}
@@ -132,9 +155,16 @@ public class PermutationSolution implements PermutationQuestion {
 	 * So, total number of nodes in the tree = n! + n!/1*2 + n!/1*2*3 + n!/1*2*3*4 +
 	 * .. + n!/n! = n!(1 + 1/1*2 + 1/1*2*3 + 1/1*2*3*4 + .. +1/n!) =~ n!(1+1) = 2n!
 	 * 
+	 * <pre>
+	 * Alogorithm approach: Fixing position and taking input as options at each level.
+	 * First level  : At p1 position we are trying all the input options
+	 * Second level : At p2 position we are trying all the remaining input options
+	 * 
+	 * </pre>
+	 * 
 	 */
 	@Override
-	public void printPermutationsOfArray2(char[] input, int position) {
+	public void printPermutationsOfArrayByFixingPos2(char[] input, int position) {
 		// Single element at last position is fixed in itself, so we can avoid self-swap
 		// at last position by checking (position == input.length - 1) instead of
 		// (position == input.length)
@@ -145,7 +175,7 @@ public class PermutationSolution implements PermutationQuestion {
 
 		for (int i = position; i < input.length; i++) {
 			swap(input, position, i);
-			printPermutationsOfArray2(input, position + 1);
+			printPermutationsOfArrayByFixingPos2(input, position + 1);
 			swap(input, position, i);
 		}
 	}
@@ -187,7 +217,7 @@ public class PermutationSolution implements PermutationQuestion {
 	 * Same strategy need to be called for fixing the position P1 and P2.
 	 *          </pre>
 	 */
-	public void printPermutationsOfArray3(char[] input, int n) {
+	public void printPermutationsOfArrayByFixingPos3(char[] input, int n) {
 
 		// when n reaches to 0th index of input array
 		if (n == 1) {
@@ -208,13 +238,74 @@ public class PermutationSolution implements PermutationQuestion {
 		for (int i = 0; i < n; i++) {
 
 			swap(input, i, n - 1);
-			printPermutationsOfArray3(input, n - 1);
+			printPermutationsOfArrayByFixingPos3(input, n - 1);
 
 			// We are reverse swapping so that we can explore the other branch of the same
 			// input, i.e. back-tracing
 
 			swap(input, i, n - 1);
 		}
+	}
+
+	@Override
+	public void printPermutationOfArrayByFixingInput(char[] input) {
+		printPermutationOfArrayByFixingInput(input, 0, new char[input.length]);
+	}
+
+	/**
+	 * <pre>
+	 * Alogorithm approach: Fixing input and taking position as options at each level.
+	 * First level  : for 0th index input, we try all the positions as option
+	 * Second level : for 1th index input, we try all the remaining positions as option
+	 * 
+	 * We visit next level via recusion invocation and since input  is getting changed at
+	 *  next level, so we pass input_index as method param.
+	 *
+	 * How to track the remaining position for next level :
+	 * 1.Either place postions in list, and remove the used positions.
+	 * 2.Use the output-array as postions tracker, and at next level only use the 
+	 * un-occupied positions.
+	 * </pre>
+	 * 
+	 */
+	private void printPermutationOfArrayByFixingInput(char[] input, int idx, char[] output) {
+		if (idx == input.length) {
+			System.out.println(String.valueOf(output));
+			return;
+		}
+
+		for (int i = 0; i < output.length; i++) {
+			// only use unoccupied positions for next element.
+			if (output[i] == Character.MIN_VALUE) {
+				output[i] = input[idx];
+				printPermutationOfArrayByFixingInput(input, idx + 1, output);
+				// resetting the position after we have tried it.
+				output[i] = Character.MIN_VALUE;
+			}
+		}
+	}
+
+	@Override
+	public void printPermutationUsingIncludeExcludeByFixingPos(String input, int positionCount) {
+		printPermutationUsingIncludeExcludeByFixingPos(input, positionCount, 0, "");
+	}
+
+	private void printPermutationUsingIncludeExcludeByFixingPos(String input, int positionCount, int posToFix,
+			String output) {
+		if (posToFix == positionCount) {
+			if (input.isEmpty())
+				System.out.println(output);
+			return;
+		}
+
+		printPermutationUsingIncludeExcludeByFixingPos(input, positionCount, posToFix + 1, output + "_");
+
+		for (int i = 0; i < input.length(); i++) {
+			char ch = input.charAt(i);
+			String remainingInput = input.substring(0, i) + input.substring(i + 1);
+			printPermutationUsingIncludeExcludeByFixingPos(remainingInput, positionCount, posToFix + 1, output + ch);
+		}
+
 	}
 
 	/**
@@ -605,7 +696,7 @@ public class PermutationSolution implements PermutationQuestion {
 	 */
 	@Override
 	public void printAllPermutationsInLexicographicOrder1(String inputString) {
-		printPermutationsOfString(inputString, "");
+		printPermutationsOfStringByFixingPos(inputString, "");
 	}
 
 	/**
@@ -644,6 +735,41 @@ public class PermutationSolution implements PermutationQuestion {
 			inputString = String.valueOf(input);
 			System.out.println(inputString);
 		}
+	}
+
+	/**
+	 * <pre>
+	 * 
+	 * STRATEGY: We pick all the options i.e. allowedSteps as branch of recursive_tree at each level 
+	 * and maintain the following two : 
+	 * 1. solution path so far by appending the option
+	 * 2. remaing targetValue ie.(targetValue - option)
+	 * 
+	 * HYPOTHEISIS : printStairPathPermutation(7,[1,2,3], "") : provide all the
+	 * allowed paths
+	 * 
+	 * SUBSTITUTION: 
+	 * printStairPathPermutation(6,[1,2,3], "1") :  add option "1" to solution path and 
+	 * then explore the remaining using substitution.
+	 * 
+	 * printStairPathPermutation(5,[1,2,3], "2") : add option "2" to solution path and 
+	 * then explore the remaining using substitution.
+	 * 
+	 *printStairPathPermutation(4,[1,2,3], "3") :add option "3" to solution path and 
+	 * then explore the remaining using substitution.
+	 * 
+	 * INDUCTION: 1st part of any path is appended to path_so_far by main code and remaining part
+	 * is appended to path_so_far by  substitution step.
+	 * </pre>
+	 * 
+	 * TODO: Time complexity :
+	 * https://www.geeksforgeeks.org/count-ways-reach-nth-stair/
+	 * 
+	 * @param path represents the path formed so far.
+	 */
+	@Override
+	public void printStairsPathPermutation(int noOfStep, int[] allowedSteps) {
+		RecursionQuestionL1.INSTANCE.printStairsPathPermutation(noOfStep, allowedSteps);
 	}
 
 }

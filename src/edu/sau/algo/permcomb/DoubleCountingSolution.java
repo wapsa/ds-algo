@@ -103,8 +103,10 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 
 	public static void main(String[] args) {
 
-		// INSTANCE.nCkUsingPascalIdentity(3, "abcde", "");
+		//INSTANCE.printPowerSetUsingPascalIdentityExpansion1("abc");
+		//INSTANCE.printPowerSetUsingPascalIdentityExpansion2("abc".toCharArray());
 
+		INSTANCE.printPowerSetUsingPascalIdentityByFixingPosition(3);
 	}
 
 	@Override
@@ -170,8 +172,8 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 	}
 
 	@Override
-	public void printPowerSetUsingPascalIdentityExpansion(String input) {
-		printPowerSetUsingPascalIdentityExpansion(input, "");
+	public void printPowerSetUsingPascalIdentityExpansion1(String input) {
+		printPowerSetUsingPascalIdentityExpansion1(input, "");
 	}
 
 	/**
@@ -194,10 +196,25 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 	 * "powerSetUsingPascalIdentity". As in Include-Exclude based method all the
 	 * outputs are printed at leaf-level.
 	 */
-	private void printPowerSetUsingPascalIdentityExpansion(String input, String output) {
+	private void printPowerSetUsingPascalIdentityExpansion1(String input, String output) {
 		System.out.println(output);
 		for (int i = 0; i < input.length(); i++)
-			printPowerSetUsingPascalIdentityExpansion(input.substring(i + 1), output + input.charAt(i));
+			printPowerSetUsingPascalIdentityExpansion1(input.substring(i + 1), output + input.charAt(i));
+	}
+
+	@Override
+	public void printPowerSetUsingPascalIdentityExpansion2(char[] input) {
+		printPowerSetUsingPascalIdentityExpansion2(input, 0, "");
+
+	}
+
+	private void printPowerSetUsingPascalIdentityExpansion2(char[] input, int idx, String output) {
+		System.out.println(output);
+		while (idx < input.length) {
+			char ch = input[idx];
+			idx = idx + 1;
+			printPowerSetUsingPascalIdentityExpansion2(input, idx, output + ch);
+		}
 	}
 
 	@Override
@@ -363,9 +380,7 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 				nCkUsingPascalIdentity1(desizedLength, input.substring(1), output + input.substring(0, 1));
 				nCkUsingPascalIdentity1(desizedLength, input.substring(1), output);
 			}
-
 		}
-
 	}
 
 	@Override
@@ -379,6 +394,22 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 		// calling the powerSet method by including the given character
 		printPowerSetUsingPascalIdentity(newInputExcludingChar, String.valueOf(charcterToInclude));
 
+	}
+
+	@Override
+	public void printPowerSetUsingPascalIdentityByFixingPosition(int positionCount) {
+		printPowerSetUsingPascalIdentityByFixingPosition(positionCount, "", 0);
+	}
+
+	private void printPowerSetUsingPascalIdentityByFixingPosition(int positionCount, String output, int posToFix) {
+		if(posToFix == positionCount) {
+			System.out.println(output);
+			return;
+		}
+		// exclude
+		printPowerSetUsingPascalIdentityByFixingPosition(positionCount, output + "_", posToFix + 1);
+		// include
+		printPowerSetUsingPascalIdentityByFixingPosition(positionCount, output + "i", posToFix + 1);
 	}
 
 }

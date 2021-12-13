@@ -1,6 +1,9 @@
 package edu.sau.algo.recursion;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import edu.sau.algebra.BinaryExponentiation;
 import edu.sau.algo.permcomb.CombinationQuestion;
@@ -34,7 +37,37 @@ public class RecursionSolutionLevel1 implements RecursionQuestionL1 {
 
 		// INSTANCE.printSubsequences("abc");
 
-		INSTANCE.printGroupCombination(new String[] { "abc", "def" });
+		// System.out.println(INSTANCE.getGroupCombination(new String[] { "abc", "def"
+		// }));
+
+		// INSTANCE.printGroupCombination(new String[] { "abc", "def" });
+
+		// INSTANCE.printStairsPathPermutation(7, new int[] { 1, 2, 3 });
+		// System.out.println(INSTANCE.getStairsPathPermutation(7, new int[] { 1, 2, 3
+		// }));
+
+		// INSTANCE.printMazePathsToReachDestination1(0, 0, 2, 2);
+		// System.out.println(INSTANCE.getMazePathsToReachDestination1(0, 0, 2, 2));
+
+		// INSTANCE.printMazePathsToReachDestination2(0, 0, 2, 2);
+		// System.out.println(INSTANCE.getMazePathsToReachDestination2(0, 0, 2, 2));
+
+		// INSTANCE.printMazePathsToReachDestination3(0, 0, 2, 2);
+		// System.out.println(INSTANCE.getMazePathsToReachDestination3(0, 0, 2, 2));
+
+		// INSTANCE.printEncodings("1211");
+
+		// int[][] maze1 = new int[][] { { 0, 1, 1 }, { 0, 1, 1 }, { 0, 0, 0 } };
+		// int[][] maze2 = new int[][] { { 0, 1, 1, 1, 1 }, { 0, 1, 1, 1, 1 }, { 0, 0,
+		// 0, 0, 0 }, { 0, 1, 1, 1, 0 },
+		// { 0, 0, 0, 0, 0 } };
+		// INSTANCE.printMazePathsAvoidingObstaclesToReachDestination4(maze2, 0, 0, 4,
+		// 4);
+
+		// INSTANCE.printNQueenAllowedPlacements(5);
+
+		INSTANCE.printKnightTour(6, 2, 2);
+
 	}
 
 	/**
@@ -299,8 +332,506 @@ public class RecursionSolutionLevel1 implements RecursionQuestionL1 {
 	}
 
 	@Override
+	public List<String> getGroupCombination(String[] groups) {
+		return CombinationQuestion.INSTANCE.getGroupCombination(groups);
+	}
+
+	@Override
 	public void printGroupCombination(String[] groups) {
 		CombinationQuestion.INSTANCE.printGroupCombination(groups);
+	}
+
+	@Override
+	public void printStairsPathPermutation(int noOfStep, int[] allowedSteps) {
+		printStairsPathPermutation(noOfStep, allowedSteps, "");
+		// printStairsPathPermutation(noOfStep, allowedSteps, new ArrayList<>());
+	}
+
+	private void printStairsPathPermutation(int noOfStep, int[] allowedSteps, List<Integer> paths) {
+		if (noOfStep < 0)
+			return;
+		if (noOfStep == 0) {
+			System.out.println(paths);
+			return;
+		}
+		for (int i = 0; i < allowedSteps.length; i++) {
+			List<Integer> pathList = new ArrayList<>(paths);
+			pathList.add(allowedSteps[i]);
+			printStairsPathPermutation(noOfStep - allowedSteps[i], allowedSteps, pathList);
+		}
+	}
+
+	/**
+	 * <pre>
+	 * HYPOTHEISIS : getStairPathPermutation2(7,[1,2,3], "") : provide all the
+	 * allowed paths
+	 * 
+	 * SUBSTITUTION: getStairPathPermutation2(6,[1,2,3], "1") : add the remaining
+	 * paths to 1 getStairPathPermutation2(5,[1,2,3], "2") : add the remaining paths
+	 * to 2 getStairPathPermutation2(4,[1,2,3], "3") : add the remaining paths to 3
+	 * 
+	 * INDUCTION: 1st part of any path is provided by main code and remaining part
+	 * is expected from substitution step.
+	 */
+	private void printStairsPathPermutation(int noOfStep, int[] allowedSteps, String path) {
+		if (noOfStep < 0)
+			return;
+		if (noOfStep == 0) {
+			System.out.println(path);
+			return;
+		}
+		for (int i = 0; i < allowedSteps.length; i++) {
+			printStairsPathPermutation(noOfStep - allowedSteps[i], allowedSteps, path + allowedSteps[i]);
+		}
+	}
+
+	/**
+	 * Find Permutation of given numbers whose sum is equal to a target_value.
+	 * 
+	 * Example problem statement : Find all the possible stair paths with given
+	 * total number of stairs step and allowed step size. e.g. Total number of setps
+	 * = 7 and at a time we can take step of size 1 or 2 or 3.
+	 * 
+	 * <pre>
+	 * HYPOTHEISIS : printStairPathPermutation(7, [1,2,3]) => print total paths 'n'
+	 * 
+	 * SUBSTITUTION: 
+	 * printStairPathPermutation(6, [1,2,3]) => provide all the subPaths that starts
+	 * with 1
+	 * 
+	 * printStairPathPermutation(5, [1,2,3]) => provide all the subPaths that starts
+	 * with 2
+	 * 
+	 * printStairPathPermutation(4, [1,2,3]) => provide all the subPaths that starts
+	 * with 3
+	 * 
+	 * INDUCTION STRATEGY : prepend 1, 2, 3 to  paths returned by respective substitution methods.
+	 * 
+	 * 
+	 * </pre>
+	 */
+	@Override
+	public List<String> getStairsPathPermutation(int noOfSteps, int[] allowedSteps) {
+		// targetValue becomes negative for invalid path
+		if (noOfSteps < 0) {
+			return List.of();
+
+		}
+		// targetValue becomes 0 for valid end of path
+		if (noOfSteps == 0) {
+			return List.of("");
+		}
+
+		List<String> paths = new ArrayList<>();
+		for (int i = 0; i < allowedSteps.length; i++) {
+			List<String> ipaths = getStairsPathPermutation(noOfSteps - allowedSteps[i], allowedSteps);
+
+			for (String path : ipaths) {
+				paths.add(allowedSteps[i] + path);
+			}
+		}
+		return paths;
+	}
+
+	@Override
+	public void printMazePathsToReachDestination1(int startCol, int startRow, int endCol, int endRow) {
+		printMazePathsToReachDestination1(startCol, startRow, endCol, endRow, "");
+	}
+
+	/**
+	 * <pre>
+	 * Print all the possible maze paths between start_pos to end_pos using right
+	 * and down move
+	 * 
+	 * STRATEGY : same as printStairPathPermutation. 
+	 * 
+	 * Time Complexity: T(n) = T(n-1) + T(n-1) 
+	 *                       = 2T(n-1) + 1
+	 *                       = O(2^n)
+	 * </pre>
+	 * 
+	 * @see RecursionSolutionLevel1#getStairsPathPermutation(int, int...)
+	 */
+	private void printMazePathsToReachDestination1(int startCol, int startRow, int endCol, int endRow, String path) {
+		if (startCol > endCol || startRow > endRow)
+			return;
+		if (startCol == endCol && startRow == endRow) {
+			System.out.println(path + endRow + endCol);
+			return;
+		}
+		printMazePathsToReachDestination1(startCol + 1, startRow, endCol, endRow, (path + startRow + startCol + "h->"));
+		printMazePathsToReachDestination1(startCol, startRow + 1, endCol, endRow, (path + startRow + startCol + "v->"));
+	}
+
+	@Override
+	public List<String> getMazePathsToReachDestination1(int startCol, int startRow, int endCol, int endRow) {
+
+		if (startCol > endCol || startRow > endRow)
+			return List.of();
+
+		if (startCol == endCol && startRow == endRow) {
+			return List.of("" + endRow + endCol);
+		}
+		List<String> paths = new ArrayList<>();
+
+		List<String> horizontalPathMoves = getMazePathsToReachDestination1(startCol + 1, startRow, endCol, endRow);
+		List<String> verticalPathMoves = getMazePathsToReachDestination1(startCol, startRow + 1, endCol, endRow);
+
+		for (String move : horizontalPathMoves)
+			paths.add(startRow + "" + startCol + "h->" + move);
+		for (String move : verticalPathMoves)
+			paths.add(startRow + "" + startCol + "v->" + move);
+
+		return paths;
+	}
+
+	@Override
+	public void printMazePathsToReachDestination2(int startCol, int startRow, int endCol, int endRow) {
+		printMazePathsToReachDestination2(startCol, startRow, endCol, endRow, "");
+	}
+
+	private void printMazePathsToReachDestination2(int startCol, int startRow, int endCol, int endRow, String path) {
+		if (startCol > endCol || startRow > endRow)
+			return;
+		if (startCol == endCol && startRow == endRow) {
+			System.out.println(path + endRow + endCol);
+			return;
+		}
+		printMazePathsToReachDestination2(startCol + 1, startRow, endCol, endRow, (path + startRow + startCol + "h->"));
+		printMazePathsToReachDestination2(startCol, startRow + 1, endCol, endRow, (path + startRow + startCol + "v->"));
+		printMazePathsToReachDestination2(startCol + 1, startRow + 1, endCol, endRow,
+				(path + startRow + startCol + "d->"));
+	}
+
+	@Override
+	public List<String> getMazePathsToReachDestination2(int startCol, int startRow, int endCol, int endRow) {
+
+		if (startCol > endCol || startRow > endRow)
+			return List.of();
+
+		if (startCol == endCol && startRow == endRow) {
+			return List.of("" + endRow + endCol);
+		}
+		List<String> paths = new ArrayList<>();
+
+		List<String> horizontalPathMoves = getMazePathsToReachDestination2(startCol + 1, startRow, endCol, endRow);
+		List<String> verticalPathMoves = getMazePathsToReachDestination2(startCol, startRow + 1, endCol, endRow);
+		List<String> diagonalPathMoves = getMazePathsToReachDestination2(startCol + 1, startRow + 1, endCol, endRow);
+
+		for (String move : horizontalPathMoves)
+			paths.add(startRow + "" + startCol + "h->" + move);
+		for (String move : verticalPathMoves)
+			paths.add(startRow + "" + startCol + "v->" + move);
+		for (String move : diagonalPathMoves)
+			paths.add(startRow + "" + startCol + "d->" + move);
+
+		return paths;
+	}
+
+	@Override
+	public void printMazePathsToReachDestination3(int startCol, int startRow, int endCol, int endRow) {
+		printMazePathsToReachDestination3(startCol, startRow, endCol, endRow, "");
+	}
+
+	/**
+	 * <pre>
+	 * Print all the possible maze paths between start_pos to end_pos using 
+	 * 1. right move of step size  1 to (n-1) uint
+	 * 2. down move of step size 1 to (m-1) unit
+	 * 3. diagonal move of step size 1 to Math.max((n-1), (m-1)) size
+	 * 
+	 * Total recursive method invocations : n(for col) + n(for rows) + n(for diagonal)
+	 *                                    :3n internal recursive calls; so at 0 level recursion tree
+	 *                                     will have 3n branches. thus at leaf level recursion tree will 
+	 *                                     have (3n)^(n) branches
+	 *                                    : O((3n)^n )
+	 * </pre>
+	 */
+	private void printMazePathsToReachDestination3(int startCol, int startRow, int endCol, int endRow, String path) {
+		if (startCol > endCol || startRow > endRow)
+			return;
+		if (startCol == endCol && startRow == endRow) {
+			System.out.println(path + endRow + endCol);
+			return;
+		}
+		for (int stepSize = 1; stepSize <= endCol - startCol; stepSize++) {
+			printMazePathsToReachDestination3(startCol + stepSize, startRow, endCol, endRow,
+					(path + startRow + startCol + "h->"));
+		}
+		for (int stepSize = 1; stepSize <= endRow - startRow; stepSize++) {
+			printMazePathsToReachDestination3(startCol, startRow + stepSize, endCol, endRow,
+					(path + startRow + startCol + "v->"));
+		}
+		for (int stepSize = 1; stepSize <= Math.max(endRow, endCol); stepSize++) {
+			printMazePathsToReachDestination3(startCol + stepSize, startRow + stepSize, endCol, endRow,
+					(path + startRow + startCol + "d->"));
+		}
+	}
+
+	@Override
+	public List<String> getMazePathsToReachDestination3(int startCol, int startRow, int endCol, int endRow) {
+		if (startCol > endCol || startRow > endRow)
+			return List.of();
+
+		if (startCol == endCol && startRow == endRow) {
+			return List.of("" + endRow + endCol);
+		}
+		List<String> paths = new ArrayList<>();
+
+		for (int stepSize = 1; stepSize <= endCol - startCol; stepSize++) {
+			List<String> horizontalPathMoves = getMazePathsToReachDestination3(startCol + stepSize, startRow, endCol,
+					endRow);
+			for (String move : horizontalPathMoves)
+				paths.add(startRow + "" + startCol + "h->" + move);
+		}
+
+		for (int stepSize = 1; stepSize <= endRow - startRow; stepSize++) {
+			List<String> verticalPathMoves = getMazePathsToReachDestination3(startCol, startRow + stepSize, endCol,
+					endRow);
+			for (String move : verticalPathMoves)
+				paths.add(startRow + "" + startCol + "v->" + move);
+		}
+
+		for (int stepSize = 1; stepSize <= Math.max(endRow, endCol); stepSize++) {
+			List<String> diagonalPathMoves = getMazePathsToReachDestination3(startCol + stepSize, startRow + stepSize,
+					endCol, endRow);
+			for (String move : diagonalPathMoves)
+				paths.add(startRow + "" + startCol + "d->" + move);
+		}
+
+		return paths;
+	}
+
+	@Override
+	public void printEncodings(String input) {
+		printEncodings1(input, "");
+		System.out.println("-----");
+		printEncodings2(input, "");
+	}
+
+	private void printEncodings1(String input, String encoding) {
+		if (input.length() == 0) {
+			System.out.println(encoding);
+			return;
+		}
+		char firstDigit = input.charAt(0);
+
+		if (firstDigit == '0')
+			return;
+
+		// converting char to int, 6 = '6' - '0';
+		int firstDigitVal = firstDigit - '0';
+		// c = 'a' + 2
+		char encodedVal = (char) ('a' + firstDigitVal - 1);
+		printEncodings1(input.substring(1), encoding + encodedVal);
+
+		if (input.length() < 2)
+			return;
+
+		String firstTwoDigits = input.substring(0, 2);
+		int firstTwoDigitVal = Integer.valueOf(firstTwoDigits);
+		if (firstTwoDigitVal <= 26) {
+			encodedVal = (char) ('a' + firstTwoDigitVal - 1);
+			printEncodings1(input.substring(2), encoding + encodedVal);
+		}
+
+	}
+
+	private static final Map<String, String> ENCODING_MAP = Map.ofEntries(Map.entry("1", "a"), Map.entry("2", "b"),
+			Map.entry("3", "c"), Map.entry("4", "d"), Map.entry("5", "e"), Map.entry("6", "f"), Map.entry("7", "g"),
+			Map.entry("8", "h"), Map.entry("9", "i"), Map.entry("10", "j"), Map.entry("11", "k"), Map.entry("12", "l"),
+			Map.entry("13", "m"), Map.entry("14", "n"), Map.entry("15", "o"), Map.entry("16", "p"),
+			Map.entry("17", "q"), Map.entry("18", "r"), Map.entry("19", "s"), Map.entry("20", "t"),
+			Map.entry("21", "u"), Map.entry("22", "v"), Map.entry("23", "w"), Map.entry("24", "x"),
+			Map.entry("25", "y"), Map.entry("26", "z"));
+
+	private void printEncodings2(String input, String encoding) {
+		if (input.length() == 0) {
+			System.out.println(encoding);
+			return;
+		}
+
+		// encoding of one digit
+		String firstDigit = input.substring(0, 1);
+		if (ENCODING_MAP.containsKey(firstDigit))
+			printEncodings2(input.substring(1), encoding + ENCODING_MAP.get(firstDigit));
+
+		if (input.length() < 2)
+			return;
+
+		// encoding of two digits
+		String firstTwoDigits = input.substring(0, 2);
+		if (ENCODING_MAP.containsKey(firstTwoDigits))
+			printEncodings2(input.substring(2), encoding + ENCODING_MAP.get(firstTwoDigits));
+	}
+
+	@Override
+	public void printMazePathsAvoidingObstaclesToReachDestination4(int[][] maze, int startCol, int startRow, int endCol,
+			int endRow) {
+		printMazePathsAvoidingObstaclesToReachDestination4(maze, startCol, startRow, endCol, endRow,
+				new boolean[maze.length][maze[0].length], "");
+	}
+
+	/**
+	 * <pre>
+	 * moves order : l,r,t,d
+	 * moves represent the options of recursion tree .i.e nothing but branch of the recursion tree.
+	 * Level of tree will be represented by row or col reached post recursion invocation.
+	 * 
+	 * Solution  Notes:
+	 * 
+	 * NOTE_1. left_move & right_move ; top_move & down_move are opposite
+	 * moves. Because of their opposite directions path exploration can go in
+	 * infinite loop, so to avoid infinite loop we need to track the visited cells
+	 * of maze.
+	 * 
+	 * NOTE_2. We need to mark the visited-cells to unvisited in return trip of an
+	 * exploration, so that the previous exploration would not impact the next
+	 * exploration path.
+	 * 
+	 * Hypothesis: printObstacledMazePath3(startRow, startCol) : prints all the possible path
+	 * 
+	 * Substitution:
+	 * using option_left : printObstacledMazePath3(startRow, startCol - 1,  "l") : append remaining path to "l" 
+	 * using option_right: printObstacledMazePath3(startRow, startCol + 1 , "r") : append remaining path to "r" 
+	 * using option_top: printObstacledMazePath3(startRow - 1, startCol, "t") : append remaining path to "t" 
+	 * using option_down: printObstacledMazePath3(startRow - 1, startCol, "d") : append remaining path to "d" 
+	 * 
+	 * Induction: main code appends options l,r,t,d to path and remaining path is appended by substitution step.
+	 * </pre>
+	 */
+	private void printMazePathsAvoidingObstaclesToReachDestination4(int[][] maze, int startCol, int startRow,
+			int endCol, int endRow, boolean[][] visited, String path) {
+
+		if (startRow < 0 || startCol < 0 || startRow >= maze.length || startCol >= maze[0].length
+				|| maze[startRow][startCol] == 1 || visited[startRow][startCol])
+			return;
+
+		if (startCol == endCol && startRow == endRow) {
+			System.out.println(path + endRow + endCol);
+			return;
+		}
+
+		visited[startRow][startCol] = true;
+		// left move
+		printMazePathsAvoidingObstaclesToReachDestination4(maze, startCol - 1, startRow, endCol, endRow, visited,
+				path + startRow + startCol + "left->");
+		// right move
+		printMazePathsAvoidingObstaclesToReachDestination4(maze, startCol + 1, startRow, endCol, endRow, visited,
+				path + startRow + startCol + "right->");
+		// up move
+		printMazePathsAvoidingObstaclesToReachDestination4(maze, startCol, startRow - 1, endCol, endRow, visited,
+				path + startRow + startCol + "top->");
+		// down move
+		printMazePathsAvoidingObstaclesToReachDestination4(maze, startCol, startRow + 1, endCol, endRow, visited,
+				path + startRow + startCol + "down->");
+		visited[startRow][startCol] = false;
+	}
+
+	@Override
+	public void printNQueenAllowedPlacements(int n) {
+		printNQueenAllowedPlacements(new int[n][n], 0);
+	}
+
+	/**
+	 * <pre>
+	 * Recursion tree formation Strategy :
+	 * 
+	 * In a single row we can place at-most one queen. 
+	 * 
+	 * Exploration options strategy: In a row a queen can be placed at any column position.
+	 * 
+	 * Tree Node :  represented by Row
+	 * Tree Branch : represented by Columns. 
+	 * 
+	 * Levels of tree: for each row there will be one level in tree.
+	 * 
+	 *   Since row, represents level and we can go to next level via recursion call, 
+	 *   so need to pass row as method parameter
+	 * 
+	 * </pre>
+	 * 
+	 */
+	private void printNQueenAllowedPlacements(int[][] board, int row) {
+		if (row == board.length) {
+			for (int[] x : board) {
+				System.out.println(Arrays.toString(x));
+			}
+			System.out.println("---------------");
+			return;
+		}
+
+		for (int col = 0; col < board.length; col++) {
+			if (isValidQueenPlacementPosition(board, row, col)) {
+				board[row][col] = 1;
+				printNQueenAllowedPlacements(board, row + 1);
+				// removing queen from this col so we can try at next column
+				board[row][col] = 0;
+			}
+		}
+	}
+
+	/**
+	 * 1) No need to validate in next rows because they are empty.
+	 * 
+	 * 2) No need to validate current row because we are making sure current row
+	 * will have no queen because we are doing "board[row][col] = 0;" after each
+	 * trial while backtracking.
+	 * 
+	 * Validation Parts for queen moves
+	 * 
+	 * 1) all points above [row][col] point. in same column.
+	 * 
+	 * 2) all points to the left diagonal of [row][col] point.
+	 * 
+	 * 3) all points to the right diagonal of [row][col] point.
+	 */
+	private boolean isValidQueenPlacementPosition(int[][] board, int row, int col) {
+		// Checking above
+		for (int i = row - 1; i >= 0; i--)
+			if (board[i][col] == 1)
+				return false;
+
+		// checking left-up diagonal
+		for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
+			if (board[i][j] == 1)
+				return false;
+
+		// checking right-up diagonal
+		for (int i = row - 1, j = col + 1; i >= 0 && j < board.length; i--, j++)
+			if (board[i][j] == 1)
+				return false;
+
+		return true;
+	}
+
+	@Override
+	public void printKnightTour(int n, int initRow, int initCol) {
+		printKnightTour(new int[n][n], initRow, initCol, 1);
+	}
+
+	private void printKnightTour(int[][] board, int row, int col, int move) {
+
+		if (row < 0 || col < 0 || row >= board.length || col >= board.length || board[row][col] > 0)
+			return;
+
+		board[row][col] = move;
+
+		if (move == board.length * board.length) {
+			for (int[] x : board)
+				System.out.println(Arrays.toString(x));
+			System.out.println("---------------");
+		}
+
+		printKnightTour(board, row - 2, col + 1, move + 1);
+		printKnightTour(board, row - 1, col + 2, move + 1);
+		printKnightTour(board, row + 1, col + 2, move + 1);
+		printKnightTour(board, row + 2, col + 1, move + 1);
+		printKnightTour(board, row + 2, col - 1, move + 1);
+		printKnightTour(board, row + 1, col - 2, move + 1);
+		printKnightTour(board, row - 1, col - 2, move + 1);
+		printKnightTour(board, row - 2, col - 1, move + 1);
+		board[row][col] = 0;
 	}
 
 }

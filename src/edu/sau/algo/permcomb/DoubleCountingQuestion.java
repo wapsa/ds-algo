@@ -10,7 +10,9 @@ public interface DoubleCountingQuestion {
 
 	void printPowerSetUsingPascalIdentity(List<Integer> input);
 
-	void printPowerSetUsingPascalIdentityExpansion(String input);
+	void printPowerSetUsingPascalIdentityExpansion1(String input);
+
+	void printPowerSetUsingPascalIdentityExpansion2(char[] input);
 
 	void printPowerSetUsingSubSequence(String input);
 
@@ -19,5 +21,10 @@ public interface DoubleCountingQuestion {
 	void print_nC2UsingLoop(String input);
 
 	void printPowerSetByIncludingAGivenCharOfInput(int includeCharIndex, String inputString);
+
+	/**
+	 * print power set by placing 'i' at 'n' given positions.
+	 */
+	void printPowerSetUsingPascalIdentityByFixingPosition(int positionCount);
 
 }

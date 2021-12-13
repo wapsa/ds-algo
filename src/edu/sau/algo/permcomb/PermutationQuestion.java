@@ -2,18 +2,26 @@ package edu.sau.algo.permcomb;
 
 public interface PermutationQuestion {
 
-	void printPermutationsOfString(String input, String output);
+	void printPermutationsOfStringByFixingPos(String input, String output);
 
-	void printPermutationsOfArray1(char[] input, char[] output, int outPos);
+	void printPermutationsOfArrayByFixingPos1(char[] input, char[] output, int outPos);
 
-	void printPermutationsOfArray2(char[] input, int position);
+	void printPermutationsOfArrayByFixingPos2(char[] input, int position);
 
-	void printPermutationsOfArray3(char[] input, int n);
-	
+	void printPermutationsOfArrayByFixingPos3(char[] input, int n);
+
+	void printPermutationOfArrayByFixingInput(char[] input);
+
+	/**
+	 * print permutation of 'r' items(input) by arranging them on 'n'
+	 * positions(positionCount)
+	 */
+	void printPermutationUsingIncludeExcludeByFixingPos(String input, int positionCount);
+
 	void printPermutationsOfArrayUsingSJT1(int[] n);
-	
+
 	void printPermutationsOfArrayUsingSJT2(int[] n);
-	
+
 	void printPermutationsOfArrayUsingBRHeap(int[] n);
 
 	/**
@@ -66,5 +74,11 @@ public interface PermutationQuestion {
 	 * Question: Print all permutations in lexicographic order.
 	 */
 	void printAllPermutationsInLexicographicOrder3(String inputString);
+
+	/**
+	 * print all the paths using which we can reach noOfSteps by using the
+	 * possibleOptions given.
+	 */
+	void printStairsPathPermutation(int noOfStep, int[] possibleOptions);
 
 }
