@@ -8,6 +8,8 @@ import java.util.Map;
 import edu.sau.algebra.BinaryExponentiation;
 import edu.sau.algo.permcomb.CombinationQuestion;
 import edu.sau.algo.permcomb.DoubleCountingQuestion;
+import edu.sau.algo.permcomb.PermutationQuestion;
+import edu.sau.algo.permcomb.PermutationSolution;
 
 public class RecursionSolutionLevel1 implements RecursionQuestionL1 {
 
@@ -729,30 +731,47 @@ public class RecursionSolutionLevel1 implements RecursionQuestionL1 {
 	}
 
 	@Override
-	public void printNQueenAllowedPlacements(int n) {
-		printNQueenAllowedPlacements(new int[n][n], 0);
+	public void printNQueenAllowedPlacements1(int n) {
+		CombinationQuestion.INSTANCE.printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(n);
+	}
+
+	@Override
+	public void printNQueenAllowedPlacements2(int n) {
+		PermutationQuestion.INSTANCE.printNQueenPermutationsByFixingPos(n);
+	}
+
+	@Override
+	public void printNQueenAllowedPlacements3(int n) {
+		PermutationQuestion.INSTANCE.printNQueenPermutationsByFixingInput(n);
+	}
+
+	@Override
+	public void printNQueenAllowedPlacements4(int n) {
+		printNQueenCombinationsByFixingRowsAndTryingColumnsAsOptions(new int[n][n], 0);
 	}
 
 	/**
 	 * <pre>
-	 * Recursion tree formation Strategy :
 	 * 
-	 * In a single row we can place at-most one queen. 
+	 * "In a single row we can place at-most one queen.
+	 * Means, a queen can be placed at any column position in a row."
 	 * 
-	 * Exploration options strategy: In a row a queen can be placed at any column position.
+	 * Thus recursion tree formation Strategy will be: 
+	 * i.  we can fix the rows at each level and 
+	 * ii. try the columns as options.
 	 * 
-	 * Tree Node :  represented by Row
-	 * Tree Branch : represented by Columns. 
+	 * Note: we can reverse the strategy like column can be fixed and we can try rows as options.
+	 * 
+	 * Tree Node :  represented by Row as we have fixed the row
+	 * Tree Branch : represented by Columns as we are taking columns as options 
 	 * 
 	 * Levels of tree: for each row there will be one level in tree.
 	 * 
-	 *   Since row, represents level and we can go to next level via recursion call, 
-	 *   so need to pass row as method parameter
-	 * 
+	 * Since we are fixing the rows one by one at each level, and since we can go to next level via recursion call, 
+	 * so need to pass row as method parameter.
 	 * </pre>
-	 * 
 	 */
-	private void printNQueenAllowedPlacements(int[][] board, int row) {
+	private void printNQueenCombinationsByFixingRowsAndTryingColumnsAsOptions(int[][] board, int row) {
 		if (row == board.length) {
 			for (int[] x : board) {
 				System.out.println(Arrays.toString(x));
@@ -764,7 +783,7 @@ public class RecursionSolutionLevel1 implements RecursionQuestionL1 {
 		for (int col = 0; col < board.length; col++) {
 			if (isValidQueenPlacementPosition(board, row, col)) {
 				board[row][col] = 1;
-				printNQueenAllowedPlacements(board, row + 1);
+				printNQueenCombinationsByFixingRowsAndTryingColumnsAsOptions(board, row + 1);
 				// removing queen from this col so we can try at next column
 				board[row][col] = 0;
 			}

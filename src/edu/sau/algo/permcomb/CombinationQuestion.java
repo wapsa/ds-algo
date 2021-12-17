@@ -31,12 +31,38 @@ public interface CombinationQuestion {
 	 * print all the possible combinations by permutation of 'r' identical items at
 	 * 'n'(positionCount) given positions.
 	 */
-	void printCombinationUsingIncludeExcludeByFixingPosition(int positionCount, int r);
+	void printCombinationUsingPascalIdentityByFixingPos(int positionCount, int r);
+
+	/**
+	 * print all the possible combinations by permutation of 'r' identical items at
+	 * 'n'(positionCount) given positions.
+	 */
+	void printCombinationUsingPascalIdentityExpansionByFixingPos(int positionCount, int r);
 
 	/**
 	 * print all the possible combinations by placing 'r' distinct items(input) at
 	 * 'n' given positions(positionCount)
 	 */
 	void printCombinationUsingPermutationByFixingInput(int positionCount, String input);
+
+	/**
+	 * print all the possible combinations by placing 'r' distinct items(input) at
+	 * 'n' given positions(positionCount)
+	 */
+	void printCombinationUsingPermutationByFixingPos(int positionCount, int r);
+
+	/**
+	 * print all the possible combinations by applying permutation/arrangement of
+	 * 'r' identical items in 2D array.
+	 * 
+	 * @param r   : number of identical items
+	 * @param row : row count
+	 * @param col : column count
+	 */
+	void printCombinationOfItemIn2dArrayUsingPascalIdentityExpansionByFixingPos(int row, int col, int r);
+
+	void printCombinationOfItemIn2dArrayByElongatingAndFixingPos(int row, int col, int r);
+
+	void printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(int n);
 
 }

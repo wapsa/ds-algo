@@ -2,21 +2,94 @@ package edu.sau.algo.permcomb;
 
 public interface PermutationQuestion {
 
-	void printPermutationsOfStringByFixingPos(String input, String output);
+	public static final PermutationSolution INSTANCE = new PermutationSolution();
 
-	void printPermutationsOfArrayByFixingPos1(char[] input, char[] output, int outPos);
+	/**
+	 * print permutations of given input.
+	 */
+	void printPermutationsOfStringByFixingPos(String input);
 
-	void printPermutationsOfArrayByFixingPos2(char[] input, int position);
-
-	void printPermutationsOfArrayByFixingPos3(char[] input, int n);
+	void printPermutationsOfArrayByFixingPos(char[] input);
 
 	void printPermutationOfArrayByFixingInput(char[] input);
 
+	void printPermutationsOfArrayBySwappingAndFixingPos1(char[] input);
+
+	void printPermutationsOfArrayBySwappingAndFixingPos2(char[] input);
+
 	/**
 	 * print permutation of 'r' items(input) by arranging them on 'n'
-	 * positions(positionCount)
+	 * positions(positionCount). r < n
+	 * 
+	 * @param positionCount : represents 'n' positions.
+	 * @param item          : represents 'r' distinct characters
 	 */
-	void printPermutationUsingIncludeExcludeByFixingPos(String input, int positionCount);
+	void printPermutationOfItemInArrayByFixingPos(int positionCount, String item);
+
+	void printPermutationOfItemInArrayByFixingInput(int positionCount, String item);
+
+	/**
+	 * <pre>
+	 * print permutation of 'r' items(may have duplicates) by arranging them on 'n' positions,
+	 * where r <= n.
+	 * 
+	 * permutation_count_for_distinct_item = nPr
+	 *
+	 * permutation_count_for_item_having_duplicates = n! / (n-r)! * i1! * i2!
+	 * where i1 = duplicate count of item1
+	 *       i2 = duplicate count of item2
+	 *
+	 * Example: Given, n = 9, item: "aaabbc" so here r = 6
+	 * permutation_count calculation: n = 9, r = 6, i1_count=3, i2_count=2, i3_count=1
+	 *
+	 * nPr = n! / ((n-r)! * i1! * i2! * i3!) =  9! / ((9-6)! * 3! * 2! * 1!) = 5040
+	 * 
+	 * </pre>
+	 * 
+	 * @param item          : item String represents r chars and can contain
+	 *                      duplicate like aab
+	 * @param positionCount : represents 'n' positions
+	 */
+	void printPermutationOfItemInArrayByHandlingDuplicatesAndFixingPos(int positionCount, String item);
+
+	void printPermutationOfItemInArrayByHandlingDuplicatesAndFixingInput(int positionCount, String item);
+
+	/**
+	 * print permutation of 'r' distinct items by arranging them in 2D-array.
+	 * 
+	 * r < n, where n = row * col
+	 * 
+	 * @param item : represents 'r' distinct characters
+	 * @param row  : row count
+	 * @param col  : column count
+	 */
+	void printPermutationOfItemIn2dArrayByFixingInput(int row, int col, String item);
+
+	void printPermutationOfItemIn2dArrayByFixingPos(int row, int col, String item);
+
+	/**
+	 * print permutation of 'r' distinct items by arranging them in 2d-array by
+	 * using 1d-positions. 2d-array should be elongated and then iterate over
+	 * 1d-indexes.
+	 */
+	void printPermutationOfItemIn2dArrayByElongatingAndFixingInput(int row, int col, String item);
+
+	/**
+	 * print permutation of 'r' distinct items by arranging them in 2D-array, where
+	 * r <= positonCount(row*col)
+	 * 
+	 * Note: Elongating 2D-positions in 1D-positions make sense when we want to fix
+	 * the position. Because position will be passed as method parameter. And it is
+	 * easy to reach the end of 1D-array recursively by incrementing the 'posToFix'
+	 * method parameter than to reach the end cell of 2D-array recursively by
+	 * synchronizing and incrementing the two method parameters 'rowPosToFix' &
+	 * 'colPosToFix'.
+	 */
+	void printPermutationOfItemIn2dArrayByElongatingAndFixingPos(int row, int col, String item);
+
+	void printNQueenPermutationsByFixingPos(int n);
+
+	void printNQueenPermutationsByFixingInput(int n);
 
 	void printPermutationsOfArrayUsingSJT1(int[] n);
 

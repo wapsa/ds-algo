@@ -27,4 +27,6 @@ public interface DoubleCountingQuestion {
 	 */
 	void printPowerSetUsingPascalIdentityByFixingPosition(int positionCount);
 
+	void printPowerSetUsingPascalIdentityExpansionByFixingPosition(int positionCount);
+
 }

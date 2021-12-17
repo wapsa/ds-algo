@@ -172,7 +172,25 @@ public interface RecursionQuestionL1 {
 	 * Print all the possible allowed combinations of N queens on N X N Matrix such
 	 * that no queen can attack the other queens.
 	 */
-	void printNQueenAllowedPlacements(int n);
+	void printNQueenAllowedPlacements1(int n);
+
+	/**
+	 * Print all the possible allowed combinations of N queens on N X N Matrix such
+	 * that no queen can attack the other queens.
+	 */
+	void printNQueenAllowedPlacements2(int n);
+
+	/**
+	 * Print all the possible allowed combinations of N queens on N X N Matrix such
+	 * that no queen can attack the other queens.
+	 */
+	void printNQueenAllowedPlacements3(int n);
+
+	/**
+	 * Print all the possible allowed combinations of N queens on N X N Matrix such
+	 * that no queen can attack the other queens.
+	 */
+	void printNQueenAllowedPlacements4(int n);
 
 	/**
 	 * Print knight(chess knight) tour such that it visits all points on the board

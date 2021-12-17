@@ -1,6 +1,7 @@
 package edu.sau.algo.permcomb;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -103,10 +104,12 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 
 	public static void main(String[] args) {
 
-		//INSTANCE.printPowerSetUsingPascalIdentityExpansion1("abc");
-		//INSTANCE.printPowerSetUsingPascalIdentityExpansion2("abc".toCharArray());
+		// INSTANCE.printPowerSetUsingPascalIdentityExpansion1("abc");
+		// INSTANCE.printPowerSetUsingPascalIdentityExpansion2("abc".toCharArray());
 
-		INSTANCE.printPowerSetUsingPascalIdentityByFixingPosition(3);
+		// INSTANCE.printPowerSetUsingPascalIdentityByFixingPosition(3);
+
+		INSTANCE.printPowerSetUsingPascalIdentityExpansionByFixingPosition(3);
 	}
 
 	@Override
@@ -402,7 +405,7 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 	}
 
 	private void printPowerSetUsingPascalIdentityByFixingPosition(int positionCount, String output, int posToFix) {
-		if(posToFix == positionCount) {
+		if (posToFix == positionCount) {
 			System.out.println(output);
 			return;
 		}
@@ -410,6 +413,30 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 		printPowerSetUsingPascalIdentityByFixingPosition(positionCount, output + "_", posToFix + 1);
 		// include
 		printPowerSetUsingPascalIdentityByFixingPosition(positionCount, output + "i", posToFix + 1);
+	}
+
+	@Override
+	public void printPowerSetUsingPascalIdentityExpansionByFixingPosition(int positionCount) {
+		char[] output = new char[positionCount];
+		Arrays.fill(output, '_');
+		printPowerSetUsingPascalIdentityExpansionByFixingPosition(output, 0);
+	}
+
+	/**
+	 * Position is used for both 1. fixing at levels, and for 2. options to try.
+	 * 
+	 * 1. Position is getting fixed at each level, so passed as method argument.
+	 * 
+	 * 2. position is also getting used as options so is iterated in while loop.
+	 */
+	private void printPowerSetUsingPascalIdentityExpansionByFixingPosition(char[] output, int posToFix) {
+		System.out.println(String.valueOf(output));
+		while (posToFix < output.length) {
+			int currentPos = posToFix;
+			output[currentPos] = 'i';
+			printPowerSetUsingPascalIdentityExpansionByFixingPosition(output, ++posToFix);
+			output[currentPos] = '_';
+		}
 	}
 
 }

@@ -16,7 +16,18 @@ public class CombinationSolution implements CombinationQuestion {
 
 		// INSTANCE.printCombinationUsingIncludeExcludeByFixingPosition(4, 3);
 
-		INSTANCE.printCombinationUsingPermutationByFixingInput(4, "ab");
+		// INSTANCE.printCombinationUsingPermutationByFixingInput(4, "ab");
+
+		// INSTANCE.printCombinationUsingPascalIdentityExpansionByFixingPosition(4, 2);
+
+		// INSTANCE.printCombinationUsingPermutationByFixingPos(4, 2);
+
+		// INSTANCE.printCombinationOfItemIn2dArrayUsingPascalIdentityExpansionByFixingPos(3,
+		// 2, 4);
+
+		// INSTANCE.printCombinationOfItemIn2dArrayByElongatingAndFixingPos(3, 2, 4);
+
+		INSTANCE.printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(4);
 	}
 
 	@Override
@@ -153,7 +164,7 @@ public class CombinationSolution implements CombinationQuestion {
 	}
 
 	@Override
-	public void printCombinationUsingIncludeExcludeByFixingPosition(int positionCount, int r) {
+	public void printCombinationUsingPascalIdentityByFixingPos(int positionCount, int r) {
 		printCombinationUsingIncludeExcludeByFixingPosition(positionCount, r, 0, "");
 
 	}
@@ -169,6 +180,24 @@ public class CombinationSolution implements CombinationQuestion {
 		printCombinationUsingIncludeExcludeByFixingPosition(positionCount, r, posToFix + 1, output + "_");
 		// Include
 		printCombinationUsingIncludeExcludeByFixingPosition(positionCount, r - 1, posToFix + 1, output + "i");
+	}
+
+	@Override
+	public void printCombinationUsingPascalIdentityExpansionByFixingPos(int positionCount, int r) {
+		char[] output = new char[positionCount];
+		Arrays.fill(output, '_');
+		printCombinationUsingPascalIdentityExpansionByFixingPosition(output, r, 0);
+	}
+
+	private void printCombinationUsingPascalIdentityExpansionByFixingPosition(char[] output, int r, int posToFix) {
+		if (r == 0)
+			System.out.println(String.valueOf(output));
+		while (posToFix < output.length) {
+			int currentPos = posToFix;
+			output[currentPos] = 'i';
+			printCombinationUsingPascalIdentityExpansionByFixingPosition(output, r - 1, ++posToFix);
+			output[currentPos] = '_';
+		}
 	}
 
 	@Override
@@ -191,6 +220,138 @@ public class CombinationSolution implements CombinationQuestion {
 				output[pos] = '_';
 			}
 		}
+	}
+
+	@Override
+	public void printCombinationUsingPermutationByFixingPos(int positionCount, int r) {
+		String item = "";
+		for (int i = 0; i < r; i++)
+			item += "i";
+
+		PermutationQuestion.INSTANCE.printPermutationOfItemInArrayByHandlingDuplicatesAndFixingPos(positionCount, item);
+	}
+
+	@Override
+	public void printCombinationOfItemIn2dArrayUsingPascalIdentityExpansionByFixingPos(int row, int col, int r) {
+		char[][] output = new char[row][col];
+		for (char[] x : output) {
+			Arrays.fill(x, '_');
+		}
+		printCombinationOfItemIn2dArrayUsingPascalIdentityExpansionByFixingPosition(output, r, 0, 0);
+	}
+
+	private void printCombinationOfItemIn2dArrayUsingPascalIdentityExpansionByFixingPosition(char[][] output, int r,
+			int rowPosToFix, int colPosToFix) {
+		if (r == 0) {
+			for (int i = 0; i < output.length; i++)
+				System.out.println(Arrays.toString(output[i]));
+			System.out.println("--------------");
+		}
+
+		while (rowPosToFix < output.length) {
+			int currRow = rowPosToFix;
+
+			while (colPosToFix < output[0].length) {
+				int currCol = colPosToFix;
+				output[currRow][currCol] = 'i';
+				++colPosToFix;
+				printCombinationOfItemIn2dArrayUsingPascalIdentityExpansionByFixingPosition(output, r - 1, rowPosToFix,
+						colPosToFix);
+				output[currRow][currCol] = '_';
+			}
+			colPosToFix = 0;
+			++rowPosToFix;
+		}
+	}
+
+	@Override
+	public void printCombinationOfItemIn2dArrayByElongatingAndFixingPos(int row, int col, int r) {
+		char[][] output = new char[row][col];
+		for (char[] x : output)
+			Arrays.fill(x, '_');
+		printCombinationOfItemIn2dArrayByElongatingAndFixingPosUsingPascalIdentityExpansion(r, output, 0);
+	}
+
+	private void printCombinationOfItemIn2dArrayByElongatingAndFixingPosUsingPascalIdentityExpansion(int r,
+			char[][] output, int posToFix) {
+		if (r == 0) {
+			for (int i = 0; i < output.length; i++)
+				System.out.println(Arrays.toString(output[i]));
+			System.out.println("--------------");
+		}
+		while (posToFix < output.length * output[0].length) {
+			int row = posToFix / output[0].length;
+			int col = posToFix % output[0].length;
+			output[row][col] = 'i';
+			printCombinationOfItemIn2dArrayByElongatingAndFixingPosUsingPascalIdentityExpansion(r - 1, output,
+					++posToFix);
+			output[row][col] = '_';
+		}
+	}
+
+	@Override
+	public void printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(int n) {
+		char[][] output = new char[n][n];
+		for (char[] x : output)
+			Arrays.fill(x, '_');
+		printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(output, n, 0);
+	}
+
+	private void printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(char[][] output, int n, int posToFix) {
+		if (n == 0) {
+			for (int i = 0; i < output.length; i++)
+				System.out.println(Arrays.toString(output[i]));
+			System.out.println("--------------");
+		}
+		while (posToFix < output.length * output[0].length) {
+			int row = posToFix / output[0].length;
+			int col = posToFix % output[0].length;
+			posToFix++;
+			if (isValidQueenPlacementByFixingPos(output, row, col)) {
+				output[row][col] = 'q';
+				printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(output, n - 1, posToFix);
+				output[row][col] = '_';
+			}
+		}
+	}
+
+	/**
+	 * <pre>
+	 * 1. We will not validate queen placement on next positions because we are 
+	 * fixings positions, so next positions will be empty till leaf node 
+	 * on the path of euler_tour.
+	 * 
+	 * 
+	 * Remaining validation part on board:
+	 * 1. above-vertical columns
+	 * 2. above-left-diagonal rows-cols 
+	 * 3. above-right-diagonal rows-cols
+	 * 4. horizontal-left columns
+	 * 
+	 * </pre>
+	 */
+	public static boolean isValidQueenPlacementByFixingPos(char[][] board, int row, int col) {
+		// Checking above
+		for (int i = row - 1; i >= 0; i--)
+			if (board[i][col] != '_')
+				return false;
+
+		// Checking to the left
+		for (int i = col - 1; i >= 0; i--)
+			if (board[row][i] != '_')
+				return false;
+
+		// checking left-up diagonal
+		for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
+			if (board[i][j] != '_')
+				return false;
+
+		// checking right-up diagonal
+		for (int i = row - 1, j = col + 1; i >= 0 && j < board.length; i--, j++)
+			if (board[i][j] != '_')
+				return false;
+
+		return true;
 	}
 
 }
