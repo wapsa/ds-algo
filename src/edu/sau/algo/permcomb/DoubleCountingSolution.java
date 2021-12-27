@@ -91,11 +91,6 @@ import java.util.List;
  * 0 1 1 =>{B,C}<br>
  * 1 1 1 =>{A,B,C}<br>
  * 
- * 
- * 
- * 
- * 
- * 
  */
 public class DoubleCountingSolution implements DoubleCountingQuestion {
 

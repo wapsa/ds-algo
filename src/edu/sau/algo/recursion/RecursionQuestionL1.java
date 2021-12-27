@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface RecursionQuestionL1 {
 
-	public static final RecursionSolutionLevel1 INSTANCE = new RecursionSolutionLevel1();
+	public static final RecursionQuestionL1 INSTANCE = new RecursionSolutionLevel1();
 
 	/**
 	 * Print numbers in decreasing order from n till 1 and then in increasing order
@@ -191,6 +191,12 @@ public interface RecursionQuestionL1 {
 	 * that no queen can attack the other queens.
 	 */
 	void printNQueenAllowedPlacements4(int n);
+	
+	/**
+	 * Print all the possible allowed combinations of N queens on N X N Matrix such
+	 * that no queen can attack the other queens.
+	 */
+	void printNQueenAllowedPlacements5(int n);
 
 	/**
 	 * Print knight(chess knight) tour such that it visits all points on the board

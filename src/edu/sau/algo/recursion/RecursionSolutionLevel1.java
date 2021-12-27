@@ -68,7 +68,9 @@ public class RecursionSolutionLevel1 implements RecursionQuestionL1 {
 
 		// INSTANCE.printNQueenAllowedPlacements(5);
 
-		INSTANCE.printKnightTour(6, 2, 2);
+		INSTANCE.printNQueenAllowedPlacements5(5);
+
+		// INSTANCE.printKnightTour(6, 2, 2);
 
 	}
 
@@ -804,6 +806,8 @@ public class RecursionSolutionLevel1 implements RecursionQuestionL1 {
 	 * 2) all points to the left diagonal of [row][col] point.
 	 * 
 	 * 3) all points to the right diagonal of [row][col] point.
+	 * 
+	 * Time complexity: O(n)
 	 */
 	private boolean isValidQueenPlacementPosition(int[][] board, int row, int col) {
 		// Checking above
@@ -820,6 +824,108 @@ public class RecursionSolutionLevel1 implements RecursionQuestionL1 {
 		for (int i = row - 1, j = col + 1; i >= 0 && j < board.length; i--, j++)
 			if (board[i][j] == 1)
 				return false;
+
+		return true;
+	}
+
+	/**
+	 * Time complexity: total number of leaf-node in the tree. (n * n-1 * n-2 *...)
+	 * = n!
+	 * 
+	 * total number of node = 2*n! -1
+	 * 
+	 * Some of the branches are getting truncated by isValidQueenPlacement.
+	 * 
+	 * total time complexity : n! - time complexity of truncating the branches
+	 */
+	@Override
+	public void printNQueenAllowedPlacements5(int n) {
+		boolean[] colTracker = new boolean[n];
+		boolean[] aboveLeftDiagTracker = new boolean[n + n - 1];
+		boolean[] aboveRightDiagTracker = new boolean[n + n - 1];
+		printNQueenCombinationsByFixingRowsAndTryingColumnsAsOptions(new int[n][n], 0, colTracker, aboveLeftDiagTracker,
+				aboveRightDiagTracker);
+	}
+
+	private void printNQueenCombinationsByFixingRowsAndTryingColumnsAsOptions(int[][] board, int rowIdx, boolean[] col,
+			boolean[] aboveLeftDiag, boolean[] aboveRightDiag) {
+		if (rowIdx == board.length) {
+			for (int[] x : board) {
+				System.out.println(Arrays.toString(x));
+			}
+			System.out.println("---------------");
+			return;
+		}
+
+		for (int colIdx = 0; colIdx < board[0].length; colIdx++) {
+
+			if (isValidQueenPlacementPosition(board, rowIdx, colIdx, col, aboveLeftDiag, aboveRightDiag)) {
+				board[rowIdx][colIdx] = 1;
+				col[colIdx] = true;
+				aboveLeftDiag[rowIdx - colIdx + board.length - 1] = true;
+				aboveRightDiag[rowIdx + colIdx] = true;
+				printNQueenCombinationsByFixingRowsAndTryingColumnsAsOptions(board, rowIdx + 1, col, aboveLeftDiag,
+						aboveRightDiag);
+				board[rowIdx][colIdx] = 0;
+				col[colIdx] = false;
+				aboveLeftDiag[rowIdx - colIdx + board.length - 1] = false;
+				aboveRightDiag[rowIdx + colIdx] = false;
+			}
+
+		}
+
+	}
+
+	/**
+	 * <pre>
+	 * 1. We will not validate queen placement in next rows because next rows are
+	 * still empty.
+	 * 
+	 * 2. We will not validate queen placement in current row because we are making
+	 * sure that current row will place at-max one queen through backtracking.
+	 * 
+	 * Remaining validation part on board:
+	 * 1. above vertical columns
+	 * 2. above left-diagonal rows-cols 
+	 * 3. above right-diagonal rows-cols
+	 * 
+	 * above_vertical_column numbering : column numbering can be done with col_index.
+	 * 
+	 * above_left_diagonal numbering:
+	 * 
+	 * 1. columns are decreasing along the direction of a diagonal.
+	 * 
+	 * 2. left_diagonal_count = row_count + col_count - 1
+	 * 
+	 * 3. When we do (row - col), will give us a fixed number for all the boxes representing the 
+	 * given diagonal.
+	 * 
+	 * 4.Since (row - col) will have -ve values for some diagonals, so we need to rescale the
+	 * diagonal numbering so that it can start with 0-index. The max -ve value will be equal 
+	 * to col.length -1;
+	 * 
+	 * above_right_diagonal numbering: 
+	 * 
+	 * 1. columns are increasing along the direction of a diagonal.
+	 *
+	 * 2. right_diagonal_count = row_count + col_count - 1
+	 * 
+	 * 2. When we do (row + col), will give us a +ve fixed number for all the boxes representing the
+	 * given diagonal.
+	 * 
+	 * 
+	 * Time Complexity : O(1)
+	 * 
+	 * </pre>
+	 */
+	private boolean isValidQueenPlacementPosition(int[][] board, int rowIdx, int colIdx, boolean[] col,
+			boolean[] aboveLeftDiag, boolean[] aboveRightDiag) {
+		if (col[colIdx] == true)
+			return false;
+		if (aboveLeftDiag[rowIdx - colIdx + board.length - 1] == true)
+			return false;
+		if (aboveRightDiag[rowIdx + colIdx] == true)
+			return false;
 
 		return true;
 	}

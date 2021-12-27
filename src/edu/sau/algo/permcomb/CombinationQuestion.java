@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CombinationQuestion {
 
-	public static final CombinationSolution INSTANCE = new CombinationSolution();
+	public static final CombinationQuestion INSTANCE = new CombinationSolution();
 
 	/**
 	 * Get all possible combinations that can be formed by picking one character

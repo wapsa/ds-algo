@@ -2,7 +2,7 @@ package edu.sau.algo.permcomb;
 
 public interface PermutationQuestion {
 
-	public static final PermutationSolution INSTANCE = new PermutationSolution();
+	public static final PermutationQuestion INSTANCE = new PermutationSolution();
 
 	/**
 	 * print permutations of given input.
