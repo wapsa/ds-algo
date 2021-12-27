@@ -16,6 +16,12 @@ public class RecursionSolutionLevel2 implements RecursionQuestionL2 {
 		printAbbreviationsUsingPascalIdentityExpansion1(input.toCharArray(), 0, output);
 	}
 
+	/**
+	 * 
+	 * STEP1 :Need to create powerset with emptyplaceholder ''.
+	 *
+	 * STEP2: While printing we need to count the empty_placeholder.
+	 */
 	private void printAbbreviationsUsingPascalIdentityExpansion1(char[] input, int posToFix, char[] output) {
 		String print = "";
 		int emptyCounter = 0;
@@ -45,11 +51,12 @@ public class RecursionSolutionLevel2 implements RecursionQuestionL2 {
 	}
 
 	private void printAbbreviationsUsingPascalIdentityExpansion2(char[] input, int posToFix, String output) {
+		// adding end_empty_count to print string.
 		System.out.println((input.length - posToFix) == 0 ? output : output + (input.length - posToFix));
-		
+
 		int currentPosToFix = posToFix;
 		while (posToFix < input.length) {
-
+			// we are adding before_empty_count to output for next level.
 			String newOutput = output;
 			if (posToFix - currentPosToFix != 0)
 				newOutput = newOutput + (posToFix - currentPosToFix);
