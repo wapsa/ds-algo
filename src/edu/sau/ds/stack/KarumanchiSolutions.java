@@ -1304,18 +1304,18 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 		int leftMax = hist[0];
 		int rightMax = hist[hist.length - 1];
 
-		int left = 1;
-		int right = hist.length - 2;
+		int leftIdx = 1;
+		int rightIdx = hist.length - 2;
 
-		while (left <= right) {
+		while (leftIdx <= rightIdx) {
 			if (leftMax <= rightMax) {
-				totalWater = totalWater + Math.max(0, leftMax - hist[left]);
-				leftMax = Math.max(leftMax, hist[left]);
-				left++;
+				totalWater = totalWater + Math.max(0, leftMax - hist[leftIdx]);
+				leftMax = Math.max(leftMax, hist[leftIdx]);
+				leftIdx++;
 			} else {
-				totalWater = totalWater + Math.max(0, rightMax - hist[right]);
-				rightMax = Math.max(rightMax, hist[right]);
-				right--;
+				totalWater = totalWater + Math.max(0, rightMax - hist[rightIdx]);
+				rightMax = Math.max(rightMax, hist[rightIdx]);
+				rightIdx--;
 			}
 		}
 		return totalWater;

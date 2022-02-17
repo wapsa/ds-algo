@@ -100,11 +100,11 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 	public static void main(String[] args) {
 
 		// INSTANCE.printPowerSetUsingPascalIdentityExpansion1("abc");
-		// INSTANCE.printPowerSetUsingPascalIdentityExpansion2("abc".toCharArray());
+		INSTANCE.printPowerSetUsingPascalIdentityExpansion2("abc".toCharArray());
 
 		// INSTANCE.printPowerSetUsingPascalIdentityByFixingPosition(3);
 
-		INSTANCE.printPowerSetUsingPascalIdentityExpansionByFixingPosition(3);
+		// INSTANCE.printPowerSetUsingPascalIdentityExpansionByFixingPosition(3);
 	}
 
 	@Override
@@ -202,16 +202,18 @@ public class DoubleCountingSolution implements DoubleCountingQuestion {
 
 	@Override
 	public void printPowerSetUsingPascalIdentityExpansion2(char[] input) {
-		printPowerSetUsingPascalIdentityExpansion2(input, 0, "");
+		printPowerSetUsingPascalIdentityExpansion2(input, new char[input.length], 0);
 
 	}
 
-	private void printPowerSetUsingPascalIdentityExpansion2(char[] input, int idx, String output) {
-		System.out.println(output);
-		while (idx < input.length) {
-			char ch = input[idx];
-			idx = idx + 1;
-			printPowerSetUsingPascalIdentityExpansion2(input, idx, output + ch);
+	private void printPowerSetUsingPascalIdentityExpansion2(char[] input, char[] output, int posToFix) {
+		System.out.println(Arrays.toString(output));
+		while (posToFix < input.length) {
+			int currentPos = posToFix;
+			posToFix = posToFix + 1;
+			output[currentPos] = input[currentPos];
+			printPowerSetUsingPascalIdentityExpansion2(input, output, posToFix);
+			output[currentPos] = Character.MIN_VALUE;
 		}
 	}
 

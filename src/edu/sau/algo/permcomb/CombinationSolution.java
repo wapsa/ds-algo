@@ -3,6 +3,8 @@ package edu.sau.algo.permcomb;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CombinationSolution implements CombinationQuestion {
 
@@ -27,7 +29,9 @@ public class CombinationSolution implements CombinationQuestion {
 
 		// INSTANCE.printCombinationOfItemIn2dArrayByElongatingAndFixingPos(3, 2, 4);
 
-		INSTANCE.printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(4);
+		// INSTANCE.printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(4);
+
+		INSTANCE.printCombinationByUsingPIEAndHandlingDuplicates("aabbbccdde", 3);
 	}
 
 	@Override
@@ -352,6 +356,23 @@ public class CombinationSolution implements CombinationQuestion {
 				return false;
 
 		return true;
+	}
+
+	@Override
+	public void printCombinationByUsingPIEAndHandlingDuplicates(String input, int r) {
+		String distinctChars = input.chars().distinct().mapToObj(c -> String.valueOf((char) c))
+				.collect(Collectors.joining());
+
+		printCombinationByUsingPIEAndHandlingDuplicates(distinctChars, 0, r, "");
+	}
+
+	private void printCombinationByUsingPIEAndHandlingDuplicates(String input, int idx, int r, String output) {
+		if (r == 0) {
+			System.out.println(output);
+			return;
+		}
+		for (int i = idx; i < input.length(); i++)
+			printCombinationByUsingPIEAndHandlingDuplicates(input, i + 1, r - 1, output + input.charAt(i));
 	}
 
 }

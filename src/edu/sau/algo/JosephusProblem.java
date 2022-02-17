@@ -10,7 +10,7 @@ public class JosephusProblem {
 
 	public static void main(String[] args) {
 
-		int[] persons = new int[] { 1, 2, 3, 4 };
+		int[] persons = new int[] { 1, 2, 3, 4, 5 };
 
 		// works when k = 2
 		josephusBitwise1(persons);
@@ -21,10 +21,6 @@ public class JosephusProblem {
 		josephusCircleElimination1(persons, k);
 		josephusCircleElimination2(persons, k);
 		josephusCircleElimination3(persons, k);
-
-		System.out.println(Integer.toBinaryString(-1));
-
-		System.out.println(Integer.numberOfLeadingZeros(Integer.MAX_VALUE));
 	}
 
 	/**
@@ -64,8 +60,21 @@ public class JosephusProblem {
 		System.out.println("Safe person: " + persons[safePosition] + " is at position: " + safePosition);
 	}
 
-	private static int recursiveJosephus(int n, int k) {
-		return n > 1 ? (recursiveJosephus(n - 1, k) + k - 1) % n + 1 : 1;
+	/**
+	 * <pre>
+	 * Assumption: n starts with 0.
+	 * Hypothesis: recursiveJosephus(n=5, k=3) --> j5
+	 * Substitution: recursiveJosephus(n=4, k=3) --> j4
+	 * Induction: Deriving j5 using j4; --> see JosephusProblem.pdf
+	 * </pre>
+	 */
+	public static int recursiveJosephus(int n, int k) {
+		if (n == 1)
+			return 0;
+
+		int j_nMinus1 = recursiveJosephus(n - 1, k);
+		int j_n = (j_nMinus1 + k) % n;
+		return j_n;
 	}
 
 	private static void josephusCircleElimination3(int[] persons, int k) {

@@ -65,4 +65,6 @@ public interface CombinationQuestion {
 
 	void printNQueenCombinationsUsingPascalIdentityExpansionByFixingPos(int n);
 
+	void printCombinationByUsingPIEAndHandlingDuplicates(String input, int r);
+
 }

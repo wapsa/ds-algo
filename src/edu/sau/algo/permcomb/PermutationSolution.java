@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import edu.sau.algo.recursion.RecursionQuestionL1;
+import edu.sau.other.bitwise.BitwiseUtils;
 
 /**
  * <pre>
@@ -49,7 +51,7 @@ public class PermutationSolution implements PermutationQuestion {
 		// "abcd");
 
 		// INSTANCE.printNQueenPermutationsByFixingPos(4);
-		INSTANCE.printNQueenPermutationsByFixingInput(4);
+		// INSTANCE.printNQueenPermutationsByFixingInput(4);
 
 //		INSTANCE.printPermutationsOfArrayUsingSJT1(new int[] { 1, 2, 3 });
 
@@ -71,6 +73,8 @@ public class PermutationSolution implements PermutationQuestion {
 //		INSTANCE.printAllPermutationsInLexicographicOrder3("12345");
 //
 //		INSTANCE.printStairsPathPermutation(7, new int[] { 1, 2, 3 });
+
+		INSTANCE.printPalindromicPermutations("aabbccc");
 
 	}
 
@@ -1147,6 +1151,85 @@ public class PermutationSolution implements PermutationQuestion {
 	@Override
 	public void printStairsPathPermutation(int noOfStep, int[] allowedSteps) {
 		RecursionQuestionL1.INSTANCE.printStairsPathPermutation(noOfStep, allowedSteps);
+	}
+
+	/**
+	 * <pre>
+	 * Properties of palindrome:
+	 * 
+	 * 1. If length of palindrome string is even, then frequency of all the chars will
+	 * be even. 
+	 *  Example.   abba -> a2b2 ; aabbbbaa; a4b4
+	 * 
+	 * 2. If length of palindrome string is odd, then frequency of all the chars will be 
+	 * even except one char whose frequency will be odd.
+	 * 
+	 * Example: abcccba -> a2b2c3--> a2b2c2c1
+	 * 
+	 * Algorithm:
+	 * 
+	 * STEP1: generate the permutation of chars by diving the frequency by 2 using integer division.
+	 * 
+	 * Example of even length aabbbbaa --> a4b4 --> divideBy2 --> a2b2; means need to generate permutation for a2b2.
+	 * Example of odd length abcccba -> a2b2c3--> a2b2c2c1--> divideBy2 --> a1b1c1c0 ; means need to generate permutation 
+	 *  for a1b1c1
+	 * 
+	 * STEP2: place the optional odd char in mid  and reverse the permutation and append at end.
+	 *
+	 *  Example of even: aabbbbaa --> a4b4--> divideBy2 --> a2b2
+	 *  Permutations of a2b2: aabb,abba, abab ,bbaa ,baab ,baba
+	 *  -- Since example is of even so there is no mid char
+	 *   "aabb" + reverse("aabb") = "aabb" + "bbaa" = aabbbbaa
+	 *
+	 *  Example of odd length abcccba -> a2b2c3--> a2b2c2c1--> divideBy2 --> a1b1c1c0 means  a1b1c1
+	 *   Permutations of a1b1c1 : abc, acb, bac, bca, cab,cba
+	 *   -- Since example is of odd so there is mid char whose frequency came to 0 i.e. c
+	 *   "acb" + mid_char + reverse("acb") = "acb" + c + bca = acbcbca
+	 * 
+	 * </pre>
+	 * 
+	 */
+	@Override
+	public void printPalindromicPermutations(String input) {
+		Map<Character, Integer> charFreqMap = new HashMap<>();
+		for (char ch : input.toCharArray())
+			if (charFreqMap.containsKey(ch))
+				charFreqMap.put(ch, charFreqMap.get(ch) + 1);
+			else
+				charFreqMap.put(ch, 1);
+
+		Character oddFreqCh = null;
+		for (char ch : charFreqMap.keySet()) {
+			int frequency = charFreqMap.get(ch);
+			if (!BitwiseUtils.isEvenNumber(frequency)) {
+				if (oddFreqCh != null) {
+					throw new IllegalArgumentException("Palindrome is not possible.");
+				}
+				oddFreqCh = ch;
+			}
+			charFreqMap.compute(ch, (k, v) -> v / 2);
+		}
+		int sum = charFreqMap.values().stream().reduce(0, Integer::sum);
+
+		printPalindromicPermutationsByFixingPosition(charFreqMap, 0, new char[sum], Optional.ofNullable(oddFreqCh));
+	}
+
+	private void printPalindromicPermutationsByFixingPosition(Map<Character, Integer> charFreqMap, int posToFix,
+			char[] output, Optional<Character> oddFreqChar) {
+		if (posToFix == output.length) {
+			String opString = String.valueOf(output);
+			String reverseString = new StringBuilder(opString).reverse().toString();
+			System.out.println(opString + (oddFreqChar.isEmpty() ? "" : oddFreqChar.get()) + reverseString);
+			return;
+		}
+		for (Map.Entry<Character, Integer> entry : charFreqMap.entrySet()) {
+			if (entry.getValue() > 0) {
+				output[posToFix] = entry.getKey();
+				entry.setValue(entry.getValue() - 1);
+				printPalindromicPermutationsByFixingPosition(charFreqMap, posToFix + 1, output, oddFreqChar);
+				entry.setValue(entry.getValue() + 1);
+			}
+		}
 	}
 
 }
