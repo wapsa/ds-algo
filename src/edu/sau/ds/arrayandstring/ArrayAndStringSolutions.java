@@ -6,10 +6,10 @@ import java.util.BitSet;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.OptionalInt;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import edu.sau.algo.permcomb.CombinationQuestion;
 import edu.sau.algo.sort.inversion.InversionCount;
 import edu.sau.ds.stack.KarumanchiQuestions;
 import edu.sau.other.bitwise.BitwiseUtils;
@@ -169,11 +170,63 @@ public class ArrayAndStringSolutions implements ArrayAndStringQuestions {
 //		INSTANCE.smallestRangeCoveringElementsFromKLists2(
 //				List.of(List.of(1, 2, 3), List.of(1, 2, 3), List.of(1, 2, 3)));
 
-		INSTANCE.minDominoRotations(new int[] { 2, 1, 2, 4, 2, 2 }, new int[] { 5, 2, 6, 2, 3, 2 });
-		INSTANCE.minDominoRotations(new int[] { 3, 5, 1, 2, 3 }, new int[] { 3, 6, 3, 3, 4 });
+//		INSTANCE.minDominoRotations(new int[] { 2, 1, 2, 4, 2, 2 }, new int[] { 5, 2, 6, 2, 3, 2 });
+//		INSTANCE.minDominoRotations(new int[] { 3, 5, 1, 2, 3 }, new int[] { 3, 6, 3, 3, 4 });
+//
+//		INSTANCE.minDominoRotations1(new int[] { 2, 1, 2, 4, 2, 2 }, new int[] { 5, 2, 6, 2, 3, 2 });
+//		INSTANCE.minDominoRotations1(new int[] { 3, 5, 1, 2, 3 }, new int[] { 3, 6, 3, 3, 4 });
 
-		INSTANCE.minDominoRotations1(new int[] { 2, 1, 2, 4, 2, 2 }, new int[] { 5, 2, 6, 2, 3, 2 });
-		INSTANCE.minDominoRotations1(new int[] { 3, 5, 1, 2, 3 }, new int[] { 3, 6, 3, 3, 4 });
+//		INSTANCE.print2SumSinglePair(new int[] { 2, 7, 11, 15 }, 9);
+//		INSTANCE.print2SumSinglePair(new int[] { 3, 2, 4 }, 6);
+//		INSTANCE.print2SumSinglePair(new int[] { 3, 3 }, 6);
+//		INSTANCE.print2SumSinglePair(new int[] { 1, 2, 11, 15, 9, 7, 8, 25 }, 9);
+
+//		INSTANCE.print2SumAllPairs(new int[] { 2, 7, 11, 15 }, 9);
+//		INSTANCE.print2SumAllPairs(new int[] { 1, 1, 1, 2, 11, 15, 9, 7, 8, 8, 25 }, 9);
+//		INSTANCE.print2SumAllPairs(new int[] { -4, 0, 1, 2, 11, 13, 15, 9, 7, 8 }, 9);
+//
+//		INSTANCE.print2SumAllUniquePairs(new int[] { 2, 7, 11, 15 }, 9);
+//		INSTANCE.print2SumAllUniquePairs(new int[] { 1, 1, 1, 2, 11, 15, 9, 7, 8, 8, 25 }, 9);
+//		INSTANCE.print2SumAllUniquePairs(new int[] { -4, 0, 1, 2, 11, 13, 15, 9, 7, 8 }, 9);
+
+//		INSTANCE.minRescueBoats(new int[] { 3, 5, 3, 4 }, 5);
+//		INSTANCE.minRescueBoats(new int[] { 3, 2, 2, 1 }, 3);
+//		INSTANCE.minRescueBoats(new int[] { 1, 1, 2, 2 }, 3);
+
+		// INSTANCE.print3SumAllUniquePairs(new int[] { -1, 0, 1, 2, -1, -4 }, 0);
+		// System.out.println("----------");
+		// INSTANCE.printKSumAllUniquePairs1(new int[] { -1, 0, 1, 2, -1, -4 }, 0, 3);
+
+		// INSTANCE.printKSumAllUniquePairs2(new int[] { -1, 0, 1, 2, -1, -4 }, 0, 3);
+
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 1 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 0 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 1, 1 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 0, 0, 0, 0 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 1, 2, 0 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 3, 4, -1, 1 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { 7, 8, 9, 11, 12 });
+//		INSTANCE.printFirstMissingPositiveInteger(new int[] { -2, -5, 0, 5, 9, 8, 1, 2 });
+//		System.out.println("--------");
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 1 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 0 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 1, 1 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 0, 0, 0, 0 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 1, 2, 0 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 3, 4, -1, 1 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { 7, 8, 9, 11, 12 });
+//		INSTANCE.printFirstMissingPositiveInteger1(new int[] { -2, -5, 0, 5, 9, 8, 1, 2 });
+
+		// INSTANCE.printPascalTriangleRow(4);
+
+		INSTANCE.findAllDuplicatesInAnArray(new int[] { 4, 3, 2, 7, 8, 2, 3, 1 });
+		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1, 1, 2 });
+		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1, 1, 2, 1, 1, 2, 1, 1 });
+		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1 });
 	}
 
 	@Override
@@ -1797,6 +1850,397 @@ public class ArrayAndStringSolutions implements ArrayAndStringQuestions {
 				minSwaps = tops.length - Math.max(countTops[i], countBottoms[i]);
 
 		System.out.println(minSwaps);
+	}
+
+	static final record Pair(int num1, int num2) {
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("[").append(num1).append(", ").append(num2).append("]");
+			return builder.toString();
+		}
+	}
+
+	@Override
+	public Pair print2SumSinglePair(int[] nums, int target) {
+		// key: difference, value: index
+		Map<Integer, Integer> diffs = new HashMap<>();
+		Pair sumPair = null;
+		for (int i = 0; i < nums.length; i++) {
+			int diff = target - nums[i];
+			if (diffs.containsKey(nums[i])) {
+				sumPair = new Pair(diffs.get(nums[i]), i);
+				break;
+			}
+			diffs.put(diff, i);
+		}
+		System.out.println(sumPair);
+		return sumPair;
+	}
+
+	@Override
+	public List<Pair> print2SumAllPairs(int[] nums, int target) {
+		Arrays.sort(nums);
+
+		List<Pair> pairs = new ArrayList<>();
+
+		int left = 0;
+		int right = nums.length - 1;
+
+		while (left < right) {
+			int sum = nums[left] + nums[right];
+
+			if (sum == target) {
+				pairs.add(new Pair(nums[left], nums[right]));
+				++left;
+				--right;
+			} else if (sum > target) {
+				--right;
+			} else if (sum < target) {
+				++left;
+			}
+		}
+		System.out.println(pairs);
+		return pairs;
+	}
+
+	@Override
+	public List<Pair> print2SumAllUniquePairs(int[] nums, int target) {
+		Arrays.sort(nums);
+
+		List<Pair> pairs = new ArrayList<>();
+
+		int left = 0;
+		int right = nums.length - 1;
+
+		while (left < right) {
+			if (left != 0 && nums[left] == nums[left - 1]) {
+				++left;
+				continue;
+			}
+
+			int sum = nums[left] + nums[right];
+
+			if (sum == target) {
+				pairs.add(new Pair(nums[left], nums[right]));
+				++left;
+				--right;
+			} else if (sum > target) {
+				--right;
+			} else if (sum < target) {
+				++left;
+			}
+		}
+		System.out.println(pairs);
+		return pairs;
+	}
+
+	/**
+	 * 
+	 * */
+	@Override
+	public void minRescueBoats(int[] people, int limit) {
+		Arrays.sort(people);
+
+		int start = 0;
+		int end = people.length - 1;
+		int rescueBoatCount = 0;
+
+		while (start <= end) {
+			if (people[end] + people[start] <= limit) {
+				--end;
+				++start;
+			} else {
+				--end;
+			}
+			++rescueBoatCount;
+		}
+		System.out.println(rescueBoatCount + " boats will be required to rescue the people.");
+	}
+
+	@Override
+	public void print3SumAllUniquePairs(int[] nums, int target) {
+		Arrays.sort(nums);
+
+		List<int[]> threeSumPairs = new ArrayList<>();
+
+		for (int i = 0; i <= nums.length - 3; i++) {
+			if (i != 0 && nums[i] == nums[i - 1])
+				continue;
+
+			int fixedElement = nums[i];
+
+			List<Pair> twoSumPairs = print2SumAllUniquePairs(Arrays.copyOfRange(nums, i + 1, nums.length),
+					target - fixedElement);
+
+			twoSumPairs.forEach((pair) -> {
+				threeSumPairs.add(new int[] { fixedElement, pair.num1, pair.num2 });
+			});
+		}
+
+		System.out.println("print3SumAllUniquePairs ANSWER:");
+		for (int[] pair : threeSumPairs)
+			System.out.println(Arrays.toString(pair));
+
+	}
+
+	@Override
+	public void printKSumAllUniquePairs1(int[] nums, int target, int k) {
+		Arrays.sort(nums);
+		printKSumAllUniquePairs1(nums, target, k, 0, 0, new ArrayList<>(), new HashSet<>());
+	}
+
+	/**
+	 * @see CombinationQuestion#printTargetSumCombination
+	 */
+	private void printKSumAllUniquePairs1(int[] nums, int target, int k, int idx, int sumTillNow,
+			List<Integer> pairElements, Set<String> duplicateSet) {
+		if (sumTillNow > target && k == 0)
+			return;
+
+		if (sumTillNow == target && k == 0) {
+			String pairString = pairElements.stream().map(String::valueOf).collect(Collectors.joining());
+			if (!duplicateSet.contains(pairString))
+				System.out.println(pairElements);
+			duplicateSet.add(pairString);
+			return;
+		}
+
+		for (int i = idx; i < nums.length; i++) {
+			Integer current = nums[i];
+			pairElements = new ArrayList<>(pairElements);
+			pairElements.add(current);
+			printKSumAllUniquePairs1(nums, target, k - 1, i + 1, sumTillNow + current, pairElements, duplicateSet);
+			pairElements.remove(current);
+		}
+
+	}
+
+	@Override
+	public void printKSumAllUniquePairs2(int[] nums, int target, int k) {
+		Arrays.sort(nums);
+		List<List<Integer>> result = getKSumAllUniquePairs2(nums, target, k, 0);
+		System.out.println("printKSumAllUniquePairs2 ANSWER" + result);
+	}
+
+	private List<List<Integer>> getKSumAllUniquePairs2(int[] nums, int target, int k, int idx) {
+		List<List<Integer>> result = new ArrayList<>();
+
+		if (k == 2) {
+			List<Pair> twoPairs = print2SumAllUniquePairs(Arrays.copyOfRange(nums, idx, nums.length), target);
+			twoPairs.forEach(pair -> {
+				result.add(new ArrayList<>(List.of(pair.num1, pair.num2)));
+			});
+			return result;
+		}
+
+		if (nums.length - idx < k) {
+			return result;
+		}
+
+		for (int i = idx; i < nums.length - k; i++) {
+			if (i != 0 && nums[i] == nums[i - 1])
+				continue;
+
+			int fixedElement = nums[i];
+			List<List<Integer>> subList = getKSumAllUniquePairs2(nums, target - fixedElement, k - 1, idx + 1);
+
+			subList.forEach((pair) -> {
+				pair.add(fixedElement);
+				result.add(pair);
+			});
+		}
+		return result;
+	}
+
+	/**
+	 * <pre>
+	 * Algorithm strategy:
+	 * STEP_1: Place each number lying in range [1..n] at its bucket location.
+	 * For example: When we find 5; its bucket location is 4 in zero based indexing. 
+	 * So we swap 5 with nums[4].
+	 * 
+	 * STEP_2:Find the first place where its number is not at its right bucket, return the bucket_index + 1.
+	 * 
+	 * 
+	 * 
+	 * Time Complexity: O(3n) = O(n)
+	 * 
+	 * Time taken by STEP_1:
+	 *  In worst case while-loop can traverse to n, If while-loop traverses to n then 
+	 * outer-for will not enter inside the while-loop as all the elements will at its bucket location
+	 * So, the time taken will be at max 2n: n-> used by inner-while-loop and n-> used by outer-for-loop
+	 * 
+	 * Time taken by STEP_2: n
+	 * 
+	 * </pre>
+	 */
+	@Override
+	public void printFirstMissingPositiveInteger(int[] nums) {
+		System.out.print("Input: " + Arrays.toString(nums) + ", ");
+
+		int n = nums.length;
+		// Say if 1,2,4 are elements in nums array, then 1 is being brought to 0th
+		// index, 2 to 1st index and 4 to 3rd index. and so on. This is being done only
+		// for elements between 1 and n as missing number can only be between 1 and n
+		// So, nums[nums[i] - 1] is 0 based location for nums[i]
+		for (int i = 0; i < n; ++i)
+			while (nums[i] >= 1 && nums[i] <= n && nums[i] != nums[nums[i] - 1])
+				swap(nums, i, nums[i] - 1);
+
+		int missingNumber = n + 1;
+
+		// Now, we loop from 1 to n and the first place where index+1 != num will be our
+		// answer.
+		for (int i = 0; i < n; ++i)
+			if (nums[i] != i + 1) {
+				missingNumber = i + 1;
+				break;
+			}
+
+		System.out.println("missingNumber: " + missingNumber);
+	}
+
+	/**
+	 * <pre>
+	 * 
+	 * The basic idea is that we have an array with n cells (n is the length of the array). 
+	 * If an integer is missing it must be in the range [1..n]. 
+	 * This is the crucial observation we use to deduce the algorithm. 
+	 * This means that the range of possible answers is [1..n] if an integer is missing, 
+	 * and if an integer is not missing then the answer is n+1.
+	 *
+	 * Let's picture the only two possibilities:
+	 *
+	 * - there is no missing integer in the array
+	 * - there is a missing integer in the array.
+	 * 
+	 * If there is no missing integer, this means that the array has all number from 1 to n. This must mean that the array is full. 
+	 * Why, because in the range [1..n] there are exactly n numbers, and if you place n numbers in an array of length n, 
+	 * the array is by definition full. (in this case solution is to return n+1 which is the first smallest integer).
+	 *	
+	 * Once you understand the first case above understanding the second is easy. 
+	 * If there is a missing integer (or more than one), the missing integer(s), 
+	 * let's call it X, must be in the range 1..n. Why, because if the missing integer X is not in the range [1..n] 
+	 * that would imply that all integers [1..n] are in the array, which would mean that the array is full, 
+	 * leaving no space where to place X (since X is not in the range [1..n]).
+	 *	
+	 * Then the algorithm becomes:
+	 *	
+	 *	1- 	Ignore all numbers <= 0 and > n since they are outside the range of possible answers (which we proved was [1..n]). 
+	 *		We do this by replacing them with the value n+1.
+	 *
+	 *	2- 	For all other integers <n+1, mark their bucket (cell) to indicate the integer exists. (*see below)
+	 *
+	 *	3- 	Find the first cell not marked, that is the first missing integer. If you did not find an unmarked cell, 
+	 *		there was no missing integer, so return n+1.
+	 *
+	 * Time Complexity : 3 loops for 3 steps
+	 *                 : O(3n) == O(n)
+	 * 
+	 * </pre>
+	 */
+	@Override
+	public void printFirstMissingPositiveInteger1(int[] nums) {
+		System.out.print("Input: " + Arrays.toString(nums) + ", ");
+
+		int n = nums.length;
+
+		// 1. mark numbers (num < 0) and (num > n) with a special marker number (n+1)
+		// we can ignore those because if all number are > n then well simply return 1
+		for (int i = 0; i < n; i++) {
+			if (nums[i] < 1 || nums[i] > n) {
+				nums[i] = n + 1;
+			}
+		}
+
+		// note: all number in the array are now positive, and on the range 1..n+1
+		// 2. mark each cell appearing in the array, by converting the index for that
+		// number to negative
+		for (int i = 0; i < n; i++) {
+			int current = Math.abs(nums[i]);
+			if (current > n)
+				continue;
+
+			current--; // -1 for zero index based array (so the number 1 will be at pos 0)
+			if (nums[current] > 0) // prevents double negative operations
+				nums[current] = -1 * nums[current];
+		}
+
+		// if no positive numbers are found, it means the array contains all numbers
+		// 1..n, so missing number will be n + 1;
+		int missingNumber = n + 1;
+
+		// 3. find the first cell which isn't negative (doesn't appear in the array)
+		for (int i = 0; i < n; i++) {
+			if (nums[i] >= 0) {
+				missingNumber = i + 1;
+				break;
+			}
+		}
+		System.out.println("missingNumber: " + missingNumber);
+	}
+
+	/**
+	 * <pre>
+	 * 
+	 * 0-row-> 0C0
+	 * 1-row-> 1C0,1C1
+	 * 2-row-> 2C0,2C1,2C2
+	 * 3-row-> 3C0,3C1,3C2,3C3
+	 * 4-row-> 4C0,4C1,4C2,4C3,4C4
+	 *
+	 * How to derive  next term using previous term i.e nCr+1 from nCr ?
+	 * 
+	 * Let's assume nCr is multiplied by a factor F to get nCr+1;
+	 * i.e    nCr*F = nCr+1
+	 * post solving the above equation by expanding the factorials: F = (n-r)/(r+1)
+	 * 
+	 * As a rule of thumb in counting theory we have all non-fractional entities.
+	 * 
+	 * So: previousTerm F will always be non-fractional even when F is fractional.
+	 * 
+	 * </pre>
+	 */
+	@Override
+	public void printPascalTriangleRow(int row) {
+
+		int term = 1;
+		int n = row;
+
+		System.out.print(term + " ,");
+		for (int r = 0; r < row; r++) {
+			term = (term * (n - r)) / (r + 1);
+			System.out.print(term + " ,");
+		}
+	}
+
+	@Override
+	public void findAllDuplicatesInAnArray(int[] nums) {
+		Set<Integer> duplicates = new HashSet<>();
+
+		for (int i = 0; i < nums.length; i++) {
+			// -1 for 0 based indexing
+			int index = Math.abs(nums[i]) - 1;
+
+			if (nums[index] < 0)
+				duplicates.add(Math.abs(nums[i]));
+			else
+				nums[index] = -1 * nums[index];
+		}
+		System.out.println(duplicates);
+	}
+
+	@Override
+	public List<String> findAndReplacePattern(String[] words, String pattern) {
+
+		List<String> matchingStrings = new ArrayList<>();
+
+		for (String word : words) {
+
+		}
+
+		return matchingStrings;
 	}
 
 }

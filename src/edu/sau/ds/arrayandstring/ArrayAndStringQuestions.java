@@ -2,6 +2,8 @@ package edu.sau.ds.arrayandstring;
 
 import java.util.List;
 
+import edu.sau.ds.arrayandstring.ArrayAndStringSolutions.Pair;
+
 public interface ArrayAndStringQuestions {
 
 	ArrayAndStringQuestions INSTANCE = new ArrayAndStringSolutions();
@@ -529,7 +531,155 @@ public interface ArrayAndStringQuestions {
 	 * 5. If it cannot be done, return -1.
 	 */
 	void minDominoRotations(int[] tops, int[] bottoms);
-	
+
 	void minDominoRotations1(int[] tops, int[] bottoms);
+
+	/**
+	 * Given an array of integers nums and an integer target, return indices of the
+	 * two numbers such that they add up to target.
+	 * 
+	 * You may assume that each input would have exactly one solution, and you may
+	 * not use the same element twice.
+	 * 
+	 * You can return the answer in any order.
+	 * 
+	 * <pre>
+	 * 
+	 *  Input: nums = [2,7,11,15], target = 9
+	 *	Output: [0,1]
+	 *	Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+	 *
+	 *	Input: nums = [3,2,4], target = 6
+	 *	Output: [1,2]
+	 *
+	 *	Input: nums = [3,3], target = 6
+	 *	Output: [0,1]
+	 *
+	 * </pre>
+	 */
+	Pair print2SumSinglePair(int[] nums, int target);
+
+	List<Pair> print2SumAllPairs(int[] nums, int target);
+
+	List<Pair> print2SumAllUniquePairs(int[] nums, int target);
+
+	/**
+	 * You are given an array people where people[i] is the weight of the ith
+	 * person, and an infinite number of boats where each boat can carry a maximum
+	 * weight of limit. Each boat carries at most two people at the same time,
+	 * provided the sum of the weight of those people is at most limit.
+	 * 
+	 * Return the minimum number of boats to carry every given person.
+	 * 
+	 * Constraints:
+	 * 
+	 * 1 <= people.length <= 5 * 10^4, 1 <= people[i] <= limit <= 3 * 10^4
+	 * 
+	 * Input: people = [3,5,3,4], limit = 5
+	 * 
+	 * Output: 4
+	 * 
+	 * Explanation: 4 boats (3), (3), (4), (5)
+	 */
+	void minRescueBoats(int[] people, int limit);
+
+	/**
+	 * 1. Given an integer array 'nums', and a 'target', return all the triplets
+	 * [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k.
+	 * 
+	 * 2. Another thing is nums[i] + nums[j] + nums[k] == target.
+	 * 
+	 * 3. Notice that the solution set must not contain duplicate triplets.
+	 * 
+	 */
+	void print3SumAllUniquePairs(int[] nums, int target);
+
+	void printKSumAllUniquePairs1(int[] nums, int target, int k);
+
+	void printKSumAllUniquePairs2(int[] nums, int target, int k);
+
+	/**
+	 * Given an unsorted integer array nums, return the smallest missing positive
+	 * integer.
+	 * 
+	 * You must implement an algorithm that runs in O(n) time and uses constant
+	 * extra space.
+	 * 
+	 * <pre>
+	 * 
+	 * Example 1:
+	 * Input: nums = [1,2,0]
+	 * Output: 3
+	 * 
+	 * Example 2:
+	 * Input: nums = [3,4,-1,1] 
+	 * Output: 2
+	 * 
+	 * Example 3:
+	 * Input: nums = [7,8,9,11,12] 
+	 * Output: 1
+	 * 
+	 * </pre>
+	 */
+	void printFirstMissingPositiveInteger(int[] nums);
+
+	void printFirstMissingPositiveInteger1(int[] nums);
+
+	/**
+	 * https://leetcode.com/problems/pascals-triangle-ii/
+	 */
+	void printPascalTriangleRow(int row);
+
+	/**
+	 * Given an integer array nums of length n where all the integers of nums are in
+	 * the range [1, n] and each integer appears once or twice, return an array of
+	 * all the integers that appears twice.
+	 * 
+	 * You must write an algorithm that runs in O(n) time and uses only constant
+	 * extra space.
+	 * 
+	 * Example 1:
+	 * 
+	 * Input: nums = [4,3,2,7,8,2,3,1] Output: [2,3]
+	 * 
+	 * Example 2:
+	 * 
+	 * Input: nums = [1,1,2] Output: [1]
+	 * 
+	 * Example 3:
+	 * 
+	 * Input: nums = [1] Output: []
+	 */
+	void findAllDuplicatesInAnArray(int[] nums);
+
+	/**
+	 * Given a list of strings words and a string pattern, return a list of words[i]
+	 * that match pattern. You may return the answer in any order.
+	 * 
+	 * A word matches the pattern if there exists a permutation of letters p so that
+	 * after replacing every letter x in the pattern with p(x), we get the desired
+	 * word.
+	 * 
+	 * Recall that a permutation of letters is a bijection from letters to letters:
+	 * every letter maps to another letter, and no two letters map to the same
+	 * letter.
+	 * 
+	 * Example 1:
+	 * 
+	 * Input: words = ["abc","deq","mee","aqq","dkd","ccc"], pattern = "abb"
+	 * 
+	 * Output: ["mee","aqq"]
+	 * 
+	 * Explanation: "mee" matches the pattern because there is a permutation {a ->
+	 * m, b -> e, ...}. "ccc" does not match the pattern because {a -> c, b -> c,
+	 * ...} is not a permutation, since a and b map to the same letter.
+	 * 
+	 * Example 2:
+	 * 
+	 * Input: words = ["a","b","c"], pattern = "a"
+	 * 
+	 * Output: ["a","b","c"]
+	 */
+	List<String> findAndReplacePattern(String[] words, String pattern);
 
 }
