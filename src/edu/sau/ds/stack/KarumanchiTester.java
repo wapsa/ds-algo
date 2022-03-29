@@ -16,7 +16,7 @@ public class KarumanchiTester {
 
 		// evaluateInfixExpression();
 
-		// infixToPrefixUsingStacks();
+		infixToPrefixUsingStacks();
 
 		// evaluatePrefixExpression();
 
@@ -417,10 +417,12 @@ public class KarumanchiTester {
 	private static void infixToPrefixUsingStacks() {
 		KarumanchiQuestions<String> questions = new KarumanchiSolutions<>();
 
-		System.out.println(questions.infixToPrefixUsingStacks("( A - B / C ) * ( A / K - L )"));
-		System.out.println(questions.infixToPrefixUsingStacks("( ( A * B ) + ( C / D ) )"));
-		System.out.println(questions.infixToPrefixUsingStacks("( ( A * ( B + C ) ) / D )"));
-		System.out.println(questions.infixToPrefixUsingStacks("( A * ( B + ( C / D ) ) )"));
+//		System.out.println(questions.infixToPrefixUsingStacks("( A - B / C ) * ( A / K - L )"));
+//		System.out.println(questions.infixToPrefixUsingStacks("( ( A * B ) + ( C / D ) )"));
+//		System.out.println(questions.infixToPrefixUsingStacks("( ( A * ( B + C ) ) / D )"));
+//		System.out.println(questions.infixToPrefixUsingStacks("( A * ( B + ( C / D ) ) )"));
+		
+		System.out.println(questions.infixToPrefixUsingStacks("A * B - C + D * E"));
 
 	}
 

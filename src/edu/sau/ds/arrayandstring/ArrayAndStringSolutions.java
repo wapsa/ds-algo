@@ -223,10 +223,23 @@ public class ArrayAndStringSolutions implements ArrayAndStringQuestions {
 
 		// INSTANCE.printPascalTriangleRow(4);
 
-		INSTANCE.findAllDuplicatesInAnArray(new int[] { 4, 3, 2, 7, 8, 2, 3, 1 });
-		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1, 1, 2 });
-		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1, 1, 2, 1, 1, 2, 1, 1 });
-		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1 });
+//		INSTANCE.findAllDuplicatesInAnArray(new int[] { 4, 3, 2, 7, 8, 2, 3, 1 });
+//		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1, 1, 2 });
+//		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1, 1, 2, 1, 1, 2, 1, 1 });
+//		INSTANCE.findAllDuplicatesInAnArray(new int[] { 1 });
+
+//		System.out.println(
+//				INSTANCE.findAndReplacePattern(new String[] { "abc", "deq", "mee", "aqq", "dkd", "ccc" }, "abb"));
+//		System.out.println(INSTANCE.findAndReplacePattern(new String[] { "a", "b", "c" }, "a"));
+//		System.out.println(
+//				INSTANCE.findAndReplacePattern(new String[] { "abbef", "deqabb", "mee", "aqq", "dkd", "cccc" }, "abb"));
+//		System.out.println("------");
+//		System.out.println(
+//				INSTANCE.findAndReplacePattern1(new String[] { "abc", "deq", "mee", "aqq", "dkd", "ccc" }, "abb"));
+//		System.out.println(INSTANCE.findAndReplacePattern1(new String[] { "a", "b", "c" }, "a"));
+//		System.out.println(INSTANCE
+//				.findAndReplacePattern1(new String[] { "abbef", "deqabb", "mee", "aqq", "dkd", "cccc" }, "abb"));
+
 	}
 
 	@Override
@@ -2231,16 +2244,80 @@ public class ArrayAndStringSolutions implements ArrayAndStringQuestions {
 		System.out.println(duplicates);
 	}
 
+	/**
+	 * Time Complexity: k is number of words. n is length of words.
+	 * 
+	 * O(k*n)
+	 */
 	@Override
 	public List<String> findAndReplacePattern(String[] words, String pattern) {
-
 		List<String> matchingStrings = new ArrayList<>();
 
 		for (String word : words) {
-
+			if (isMatching(word, pattern))
+				matchingStrings.add(word);
 		}
-
 		return matchingStrings;
+	}
+
+	private boolean isMatching(String word, String pattern) {
+		Map<Character, Character> map = new HashMap<>();
+		Set<Character> set = new HashSet<>();
+
+		char[] wordChars = word.toCharArray();
+		char[] patternChars = pattern.toCharArray();
+		for (int i = 0; i < patternChars.length; i++) {
+			if (wordChars.length != patternChars.length)
+				return false;
+
+			if (map.containsKey(patternChars[i])) {
+				if (map.get(patternChars[i]) != wordChars[i])
+					return false;
+			} else {
+				if (set.contains(wordChars[i]))
+					return false;
+
+				map.put(patternChars[i], wordChars[i]);
+				set.add(wordChars[i]);
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public List<String> findAndReplacePattern1(String[] words, String pattern) {
+		List<String> matchingStrings = new ArrayList<>();
+		String normalizedPattern = normalizeWord(pattern);
+		for (String word : words)
+			if (normalizeWord(word).equals(normalizedPattern))
+				matchingStrings.add(word);
+		return matchingStrings;
+	}
+
+	private String normalizeWord(String word) {
+		char[] normalizedWord = new char[word.length()];
+		Map<Character, Character> map = new HashMap<>();
+		char start = 'a';
+
+		for (int i = 0; i < word.length(); i++) {
+			char ch = word.charAt(i);
+			if (!map.containsKey(ch)) {
+				map.put(ch, start);
+				start++;
+			}
+			normalizedWord[i] = map.get(ch);
+		}
+		return String.valueOf(normalizedWord);
+	}
+
+	@Override
+	public int consecutiveNumbersSum(int n) {
+		int sum = 1;
+		for (int k = 2; k < Math.sqrt(2 * n); k++) {
+			if ((n - (k * (k - 1) / 2)) % k == 0)
+				sum++;
+		}
+		return sum;
 	}
 
 }

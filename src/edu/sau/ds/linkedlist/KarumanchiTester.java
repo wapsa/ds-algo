@@ -207,7 +207,7 @@ public class KarumanchiTester {
 
 		linkedList.traverseList();
 
-		Node<Integer> ceiledFractionalNode = linkedList.findCeiledFractionalNodeUsingFastSlowPointer(5);
+		Node<Integer> ceiledFractionalNode = linkedList.findCeiledFractionalNode1(5);
 
 		System.out.println("findCeiledFractionalNode: " + ceiledFractionalNode);
 

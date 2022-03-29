@@ -681,5 +681,10 @@ public interface ArrayAndStringQuestions {
 	 * Output: ["a","b","c"]
 	 */
 	List<String> findAndReplacePattern(String[] words, String pattern);
+	
+	List<String> findAndReplacePattern1(String[] words, String pattern);
 
+	int consecutiveNumbersSum(int n);
+	
+	
 }

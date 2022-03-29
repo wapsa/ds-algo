@@ -269,7 +269,7 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	 * Q48 - Find fractional node: Given a singly linked list, write a function to
 	 * find the (n/k)th element, where n is the number of elements in the list.
 	 */
-	public Node<T> findCeiledFractionalNodeUsingFastSlowPointer(int k);
+	public Node<T> findCeiledFractionalNode1(int k);
 
 	/**
 	 * Q49 - Find square root of (n)th node: Given a singly linked list, write a

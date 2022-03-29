@@ -43,6 +43,31 @@ public class ArrayBackedStack<T extends Comparable<T>> implements Stack<T> {
 	 * operation logn times. Now, let us generalize the discussion. For n push
 	 * operations we double the array size logn times.
 	 */
+	/**
+	 * O(n) resize operation occurs by doubling so : 2^(resize operations count) =
+	 * capacity of array
+	 *
+	 * How many copy operations are there if capacity is n and if we take initial
+	 * capacity as 1:
+	 *
+	 * n+ n/2 + n/4 + n/8 + ... + 4 + 2 + 1; now take the n as common :
+	 *
+	 * n+ n/2 + n/4 + n/8 + ... + 4 + 2 + 1 = n(1 + 1/2 + 1/4 + +1/8 +...+4/n +2/n
+	 * +1/n ) = n(1+ (1)) since : 1/2 + 1/4 + +1/8 +...+4/n +2/n +1/n = 1 approx =
+	 * 2n
+	 *
+	 *
+	 * So, resize operation is O(n)
+	 *
+	 * Book Section : 4.5 and 4.6 =============================================== We
+	 * call amortized time of a push operation is the average time taken by a push
+	 * over the series of operations, that is, T(n)/n. Incremental Strategy: The
+	 * amortized time (average time per operation) of a push operation is O(n)
+	 * [O(2n)/n] =O(1). Doubling Strategy: In this method, the amortized time of a
+	 * push operation is O(1) [O(n)/n].
+	 *
+	 * @see https://stackoverflow.com/questions/1100311/what-is-the-ideal-growth-rate-for-a-dynamically-allocated-array
+	 */
 	// O(n), depends on System.arraycopy
 	// https://stackoverflow.com/questions/2772152/why-is-system-arraycopy-native-in-java
 	// https://docs.oracle.com/javase/6/docs/api/java/lang/System.html#arraycopy(java.lang.Object,%20int,%20java.lang.Object,%20int,%20int)

@@ -100,8 +100,8 @@ public interface KarumanchiQuestions<T extends Comparable<T>> {
 	 * 
 	 * a) for each character 't' in the input string <br>
 	 * 
-	 * b) If character is operand push on the operand stack, if character is (, push
-	 * on the operator stack. <br>
+	 * b) If character is operand push on the operand stack, if character is opening
+	 * bracket, push on the operator stack. <br>
 	 * 
 	 * c) Else if character is operator <br>
 	 * 

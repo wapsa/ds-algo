@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQuestions<T> {
 
-	public static final Pattern UNICODE_MULTI_SPACE = Pattern.compile("(?U)\s+", Pattern.UNICODE_CHARACTER_CLASS);
+	public static final Pattern UNICODE_MULTI_SPACE = Pattern.compile("\s+", Pattern.UNICODE_CHARACTER_CLASS);
 
 	// https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html
 	// http://www.cs.bilkent.edu.tr/~guvenir/courses/CS101/op_precedence.html
@@ -341,7 +341,6 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 					Operator operator = Operator.fromOperatorString(poppedValue);
 					operandStack.push(evalForPostfix(operandStack, operator));
 				}
-
 			} else if (Operator.isOperatorSymbol(token)) {
 				Operator operator = Operator.fromOperatorString(token);
 
@@ -351,20 +350,17 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 							.fromOperatorString(operatorStack.peek()).getPrecedence() < operator.getPrecedence()) {
 						break;
 					}
-					Operator higherPrecedenceOperator = Operator.fromOperatorString(operatorStack.pop());
-					operandStack.push(evalForPostfix(operandStack, higherPrecedenceOperator));
+					operandStack.push(evalForPostfix(operandStack, Operator.fromOperatorString(operatorStack.pop())));
 				}
 				operatorStack.push(token);
 
 			} else {
 				operandStack.push(Double.valueOf(token));
-
 			}
 		}
 
 		while (!operatorStack.isEmpty()) {
-			Operator operator = Operator.fromOperatorString(operatorStack.pop());
-			operandStack.push(evalForPostfix(operandStack, operator));
+			operandStack.push(evalForPostfix(operandStack, Operator.fromOperatorString(operatorStack.pop())));
 		}
 		return operandStack.pop();
 
@@ -404,7 +400,6 @@ public class KarumanchiSolutions<T extends Comparable<T>> implements KarumanchiQ
 
 				if (Parenthesis.isOpeningSymbol(token)) {
 					operatorStack.push(token);
-
 				} else {
 					Parenthesis parenthesis = Parenthesis.fromClosingSymbol(token);
 

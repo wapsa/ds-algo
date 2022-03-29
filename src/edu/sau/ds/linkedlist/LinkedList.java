@@ -973,33 +973,33 @@ public class LinkedList<T extends Comparable<T>> implements List<T>, KarumanchiQ
 	@Override
 	public Node<T> findCeiledFractionalNode(int k) {
 		Node<T> head = getRootNode();
-		Node<T> modularNode = getRootNode();
+		Node<T> ceiledFractionalNode = getRootNode();
 
 		for (int n = 1; head.next != null; head = head.next, n++) {
 			if (n % k == 0) {
-				modularNode = modularNode.next;
+				ceiledFractionalNode = ceiledFractionalNode.next;
 			}
 		}
-		return modularNode;
+		return ceiledFractionalNode;
 	}
 
 	@Override
-	public Node<T> findCeiledFractionalNodeUsingFastSlowPointer(int k) {
-		Node<T> fastPointer = getRootNode();
-		Node<T> slowPointer = getRootNode();
+	public Node<T> findCeiledFractionalNode1(int k) {
+		Node<T> pointer = getRootNode();
+		Node<T> ceiledFractionalNode = getRootNode();
 
 		int i = k;
-		while (fastPointer != null) {
+		while (pointer != null) {
 			if (i > 0) {
-				fastPointer = fastPointer.next;
+				pointer = pointer.next;
 			} else {
-				slowPointer = slowPointer.next;
+				ceiledFractionalNode = ceiledFractionalNode.next;
 				i = k;
 				continue;
 			}
 			i--;
 		}
-		return slowPointer;
+		return ceiledFractionalNode;
 	}
 
 	@Override
