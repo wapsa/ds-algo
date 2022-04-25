@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -2318,6 +2319,21 @@ public class ArrayAndStringSolutions implements ArrayAndStringQuestions {
 				sum++;
 		}
 		return sum;
+	}
+
+	@Override
+	public List<Integer> itemsSort(List<Integer> nums) {
+		if (nums == null) {
+			return List.of();
+		}
+		Map<Integer, Integer> map = new HashMap<>();
+
+		nums.stream().filter(Objects::nonNull).forEach(num -> map.merge(num, 1, Integer::sum));
+
+		Comparator<Integer> c = (a, b) -> Integer.compare(map.get(a), map.get(b));
+
+		return nums.stream().filter(Objects::nonNull).sorted(c.thenComparing((a, b) -> Integer.compare(a, b)))
+				.collect(Collectors.toList());
 	}
 
 }

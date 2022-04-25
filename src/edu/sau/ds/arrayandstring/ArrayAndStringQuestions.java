@@ -681,10 +681,18 @@ public interface ArrayAndStringQuestions {
 	 * Output: ["a","b","c"]
 	 */
 	List<String> findAndReplacePattern(String[] words, String pattern);
-	
+
 	List<String> findAndReplacePattern1(String[] words, String pattern);
 
 	int consecutiveNumbersSum(int n);
-	
-	
+
+	/**
+	 * Given an array of integers nums, sort the array in increasing order based on
+	 * the frequency of the values. If multiple values have the same frequency, sort
+	 * them in increasing order.
+	 * 
+	 * Return the sorted array.
+	 */
+	List<Integer> itemsSort(List<Integer> nums);
+
 }
